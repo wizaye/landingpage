@@ -2,7 +2,7 @@
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { cn } from "@/lib/utils";
 import { AlignJustify, X } from "lucide-react";
-import { Component, Layout, Wallet } from "lucide-react";
+import { FileText, History } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -35,9 +35,8 @@ export default function HomeHeader({}: HomeHeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { href: "/blocks", label: "Blocks", icon: Component },
-    { href: "/templates", label: "Templates", icon: Layout },
-    { href: "/pricing", label: "Pricing", icon: Wallet },
+    { href: "/blog", label: "Blog", icon: FileText },
+    { href: "/changelog", label: "Changelog", icon: History },
   ];
   return (
     <header className="w-full top-0 z-50 sticky lg:flex lg:items-center px-4 sm:px-6 lg:px-8 py-2 dark:text-white text-gray-900 transition-colors duration-300">
