@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
-import { IconBrandDiscordFilled } from '@tabler/icons-react';
 import { Colors, Liquid } from '@/components/uilayouts/liquid-gradient';
+import { Icons } from '../utils/icons';
 
 const COLORS: Colors = {
   color1: '#FFFFFF',
@@ -62,7 +62,7 @@ const DiscordButton: React.FC = () => {
         >
           <span className=' flex items-center justify-center px-2 gap-2 rounded-lg group-hover:text-yellow-400 text-white text-xl font-semibold tracking-wide whitespace-nowrap'>
             {/* <Star className='inline-block group-hover:fill-yellow-400 fill-white w-6 h-6 flex-shrink-0' /> */}
-            <IconBrandDiscordFilled className='inline-block group-hover:fill-yellow-400 fill-white w-6 h-6 flex-shrink-0' />
+            <Icons.discord className='inline-block group-hover:fill-yellow-400 fill-white w-6 h-6 flex-shrink-0' />
           </span>
         </button>
       </a>

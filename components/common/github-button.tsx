@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
-import { Github } from 'lucide-react';
 import { Colors, Liquid } from '@/components/uilayouts/liquid-gradient';
+import { Icons } from '../utils/icons';
 
 const COLORS: Colors = {
   color1: '#FFFFFF',
@@ -62,7 +62,7 @@ const GitHubButton: React.FC = () => {
         >
           <span className=' flex items-center justify-center px-2 gap-2 rounded-lg group-hover:text-yellow-400 text-white text-xl font-semibold tracking-wide whitespace-nowrap'>
             {/* <Star className='inline-block group-hover:fill-yellow-400 fill-white w-6 h-6 flex-shrink-0' /> */}
-            <Github className='inline-block group-hover:fill-yellow-400 fill-white w-6 h-6 flex-shrink-0' />
+            <Icons.github className='inline-block group-hover:fill-yellow-400 fill-white w-6 h-6 flex-shrink-0' />
           </span>
         </button>
       </a>
