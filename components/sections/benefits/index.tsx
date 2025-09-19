@@ -252,19 +252,103 @@ const IntegrationsSection = () => {
         </div>
 
         {/* Mobile layout */}
-        <div className="divide-divide border-divide mt-16 flex w-full flex-col divide-y overflow-hidden border-t lg:hidden">
-          {/* Mobile version would contain simplified versions of the above */}
-          <div className="group relative flex w-full flex-col items-start overflow-hidden px-4 py-4 md:px-12 md:py-8">
-            <div className="text-charcoal-700 relative z-20 flex items-center gap-2 font-medium dark:text-neutral-100">
-              <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
-                <path d="M8.02287 8.95395C7.99883 8.89366 7.993 8.82765 8.00609 8.76407C8.01918 8.7005 8.05061 8.64216 8.09651 8.59626C8.1424 8.55037 8.20075 8.51893 8.26432 8.50584C8.32789 8.49276 8.39391 8.49859 8.4542 8.52262L14.4542 10.856C14.5185 10.8811 14.5735 10.9256 14.6114 10.9833C14.6493 11.041 14.6684 11.1091 14.666 11.1781C14.6636 11.2471 14.6398 11.3137 14.5979 11.3686C14.556 11.4235 14.4981 11.464 14.4322 11.4846L12.1362 12.1966C12.0326 12.2286 11.9384 12.2855 11.8617 12.3621C11.785 12.4388 11.7282 12.533 11.6962 12.6366L10.9849 14.932C10.9643 14.9979 10.9237 15.0558 10.8688 15.0977C10.8139 15.1396 10.7474 15.1634 10.6783 15.1658C10.6093 15.1682 10.5412 15.1491 10.4835 15.1112C10.4258 15.0732 10.3813 15.0183 10.3562 14.954L8.02287 8.95395Z" stroke="currentColor" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round"></path>
-                <path d="M14 7.83333V3.83333C14 3.47971 13.8595 3.14057 13.6095 2.89052C13.3594 2.64048 13.0203 2.5 12.6667 2.5H3.33333C2.97971 2.5 2.64057 2.64048 2.39052 2.89052C2.14048 3.14057 2 3.47971 2 3.83333V13.1667C2 13.5203 2.14048 13.8594 2.39052 14.1095C2.64057 14.3595 2.97971 14.5 3.33333 14.5H7.33333" stroke="currentColor" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round"></path>
-              </svg>
-              Design your Workflow
+        <div className="mt-16 flex w-full flex-col lg:hidden">
+          {/* Mobile content area - shows the right side content at top */}
+          <div className="relative h-80 overflow-hidden bg-[radial-gradient(var(--color-dots)_1px,transparent_1px)] border border-gray-200 dark:border-neutral-700 rounded-lg" style={{backgroundSize: "10px 10px"}}>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="transition-all duration-500 ease-in-out">
+                {tabContent[activeTab].rightContent}
+              </div>
             </div>
-            <p className="relative z-20 mt-2 text-left text-sm text-gray-600 dark:text-neutral-300">
-              A drag-and-drop interface to create, connect, and configure agents into logical workflows
-            </p>
+          </div>
+
+          {/* Mobile navigation tabs - horizontal scrolling with arrows */}
+          <div className="mt-6 relative">
+            {/* Navigation arrows */}
+            <button
+              onClick={() => handleTabClick(activeTab === 0 ? tabContent.length - 1 : activeTab - 1)}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 shadow-lg hover:bg-gray-50 dark:hover:bg-neutral-700 transition-colors duration-200"
+              style={{ transform: 'translateY(-50%) translateX(-50%)' }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-600 dark:text-gray-300">
+                <path d="m15 18-6-6 6-6"/>
+              </svg>
+            </button>
+
+            <button
+              onClick={() => handleTabClick(activeTab === tabContent.length - 1 ? 0 : activeTab + 1)}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 shadow-lg hover:bg-gray-50 dark:hover:bg-neutral-700 transition-colors duration-200"
+              style={{ transform: 'translateY(-50%) translateX(50%)' }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-600 dark:text-gray-300">
+                <path d="m9 18 6-6-6-6"/>
+              </svg>
+            </button>
+
+            {/* Cards container with proper overflow handling */}
+            <div className="overflow-hidden mx-8">
+              <div 
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{
+                  transform: `translateX(-${activeTab * 100}%)`,
+                }}
+              >
+                {tabContent.map((tab, index) => (
+                  <div
+                    key={tab.id}
+                    className="w-full flex-shrink-0 px-2"
+                  >
+                    <button 
+                      onClick={() => handleTabClick(index)}
+                      className={`group relative flex w-full flex-col items-start overflow-hidden p-3 sm:p-4 rounded-lg border transition-all duration-300 ${
+                        activeTab === index 
+                          ? 'border-blue-500 bg-blue-50 dark:bg-blue-950 dark:border-blue-400' 
+                          : 'border-gray-200 bg-white dark:bg-neutral-900 dark:border-neutral-700 hover:border-gray-300 dark:hover:border-neutral-600'
+                      }`}
+                    >
+                      <div className={`flex items-center gap-2 font-medium transition-colors duration-200 text-sm sm:text-base ${
+                        activeTab === index 
+                          ? 'text-blue-600 dark:text-blue-400' 
+                          : 'text-gray-700 dark:text-neutral-200 group-hover:text-blue-600 dark:group-hover:text-blue-400'
+                      }`}>
+                        {tab.icon}
+                        {tab.title}
+                      </div>
+                      <p className="mt-2 text-left text-xs sm:text-sm text-gray-600 dark:text-neutral-300 line-clamp-3">
+                        {tab.description}
+                      </p>
+
+                      {/* Progress bar for active tab */}
+                      {activeTab === index && (
+                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-200 dark:bg-neutral-700">
+                          <div 
+                            className="h-full bg-blue-500 transition-all duration-200"
+                            style={{
+                              width: `${progress}%`
+                            }}
+                          ></div>
+                        </div>
+                      )}
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Simple dot indicators for small screens */}
+          <div className="mt-4 flex justify-center space-x-2 sm:hidden">
+            {tabContent.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => handleTabClick(index)}
+                className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${
+                  activeTab === index 
+                    ? 'bg-blue-500' 
+                    : 'bg-gray-300 dark:bg-neutral-600'
+                }`}
+              />
+            ))}
           </div>
         </div>
       </div>
