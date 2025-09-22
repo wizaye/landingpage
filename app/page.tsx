@@ -8,6 +8,9 @@ import Feature1 from "@/components/sections/features";
 import BenefitsSection from "@/components/sections/benefits";
 import OpensourceSection from "@/components/sections/opensource";
 import { CTANew } from "@/components/sections/cta";
+import Hero from "@/components/sections/hero/Hero";
+import FeaturesSection from "@/components/sections/features/FeaturesSection";
+import BadtzHeader from "@/components/common/badtz-header";
 // import { AnimatedBeamMultipleOutputDemo } from "@/components/common/animated-beam";
 
 export default function Home() {
@@ -45,8 +48,12 @@ export default function Home() {
       
       {/* Main content section with relative positioning and higher z-index */}
       <main className="relative z-10 min-h-screen flex flex-col -mt-2">
-          <HeroSection/>
-          <Feature1/>
+          {/* <HeroSection/>
+           */}
+           <BadtzHeader/>
+           <Hero/>
+          {/* <Feature1/> */}
+          <FeaturesSection/>
           <BenefitsSection/>
           <OpensourceSection/>
           {/* <PricingSection6/> */}
