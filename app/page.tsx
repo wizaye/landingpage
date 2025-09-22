@@ -3,9 +3,11 @@ import StickyFooter from "@/components/common/footer";
 import { Banner } from "@/components/utils/banner";
 import { ArrowUpRight } from "lucide-react";
 import HeroSection from "@/components/sections/hero";
-import PricingSection6 from "@/components/sections/pricing";
+// import PricingSection6 from "@/components/sections/pricing";
 import Feature1 from "@/components/sections/features";
 import BenefitsSection from "@/components/sections/benefits";
+import OpensourceSection from "@/components/sections/opensource";
+import { CTANew } from "@/components/sections/cta";
 // import { AnimatedBeamMultipleOutputDemo } from "@/components/common/animated-beam";
 
 export default function Home() {
@@ -46,7 +48,9 @@ export default function Home() {
           <HeroSection/>
           <Feature1/>
           <BenefitsSection/>
-          <PricingSection6/>
+          <OpensourceSection/>
+          {/* <PricingSection6/> */}
+          <CTANew/>
           {/* <AnimatedBeamMultipleOutputDemo/> */}
 
       </main>
