@@ -48,8 +48,8 @@ export default function Home() {
       
       {/* Main content section with relative positioning and higher z-index */}
       <main className="relative z-10 min-h-screen flex flex-col -mt-2">
-          {/* <HeroSection/>
-           */}
+          {/* <HeroSection/> */}
+          
            <BadtzHeader/>
            <Hero/>
           {/* <Feature1/> */}
