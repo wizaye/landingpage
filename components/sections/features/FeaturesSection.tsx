@@ -1,6 +1,12 @@
 import React from "react";
 import { CursorCard,CursorCardsContainer } from "@/components/ui/cursor-cards";
 
+const notifications = [
+  { title: "Your call has been confirmed.", description: "1 hour ago" },
+  { title: "You have a new message!", description: "1 hour ago" },
+  { title: "Your subscription is expiring soon!", description: "2 hours ago" },
+]
+
 const FeaturesSection = () => {
   return (
     <section className="container mx-auto flex w-full max-w-5xl flex-col items-center justify-start !px-4 py-16 text-center md:items-start md:py-32 md:text-left">
@@ -121,11 +127,12 @@ const FeaturesSection = () => {
           </div>
         </div>
       </div>
-       <div>
-      <CursorCardsContainer className="flex gap-6">
-          <CursorCard
+    <div className="flex flex-col gap-6">
+      {/* Row 1: 1/4 + 3/4 */}
+      <CursorCardsContainer className="flex flex-col md:flex-row gap-6">
+        <CursorCard
           borderColor={"dark" === "dark" ? "#262626" : "#e5e5e5"}
-          className="h-auto w-[300px] rounded-xl p-6 shadow-md"
+          className="h-auto md:w-1/4 w-full rounded-xl p-6 shadow-md"
         >
           <div className="flex flex-col">
             <h3 className="text-foreground">Notifications</h3>
@@ -146,78 +153,10 @@ const FeaturesSection = () => {
             </div>
           </div>
         </CursorCard>
-           <CursorCard
+
+        <CursorCard
           borderColor={"dark" === "dark" ? "#262626" : "#e5e5e5"}
-          className="h-auto w-[300px] rounded-xl p-6 shadow-md"
-        >
-          <div className="flex flex-col">
-            <h3 className="text-foreground">Notifications</h3>
-            <p className="text-muted-foreground mt-0.5 text-sm">
-              You have 3 unread messages.
-            </p>
-            <div className="mt-10 flex items-center space-x-4 rounded-md border bg-neutral-50 p-4 dark:bg-neutral-950">
-              {/* <BellRing /> */}
-              <div className="flex-1 space-y-1">
-                <p className="text-sm leading-none font-medium">
-                  Push Notifications
-                </p>
-                <p className="text-muted-foreground text-sm">
-                  Send notifications to device.
-                </p>
-              </div>
-              {/* <Switch /> */}
-            </div>
-          </div>
-        </CursorCard>
-         <CursorCard
-          borderColor={"dark" === "dark" ? "#262626" : "#e5e5e5"}
-          className="h-auto w-[300px] rounded-xl p-6 shadow-md"
-        >
-          <div className="flex flex-col">
-            <h3 className="text-foreground">Notifications</h3>
-            <p className="text-muted-foreground mt-0.5 text-sm">
-              You have 3 unread messages.
-            </p>
-            <div className="mt-10 flex items-center space-x-4 rounded-md border bg-neutral-50 p-4 dark:bg-neutral-950">
-              {/* <BellRing /> */}
-              <div className="flex-1 space-y-1">
-                <p className="text-sm leading-none font-medium">
-                  Push Notifications
-                </p>
-                <p className="text-muted-foreground text-sm">
-                  Send notifications to device.
-                </p>
-              </div>
-              {/* <Switch /> */}
-            </div>
-          </div>
-        </CursorCard>
-           <CursorCard
-          borderColor={"dark" === "dark" ? "#262626" : "#e5e5e5"}
-          className="h-auto w-[300px] rounded-xl p-6 shadow-md"
-        >
-          <div className="flex flex-col">
-            <h3 className="text-foreground">Notifications</h3>
-            <p className="text-muted-foreground mt-0.5 text-sm">
-              You have 3 unread messages.
-            </p>
-            <div className="mt-10 flex items-center space-x-4 rounded-md border bg-neutral-50 p-4 dark:bg-neutral-950">
-              {/* <BellRing /> */}
-              <div className="flex-1 space-y-1">
-                <p className="text-sm leading-none font-medium">
-                  Push Notifications
-                </p>
-                <p className="text-muted-foreground text-sm">
-                  Send notifications to device.
-                </p>
-              </div>
-              {/* <Switch /> */}
-            </div>
-          </div>
-        </CursorCard>
-        {/* <CursorCard
-          borderColor={theme === "dark" ? "#262626" : "#e5e5e5"}
-          className="h-auto w-[300px] rounded-xl p-6 shadow-md"
+          className="h-auto md:w-3/4 w-full rounded-xl p-6 shadow-md"
         >
           <div className="flex h-full flex-col justify-between">
             {notifications.map((notification, index) => (
@@ -237,7 +176,30 @@ const FeaturesSection = () => {
               </div>
             ))}
           </div>
-        </CursorCard> */}
+        </CursorCard>
+      </CursorCardsContainer>
+
+      {/* Row 2: 3/4 + 1/4 (reversed) */}
+      <CursorCardsContainer className="flex flex-col md:flex-row gap-6">
+        <CursorCard
+          borderColor={"dark" === "dark" ? "#262626" : "#e5e5e5"}
+          className="h-auto md:w-3/4 w-full rounded-xl p-6 shadow-md"
+        >
+          <h3 className="text-foreground">Large Content Card</h3>
+          <p className="text-muted-foreground mt-2 text-sm">
+            This is an example of the larger card in the second row.
+          </p>
+        </CursorCard>
+
+        <CursorCard
+          borderColor={"dark" === "dark" ? "#262626" : "#e5e5e5"}
+          className="h-auto md:w-1/4 w-full rounded-xl p-6 shadow-md"
+        >
+          <h3 className="text-foreground">Quick Info</h3>
+          <p className="text-muted-foreground mt-2 text-sm">
+            Smaller card content here.
+          </p>
+        </CursorCard>
       </CursorCardsContainer>
     </div>
     </section>
