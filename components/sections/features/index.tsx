@@ -7,6 +7,7 @@ import Pill from "@/components/ui/pill";
 import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
 import { AnimatedBeam } from "@/components/magicui/animated-beam";
 import { cn } from "@/lib/utils";
+import RemoteConnectivity from "./RemoteConnectivity";
 
 // User components representing different nations
 const UserIcons = {
@@ -248,14 +249,6 @@ const Icons = {
 
 const Feature1 = () => {
   const featuresRef = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const div1Ref = useRef<HTMLDivElement>(null);
-  const div2Ref = useRef<HTMLDivElement>(null);
-  const div3Ref = useRef<HTMLDivElement>(null);
-  const div4Ref = useRef<HTMLDivElement>(null);
-  const div5Ref = useRef<HTMLDivElement>(null);
-  const div6Ref = useRef<HTMLDivElement>(null);
-  const div7Ref = useRef<HTMLDivElement>(null);
 
   const revealVariants = {
     visible: (i: number) => ({
@@ -511,71 +504,11 @@ const Feature1 = () => {
             </p>
           </article>
           
-          <div
-            className="relative flex h-[300px] w-full items-center justify-center overflow-hidden"
-            ref={containerRef}
-          >
-            <div className="flex size-full max-w-lg flex-row items-stretch justify-between gap-10">
-              <div className="flex flex-col justify-center gap-2">
-                <Circle ref={div1Ref}>
-                  <Icons.googleDrive />
-                </Circle>
-                <Circle ref={div2Ref}>
-                  <Icons.notion />
-                </Circle>
-                <Circle ref={div3Ref}>
-                  <Icons.whatsapp />
-                </Circle>
-                <Circle ref={div4Ref}>
-                  <Icons.messenger />
-                </Circle>
-                <Circle ref={div5Ref}>
-                  <Icons.googleDrive />
-                </Circle>
-              </div>
-              <div className="flex flex-col justify-center">
-                <Circle ref={div6Ref} className="size-16">
-                  <Icons.openai />
-                </Circle>
-              </div>
-              <div className="flex flex-col justify-center">
-                <Circle ref={div7Ref}>
-                  <Icons.user />
-                </Circle>
-              </div>
-            </div>
-
-            <AnimatedBeam
-              containerRef={containerRef}
-              fromRef={div1Ref}
-              toRef={div6Ref}
-            />
-            <AnimatedBeam
-              containerRef={containerRef}
-              fromRef={div2Ref}
-              toRef={div6Ref}
-            />
-            <AnimatedBeam
-              containerRef={containerRef}
-              fromRef={div3Ref}
-              toRef={div6Ref}
-            />
-            <AnimatedBeam
-              containerRef={containerRef}
-              fromRef={div4Ref}
-              toRef={div6Ref}
-            />
-            <AnimatedBeam
-              containerRef={containerRef}
-              fromRef={div5Ref}
-              toRef={div6Ref}
-            />
-            <AnimatedBeam
-              containerRef={containerRef}
-              fromRef={div6Ref}
-              toRef={div7Ref}
-            />
-          </div>
+          <RemoteConnectivity
+            timelineRef={featuresRef}
+            animationNum={3}
+            customVariants={revealVariants}
+          />
         </TimelineContent>
 
         {/* Real Time Chat */}

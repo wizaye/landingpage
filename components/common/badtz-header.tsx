@@ -44,15 +44,15 @@ export default function BadtzHeader({ className }: BadtzHeaderProps) {
           fill="currentColor"
         />
       </svg>
-      <span className="font-heading text-lg leading-none font-semibold">Badtz</span>
+      <span className="font-heading text-lg leading-none font-semibold">HelixQue</span>
     </div>
   );
 
   const navigationItems = [
     { href: "#docs", label: "Docs" },
-    { href: "#plateform", label: "Plateform" },
+    { href: "#plateform", label: "Platform" },
     { href: "#teams", label: "Teams" },
-    { href: "#ressources", label: "Ressources" },
+    { href: "#resources", label: "Resources" },
     { href: "#pricing", label: "Pricing" },
   ];
 
