@@ -1,185 +1,95 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import { CursorCard, CursorCardsContainer } from '@/components/ui/cursor-cards';
 import { motion } from 'motion/react';
-import { ArrowRight, PencilLine, Activity, Map as MapIcon, MessageCircle } from 'lucide-react';
-import DottedMap from 'dotted-map';
-import { Area, AreaChart, CartesianGrid } from 'recharts';
-import { type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
-import { Logo } from '@/components/logo';
+import { ArrowRight, Activity } from 'lucide-react';
+import HelixqueConnection from '@/components/ui/helixque-connection';
+import { DottedMap } from '@/components/ui/dotted-map';
 
-const messageVariants = {
-  hidden: { x: -20, opacity: 0 },
-  visible: { x: 0, opacity: 1 },
-};
-
-// ----- Dotted Map (SVG) -----
-const map = new DottedMap({ height: 55, grid: 'diagonal' });
-const points = map.getPoints();
-const svgOptions = {
-  backgroundColor: 'var(--color-background)',
-  color: 'currentColor',
-  radius: 0.15,
-};
-
-const Map = () => {
-  const viewBox = `0 0 120 60`;
+// ----- Dotted Map Component -----
+const MapComponent = () => {
   return (
-    <svg viewBox={viewBox} style={{ background: svgOptions.backgroundColor }}>
-      {points.map((point: any, index: number) => (
-        <circle
-          key={index}
-          cx={point.x}
-          cy={point.y}
-          r={svgOptions.radius}
-          fill={svgOptions.color}
+    <div className="relative h-full w-full overflow-hidden rounded-lg flex items-center justify-center">
+      <div className="absolute inset-0 bg-gradient-radial from-transparent to-background to-70%" />
+      <div className="w-full h-full min-h-[200px]">
+        <DottedMap
+          markers={[
+            {
+              lat: 40.7128,
+              lng: -74.006,
+              size: 0.5,
+            }, // New York
+            {
+              lat: 34.0522,
+              lng: -118.2437,
+              size: 0.5,
+            }, // Los Angeles
+            {
+              lat: 51.5074,
+              lng: -0.1278,
+              size: 0.5,
+            }, // London
+            {
+              lat: -33.8688,
+              lng: 151.2093,
+              size: 0.5,
+            }, // Sydney
+          ]}
         />
-      ))}
-    </svg>
-  );
-};
-
-// ----- Recharts AreaChart -----
-const chartConfig = {
-  desktop: {
-    label: 'Desktop',
-    color: '#2563eb',
-  },
-  mobile: {
-    label: 'Mobile',
-    color: '#60a5fa',
-  },
-} satisfies ChartConfig;
-
-const chartData = [
-  { month: 'May', desktop: 56, mobile: 224 },
-  { month: 'June', desktop: 56, mobile: 224 },
-  { month: 'January', desktop: 126, mobile: 252 },
-  { month: 'February', desktop: 205, mobile: 410 },
-  { month: 'March', desktop: 200, mobile: 126 },
-  { month: 'April', desktop: 400, mobile: 800 },
-];
-
-const MonitoringChart = () => {
-  return (
-    <ChartContainer className="h-48 md:h-64" config={chartConfig}>
-      <AreaChart
-        accessibilityLayer
-        data={chartData}
-        margin={{ left: 0, right: 0 }}
-      >
-        <defs>
-          <linearGradient id="fillDesktop" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="var(--color-desktop)" stopOpacity={0.8} />
-            <stop offset="55%" stopColor="var(--color-desktop)" stopOpacity={0.1} />
-          </linearGradient>
-          <linearGradient id="fillMobile" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="var(--color-mobile)" stopOpacity={0.8} />
-            <stop offset="55%" stopColor="var(--color-mobile)" stopOpacity={0.1} />
-          </linearGradient>
-        </defs>
-        <CartesianGrid vertical={false} />
-        <ChartTooltip active cursor={false} content={<ChartTooltipContent className="dark:bg-muted" />} />
-        <Area
-          strokeWidth={2}
-          dataKey="mobile"
-          type="stepBefore"
-          fill="url(#fillMobile)"
-          fillOpacity={0.1}
-          stroke="var(--color-mobile)"
-          stackId="a"
-        />
-        <Area
-          strokeWidth={2}
-          dataKey="desktop"
-          type="stepBefore"
-          fill="url(#fillDesktop)"
-          fillOpacity={0.1}
-          stroke="var(--color-desktop)"
-          stackId="a"
-        />
-      </AreaChart>
-    </ChartContainer>
+      </div>
+    </div>
   );
 };
 
 const FeaturesSection = () => (
-  <section className="container mx-auto flex w-full max-w-5xl flex-col items-center justify-start !px-4 py-16 text-center md:items-start md:py-32 md:text-left bg-neutral-950">
-    <div className="flex flex-col md:flex-row md:gap-8">
-      <div className="flex w-full md:w-1/2 md:items-end">
-        <h2 className="leading-tighter font-gilroy max-w-2xl bg-gradient-to-b from-white/80 via-white to-white/60 bg-clip-text text-5xl font-semibold tracking-tight text-pretty text-transparent lg:leading-[1.1] xl:text-6xl/[4rem] xl:tracking-tighter">
-          Highlight your website in a second
-        </h2>
-      </div>
-      <div className="flex w-full items-end justify-end md:w-1/2">
-        <div className="flex flex-col items-center gap-6 text-center md:items-end md:text-right">
-          <nav className="border-neutral-800 bg-neutral-950 relative flex w-fit items-center rounded-full border mt-6 md:mt-0">
-            <button className="relative z-[1] px-4 py-2">
-              <span className="relative block text-sm tracking-tight text-muted-foreground">Overview</span>
-            </button>
-            <button className="relative z-[1] px-4 py-2">
-              <span className="relative block text-sm tracking-tight text-muted-foreground">Components</span>
-            </button>
-            <button className="relative z-[1] px-4 py-2">
-              <span className="relative block text-sm tracking-tight text-muted-foreground">Benefits</span>
-            </button>
-          </nav>
-          <p className="text-muted-foreground text-base tracking-tight">
-            Seamlessly integrate our components into your existing projects. Works with any React setup, from fresh Next.js apps to legacy codebases.
-          </p>
-        </div>
-      </div>
+  <section className="container mx-auto flex w-full max-w-5xl flex-col items-center justify-start !px-4 py-16 text-center md:py-32">
+    <div className="flex flex-col items-center text-center">
+      <h2 className="leading-tighter font-gilroy max-w-2xl bg-gradient-to-b from-white/80 via-white to-white/60 bg-clip-text text-5xl font-semibold tracking-tight text-pretty text-transparent lg:leading-[1.1] xl:text-6xl/[4rem] xl:tracking-tighter">
+        Highlight your website in a second
+      </h2>
+      <p className="text-muted-foreground text-base tracking-tight mt-4 max-w-2xl">
+        Seamlessly integrate our components into your existing projects. Works with any React setup, from fresh Next.js apps to legacy codebases.
+      </p>
     </div>
 
     {/* Feature Cards Row 1 */}
     <div className="mt-10 flex w-full flex-col gap-4 md:mt-14">
       <CursorCardsContainer className="flex flex-col md:flex-row gap-6 md:h-[380px]">
-        {/* Card 1: Map visual + description */}
+        {/* Card 1: Copy. Paste. Ship. */}
         <CursorCard borderColor="#262626" className="h-full md:w-[45%] w-full rounded-xl p-7 shadow-md bg-neutral-950 border-neutral-800 overflow-hidden">
-          <div className="flex h-full flex-col text-left">
-            {/* Visual */}
-            <div className="relative flex-1 min-h-0 rounded-lg overflow-hidden bg-neutral-900 border border-neutral-800">
-              <div className="absolute inset-0 bg-gradient-radial from-transparent to-neutral-950/60 pointer-events-none" />
-              <div className="p-3">
-                <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
-                  <MapIcon className="h-4 w-4" />
-                  Real time location tracking
-                </div>
-                <div className="relative h-44 overflow-hidden rounded-md bg-background">
-                  <div className="absolute inset-0 to-background from-transparent to-75%" />
-                  <Map />
-                </div>
-              </div>
+          <div className="h-full flex flex-col">
+            <div className="mb-4">
+              <h3 className="text-lg font-semibold text-white mb-2">Copy. Paste. Ship.</h3>
+              <p className="text-muted-foreground text-sm">
+                Build React apps faster: integrate via CLI or code snippets. Plug-and-play components, no setup headaches.
+              </p>
             </div>
-            {/* Description */}
-            <div className="mt-4 flex items-center space-x-4 rounded-md border bg-neutral-900 p-4 border-neutral-800">
-              <div className="flex-1 space-y-1">
-                <p className="text-sm leading-none font-medium">Lightning-Fast React Components</p>
-                <p className="text-muted-foreground text-sm">Production-optimized. Fits any stack - from fresh Next.js apps to legacy React.</p>
+            <div className="flex-1 flex items-center justify-center bg-neutral-950 rounded-lg border border-neutral-800 relative">
+              <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-neutral-950 to-transparent z-10 pointer-events-none" />
+              <div className="text-center">
+                <div className="w-16 h-16 mx-auto mb-4 bg-neutral-800 rounded-lg flex items-center justify-center">
+                  <Activity className="h-8 w-8 text-blue-500" />
+                </div>
+                <div className="text-white text-sm font-medium">Ready to Use</div>
+                <div className="text-muted-foreground text-xs mt-1">No setup required</div>
               </div>
             </div>
           </div>
         </CursorCard>
 
-        {/* Card 2: Chart visual + description */}
+        {/* Card 2: Map visual with more width */}
         <CursorCard borderColor="#262626" className="h-full md:w-[55%] w-full rounded-xl p-7 shadow-md bg-neutral-950 border-neutral-800 overflow-hidden">
-          <div className="flex h-full flex-col text-left">
-            {/* Visual */}
-            <div className="flex-1 min-h-0 rounded-lg overflow-hidden bg-neutral-900 border border-neutral-800 p-3">
-              <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
-                <Activity className="h-4 w-4" />
-                Activity feed
-              </div>
-              <MonitoringChart />
+          <div className="h-full flex flex-col">
+            <div className="mb-4">
+              <h3 className="text-lg font-semibold text-white mb-2">Lightning-Fast React Components</h3>
+              <p className="text-muted-foreground text-sm">
+                Production-optimized. Fits any stack — from fresh Next.js apps to legacy React.
+              </p>
             </div>
-            {/* Description */}
-            <div className="mt-4 flex items-center space-x-4 rounded-md border bg-neutral-900 p-4 border-neutral-800">
-              <div className="flex-1 space-y-1">
-                <p className="text-sm leading-none font-medium">Copy. Paste. Ship.</p>
-                <p className="text-muted-foreground text-sm">Build React apps faster: integrate via CLI or code snippets. Plug-and-play components, no setup headaches.</p>
-              </div>
+            <div className="flex-1 relative overflow-hidden rounded-lg">
+              <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-neutral-950 to-transparent z-10 pointer-events-none" />
+              <MapComponent />
             </div>
           </div>
         </CursorCard>
@@ -187,94 +97,81 @@ const FeaturesSection = () => (
 
       {/* Feature Cards Row 2 */}
       <CursorCardsContainer className="flex flex-col md:flex-row gap-6 md:h-[380px]">
-        {/* Card 3: Keep customizable focus, optional image slot */}
+        {/* Card 3: Helixque Anonymous Connection */}
         <CursorCard borderColor="#262626" className="h-full md:w-[55%] w-full rounded-xl p-7 shadow-md bg-neutral-950 border-neutral-800 overflow-hidden">
-          <div className="flex h-full flex-col text-left">
-            {/* Optional static/remote image example using next/image */}
-            {/* <div className="relative flex-1 min-h-0 rounded-lg overflow-hidden bg-neutral-900 border border-neutral-800">
-              <Image
-                src="/assets/your-screenshot.png" // or remote URL configured in next.config.js images.domains
-                alt="Feature screenshot"
-                fill
-                className="object-cover"
-                priority={false}
-              />
-            </div> */}
-            <div className="flex-1" />
-            <div className="mt-4 flex items-center space-x-4 rounded-md border bg-neutral-900 p-4 border-neutral-800">
-              <div className="flex-1 space-y-1">
-                <p className="text-sm leading-none font-medium">Your Design, Your Rules</p>
-                <p className="text-muted-foreground text-sm">Tailwind-first components with customizable animations. Style every state to match your brand.</p>
-              </div>
+          <div className="h-full flex flex-col">
+            <div className="mb-4">
+              <h3 className="text-lg font-semibold text-white mb-2">Helixque Anonymous Connections</h3>
+              <p className="text-muted-foreground text-sm">
+                Connect anonymous users instantly with chat, video calls, audio calls, and skip functionality - just like Omegle but better.
+              </p>
+            </div>
+            <div className="flex-1 relative overflow-hidden rounded-lg min-h-[200px] bg-black">
+              <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-neutral-950 to-transparent z-10 pointer-events-none" />
+              <HelixqueConnection />
             </div>
           </div>
         </CursorCard>
 
-        {/* Card 4: Chat preview (original) */}
-        <CursorCard borderColor="#262626" className="h-full md:w-[45%] w-full rounded-xl p-7 shadow-md bg-neutral-950 border-neutral-800 overflow-hidden flex flex-col">
-          {/* Description sits above chat */}
-          <div className="flex items-center space-x-4 rounded-md border bg-neutral-900 p-4 border-neutral-800 mb-4">
-            <div className="flex-1 space-y-1">
-              <p className="text-sm leading-none font-medium">Real Time Chat</p>
-              <p className="text-muted-foreground text-sm">Interactive chat preview powered by Motion and Lucide icons.</p>
+        {/* Card 4: Interactive Chat Component */}
+        <CursorCard borderColor="#262626" className="h-full md:w-[45%] w-full rounded-xl p-7 shadow-md bg-neutral-950 border-neutral-800 overflow-hidden">
+          <div className="h-full flex flex-col">
+            <div className="mb-4">
+              <h3 className="text-lg font-semibold text-white mb-2">Real Time Chat</h3>
+              <p className="text-muted-foreground text-sm">Interactive chat preview with smooth animations.</p>
             </div>
-          </div>
-          {/* Chat fills the rest */}
-          <div className="flex-1 flex items-center justify-center min-h-0">
-            <div className="flex w-full h-full flex-col overflow-hidden rounded-xl bg-white dark:bg-neutral-800 shadow-lg min-h-0">
-              <div className="flex-1 min-h-0 space-y-4 p-4 overflow-y-auto">
+            <div className="flex-1 flex flex-col bg-black rounded-lg border border-neutral-800 overflow-hidden relative">
+              <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-neutral-950 to-transparent z-10 pointer-events-none" />
+              <div className="flex-1 p-4 space-y-4 overflow-y-auto min-h-0">
                 <motion.div
-                  className="mr-auto relative max-w-[80%] rounded-lg bg-gray-100 dark:bg-neutral-700 p-3 text-gray-800 dark:text-gray-200"
-                  variants={messageVariants}
-                  initial="hidden"
-                  animate="visible"
-                  transition={{ delay: 0.2, duration: 0.4, ease: 'easeOut' }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1, duration: 0.4 }}
                 >
-                  Hey! I see that your last transaction was a dining purchase, which qualifies for 5x points, but only for Platinum Status Tier members. You are currently in the{' '}
-                  <span className="font-semibold text-blue-500 border-b border-dashed border-blue-500">Gold Status Tier</span>
-                  , which means you currently earn 3x points on dining transactions.
-                  <motion.button
-                    className="absolute -bottom-2 right-0 flex items-center gap-1 rounded-full bg-blue-500 px-2 py-1 text-xs text-white shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                    initial={{ scale: 0, rotate: 180 }}
-                    animate={{ scale: 1, rotate: 0 }}
-                    transition={{ delay: 0.6, duration: 0.3, type: 'spring' }}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <PencilLine className="h-3 w-3" />
-                    Adjust tone
-                  </motion.button>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-white text-xs font-medium">Anonymous</span>
+                    <span className="text-muted-foreground text-xs">2:30 PM</span>
+                  </div>
+                  <div className="rounded-lg bg-neutral-800 w-4/5 border border-neutral-700 p-3 text-xs text-white">
+                    Hey, I'm having trouble with my account.
+                  </div>
                 </motion.div>
+
                 <motion.div
-                  className="ml-auto relative max-w-[80%] rounded-lg bg-blue-500 p-3 text-white"
-                  variants={messageVariants}
-                  initial="hidden"
-                  animate="visible"
-                  transition={{ delay: 0.35, duration: 0.4, ease: 'easeOut' }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3, duration: 0.4 }}
                 >
-                  That&apos;s great to know! How can I upgrade to the Platinum Status Tier to get those 5x points on dining?
+                  <div className="rounded-lg mb-1 ml-auto w-4/5 bg-blue-600 p-3 text-xs text-white">
+                    I'd be happy to help you with your account. What specific issue are you experiencing?
+                  </div>
+                  <div className="flex items-center justify-end gap-2">
+                    <span className="text-white text-xs font-medium">Me</span>
+                    <span className="text-muted-foreground text-xs">2:31 PM</span>
+                  </div>
                 </motion.div>
               </div>
+
               <motion.div
-                className="flex items-center gap-2 border-t border-gray-200 dark:border-neutral-600 p-4 shrink-0"
+                className="flex items-center gap-2 border-t border-neutral-700 p-3 shrink-0"
                 initial={{ y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.45, duration: 0.3 }}
+                transition={{ delay: 0.5, duration: 0.3 }}
               >
                 <motion.input
                   type="text"
                   placeholder="Type your message..."
-                  className="flex-1 rounded-lg border border-gray-300 dark:border-neutral-600 bg-gray-100 dark:bg-neutral-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="flex-1 rounded-lg border border-neutral-600 bg-neutral-800 text-white placeholder-neutral-400 px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
                 <motion.button
-                  className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                   initial={{ scale: 0, rotate: 180 }}
                   animate={{ scale: 1, rotate: 0 }}
-                  transition={{ delay: 0.55, duration: 0.3, type: 'spring' }}
+                  transition={{ delay: 0.6, duration: 0.3, type: 'spring' }}
                   whileHover={{ scale: 1.1, rotate: 10 }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  <ArrowRight className="h-5 w-5" />
+                  <ArrowRight className="h-4 w-4" />
                 </motion.button>
               </motion.div>
             </div>

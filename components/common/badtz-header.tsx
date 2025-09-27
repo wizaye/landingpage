@@ -1,8 +1,9 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "motion/react";
+import Link from "next/link";
 
 interface BadtzHeaderProps {
   className?: string;
@@ -49,11 +50,10 @@ export default function BadtzHeader({ className }: BadtzHeaderProps) {
   );
 
   const navigationItems = [
-    { href: "#docs", label: "Docs" },
-    { href: "#plateform", label: "Platform" },
-    { href: "#teams", label: "Teams" },
-    { href: "#resources", label: "Resources" },
-    { href: "#pricing", label: "Pricing" },
+    { href: "/docs", label: "Documentation" },
+    { href: "/changelog", label: "Changelog" },
+    { href: "/announcements", label: "Announcements" },
+    { href: "/resources", label: "Resources" }
   ];
 
   return (
@@ -67,9 +67,9 @@ export default function BadtzHeader({ className }: BadtzHeaderProps) {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
-            <a href="#home" className="hover:scale-105 transition-transform duration-200">
+            <Link href="/" className="transition-opacity duration-200 hover:opacity-80">
               <BadtzLogo />
-            </a>
+            </Link>
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -96,15 +96,13 @@ export default function BadtzHeader({ className }: BadtzHeaderProps) {
                   initial={{ opacity: 0, y: -5 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 0.2 + index * 0.05 }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.98 }}
                 >
-                  <a 
+                  <Link 
                     href={item.href} 
                     className="text-[13.5px] text-muted-foreground hover:text-foreground transition-all duration-300 ease-out relative"
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 </motion.li>
               ))}
               {/* Animated pill background */}
@@ -143,13 +141,10 @@ export default function BadtzHeader({ className }: BadtzHeaderProps) {
           >
             <div className="flex items-center gap-3">
               <motion.button 
-                className="flex items-center [&_svg]:size-5" 
+                className="flex items-center [&_svg]:size-5 transition-opacity duration-200 hover:opacity-70" 
                 aria-label="Open menu" 
                 aria-expanded={isMenuOpen}
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                transition={{ type: "spring", stiffness: 400, damping: 20 }}
               >
                 <motion.div
                   animate={{ rotate: isMenuOpen ? 90 : 0 }}
@@ -159,13 +154,14 @@ export default function BadtzHeader({ className }: BadtzHeaderProps) {
                 </motion.div>
                 <span className="sr-only">Toggle Menu</span>
               </motion.button>
-              <a href="#home" className="hover:scale-105 transition-transform duration-200">
+              <Link href="/" className="transition-opacity duration-200 hover:opacity-80">
                 <BadtzLogo />
-              </a>
+              </Link>
             </div>
           </motion.div>
 
           {/* Auth Buttons */}
+          
           <motion.nav 
             className="flex items-center gap-3 text-sm font-medium" 
             aria-label="Authentication"
@@ -173,22 +169,18 @@ export default function BadtzHeader({ className }: BadtzHeaderProps) {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
           >
-            <motion.button 
+          
+            <button 
               className="inline-flex items-center justify-center gap-2 font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 py-2 has-[>svg]:px-3 h-8 rounded-lg px-4 text-[13.5px] whitespace-nowrap shadow-[inset_0_1px_0_0_#FFFFFF20]"
-              whileHover={{ scale: 1.05, y: -1 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 400, damping: 20 }}
             >
               Sign Up
-            </motion.button>
-            <motion.button 
+            </button>
+            <button 
               className="inline-flex items-center justify-center gap-2 font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-primary text-primary-foreground hover:bg-primary/90 py-2 has-[>svg]:px-3 h-8 rounded-lg px-4 text-[13.5px] whitespace-nowrap shadow-[inset_0_1px_0_0_#FFFFFF20]"
-              whileHover={{ scale: 1.05, y: -1 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 400, damping: 20 }}
             >
               Sign In
-            </motion.button>
+            </button>
+            
           </motion.nav>
         </div>
       </div>
@@ -233,9 +225,9 @@ export default function BadtzHeader({ className }: BadtzHeaderProps) {
                 transition={{ delay: 0.1, duration: 0.3 }}
               >
                 <div className="flex items-center">
-                  <a href="#home" onClick={() => setIsMenuOpen(false)}>
+                  <Link href="/" onClick={() => setIsMenuOpen(false)}>
                     <BadtzLogo />
-                  </a>
+                  </Link>
                 </div>
                 
                 {/* Close Button */}
@@ -244,8 +236,7 @@ export default function BadtzHeader({ className }: BadtzHeaderProps) {
                   className="rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:outline-none disabled:pointer-events-none ring-offset-background"
                   onClick={() => setIsMenuOpen(false)}
                   aria-label="Close menu"
-                  whileHover={{ scale: 1.1, rotate: 90 }}
-                  whileTap={{ scale: 0.9 }}
+                  whileHover={{ rotate: 90 }}
                   transition={{ type: "spring", stiffness: 400, damping: 20 }}
                 >
                   <X className="size-6" />
@@ -257,14 +248,14 @@ export default function BadtzHeader({ className }: BadtzHeaderProps) {
               <div className="pt-2 pb-4 px-0">
                 <div className="flex flex-col space-y-1 items-stretch">
                   {navigationItems.map((item) => (
-                    <a 
+                    <Link 
                       key={item.href}
                       href={item.href}
                       className="text-muted-foreground py-2 text-base hover:text-foreground transition-all duration-200 rounded-lg px-4 hover:bg-muted/50 text-left"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {item.label}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </div>

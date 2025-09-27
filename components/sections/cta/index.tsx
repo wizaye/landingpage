@@ -6,8 +6,8 @@ import { CloudOrbitDemo } from "@/components/ui/cloud-orbit-demo";
 
 export function CTANew() {
   return (
-    <div className="bg-background dark:bg-black theme-container">
-      <section className="bg-background dark:bg-black flex h-full w-full items-center justify-center px-6 py-16 md:px-8">
+    <div className="bg-background theme-container">
+      <section className="bg-background flex h-full w-full items-center justify-center px-6 py-16 md:px-8">
         <div className="border-border/20 dark:border-white/10 relative mx-auto w-full max-w-6xl overflow-hidden rounded-3xl border shadow-sm dark:shadow-md">
           {/* Background Pattern Overlay */}
           <div className="bg-secondary/30 dark:bg-white/5 pointer-events-none absolute inset-0 h-full w-full bg-[radial-gradient(var(--border)_1px,transparent_1px)] dark:bg-[radial-gradient(rgba(255,255,255,0.1)_1px,transparent_1px)] mask-[radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)] bg-[length:24px_24px]"></div>

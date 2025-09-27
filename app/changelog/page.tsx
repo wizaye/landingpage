@@ -1,10 +1,9 @@
 import { docs, meta } from "@/.source"
 import { loader } from "fumadocs-core/source"
 import { createMDXSource } from "fumadocs-mdx"
-import { ModeToggle } from "@/components/utils/mode-toggle"
 import { useMemo } from "react"
 import { formatDate } from "@/lib/utils"
-import Link from "next/link"
+import BadtzHeader from "@/components/common/badtz-header"
 
 const source = loader({
   baseUrl: "/docs",
@@ -37,25 +36,26 @@ export default function ChangelogPage() {
   return (
     <div className="min-h-screen bg-background relative">
       {/* Header */}
-      <div className="border-b border-border/50">
-        <div className="max-w-5xl mx-auto relative">
-          <div className="p-3 flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Link 
-                href="/" 
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                ← Back to Home
-              </Link>
-              <h1 className="text-3xl font-semibold tracking-tight">Changelog</h1>
-            </div>
-            <ModeToggle />
+      <div className="fixed top-0 left-0 right-0 z-40">
+        <BadtzHeader />
+      </div>
+
+      {/* Page Title Section */}
+      <div className="pt-20 pb-16">
+        <div className="max-w-5xl mx-auto px-6 lg:px-10">
+          <div className="text-center">
+            <h1 className="text-foreground mt-8 text-4xl text-[clamp(40px,10vw,44px)] leading-[1.2] font-bold tracking-tighter text-balance sm:text-5xl">
+              Changelog
+            </h1>
+            <p className="text-muted-foreground text-base tracking-tight mt-6 max-w-2xl mx-auto sm:text-lg">
+              Stay up to date with all the latest features, improvements, and bug fixes in HelixQue.
+            </p>
           </div>
         </div>
       </div>
 
       {/* Timeline */}
-      <div className="max-w-5xl mx-auto px-6 lg:px-10 pt-10">
+      <div className="max-w-5xl mx-auto px-6 lg:px-10 pt-16">
         <div className="relative">
           {sortedChangelogs.map((changelog) => {
             const MDX = changelog.data.body
@@ -66,7 +66,7 @@ export default function ChangelogPage() {
               <div key={changelog.url} className="relative">
                 <div className="flex flex-col md:flex-row gap-y-6">
                   <div className="md:w-48 flex-shrink-0">
-                    <div className="md:sticky md:top-8 pb-10">
+                    <div className="md:sticky md:top-24 pb-10">
                       <time className="text-sm font-medium text-muted-foreground block mb-3">
                         {formattedDate}
                       </time>

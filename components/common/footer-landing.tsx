@@ -197,8 +197,6 @@
 
 
 
-import Link from "next/link";
-import Container from "../global/container";
 import Icons from "../global/icons";
 import { PulsatingIndicator } from "@/components/utils/pulsating-indicator";
 // Inline BadtzLogo from badtz-header

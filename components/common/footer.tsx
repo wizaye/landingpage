@@ -50,7 +50,7 @@ const StickyFooter = () => {
               <ArrowUpRight className="h-4 w-4 opacity-70 group-hover:opacity-100" />
             </a>
             <a href="https://hacktoberfest.com" className="flex items-center gap-2 text-muted-foreground hover:text-[#FF6B35] transition-colors duration-300 group" aria-label="Hacktoberfest" role="listitem" tabIndex={0} target="_blank" rel="noopener noreferrer">
-              <Icons.hacktoberfest className="h-5 w-5" />
+              <Icons.hacktoberfest className="h-5 w-5"  />
               <span className="text-sm font-medium">Hacktoberfest</span>
               <ArrowUpRight className="h-4 w-4 opacity-70 group-hover:opacity-100" />
             </a>

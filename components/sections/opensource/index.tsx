@@ -1,16 +1,12 @@
-"use client";
+'use client';
 
-import { AvatarCircles } from "@/components/ui/avatar-circles";
-import { TimelineContent } from "@/components/ui/timeline-animation";
-import VerticalCutReveal from "@/components/ui/vertical-cut-reveal";
-import Pill from "@/components/ui/pill";
-import { Button } from "@/components/ui/buttons/buttons";
-import ShimmerButton from "@/components/ui/buttons/shimmer-button";
-import { Github, Heart } from "lucide-react";
-import { useRef } from "react";
+import React from 'react';
+import { motion } from 'motion/react';
+import { Heart } from "lucide-react";
+import { Icons } from '@/components/ui/icons';
 
-// Sample avatar data for community members
-const communityAvatars = [
+// Top contributors data (20 contributors for 2 rows of 10)
+const topContributors = [
   {
     imageUrl: "https://avatars.githubusercontent.com/u/16860528?v=4",
     profileUrl: "https://github.com/vercel",
@@ -50,145 +46,179 @@ const communityAvatars = [
     imageUrl: "https://avatars.githubusercontent.com/u/6412038?v=4",
     profileUrl: "https://github.com/react",
     name: "React"
+  },
+  {
+    imageUrl: "https://avatars.githubusercontent.com/u/1024025?v=4",
+    profileUrl: "https://github.com/stripe",
+    name: "Stripe"
+  },
+  {
+    imageUrl: "https://avatars.githubusercontent.com/u/698437?v=4",
+    profileUrl: "https://github.com/nodejs",
+    name: "Node.js"
+  },
+  {
+    imageUrl: "https://avatars.githubusercontent.com/u/317889?v=4",
+    profileUrl: "https://github.com/apple",
+    name: "Apple"
+  },
+  {
+    imageUrl: "https://avatars.githubusercontent.com/u/9919?v=4",
+    profileUrl: "https://github.com/github",
+    name: "GitHub"
+  },
+  {
+    imageUrl: "https://avatars.githubusercontent.com/u/1342004?v=4",
+    profileUrl: "https://github.com/google",
+    name: "Google"
+  },
+  {
+    imageUrl: "https://avatars.githubusercontent.com/u/2918581?v=4",
+    profileUrl: "https://github.com/bootstrap-vue",
+    name: "Bootstrap"
+  },
+  {
+    imageUrl: "https://avatars.githubusercontent.com/u/6078720?v=4",
+    profileUrl: "https://github.com/prisma",
+    name: "Prisma"
+  },
+  {
+    imageUrl: "https://avatars.githubusercontent.com/u/12551863?v=4",
+    profileUrl: "https://github.com/supabase",
+    name: "Supabase"
+  },
+  {
+    imageUrl: "https://avatars.githubusercontent.com/u/13142323?v=4",
+    profileUrl: "https://github.com/planetscale",
+    name: "PlanetScale"
+  },
+  {
+    imageUrl: "https://avatars.githubusercontent.com/u/14985020?v=4",
+    profileUrl: "https://github.com/railway-app",
+    name: "Railway"
+  },
+  {
+    imageUrl: "https://avatars.githubusercontent.com/u/8019099?v=4",
+    profileUrl: "https://github.com/linear",
+    name: "Linear"
+  },
+  {
+    imageUrl: "https://avatars.githubusercontent.com/u/54469796?v=4",
+    profileUrl: "https://github.com/clerk",
+    name: "Clerk"
   }
 ];
 
-export default function OpensourceSection() {
-  const opensourceRef = useRef<HTMLDivElement>(null);
+// Performance metrics data for the simple radar display
+const performanceData = [
+  { metric: 'Performance', value: 85 },
+  { metric: 'Quality', value: 92 },
+  { metric: 'Security', value: 78 },
+  { metric: 'Maintainability', value: 88 },
+  { metric: 'Documentation', value: 75 },
+  { metric: 'Community', value: 95 },
+];
 
-  const revealVariants = {
-    visible: (i: number) => ({
-      y: 0,
-      opacity: 1,
-      filter: "blur(0px)",
-      transition: {
-        delay: i * 0.2,
-        duration: 0.5,
-      },
-    }),
-    hidden: {
-      filter: "blur(10px)",
-      y: -20,
-      opacity: 0,
-    },
-  };
 
-  return (
-    <div
-      className="w-full min-h-screen relative bg-white dark:bg-black text-gray-900 dark:text-white overflow-hidden"
-      ref={opensourceRef}
-    >
-      {/* Background gradient effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-pink-100/30 via-white to-purple-100/30 dark:from-pink-900/20 dark:via-black dark:to-purple-900/20" />
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-pink-300/20 dark:bg-pink-500/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-300/20 dark:bg-purple-500/10 rounded-full blur-3xl" />
+// Simple performance radar chart component for the stats section
+const PerformanceRadarChart = () => (
+  <div className="h-32 flex items-center justify-center">
+    <div className="grid grid-cols-2 gap-2 w-full">
+      {performanceData.map((item, index) => (
+        <div key={index} className="flex items-center justify-between text-xs">
+          <span className="text-muted-foreground">{item.metric}</span>
+          <div className="flex items-center gap-2">
+            <div className="w-12 bg-neutral-700 rounded-full h-1.5">
+              <div 
+                className="bg-blue-500 h-1.5 rounded-full" 
+                style={{ width: `${item.value}%` }}
+              />
+            </div>
+            <span className="text-white font-medium">{item.value}%</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+);
 
-      {/* Main content */}
-      <div className="relative z-10">
-        {/* Header section */}
-        <article className="text-center mb-8 pt-32 w-full mx-auto space-y-3 relative z-50 px-4">
-          {/* Pill at the top */}
-          <div className="flex justify-center mb-6">
-            <Pill variant="primary">
-              <Heart className="w-4 h-4 mr-2 text-pink-400" />
-              Open Source
-            </Pill>
+const OpensourceSection = () => (
+  <section className="container mx-auto flex w-full max-w-5xl flex-col items-center justify-start !px-4 py-16 text-center md:py-32 bg-neutral-950">
+    <div className="flex flex-col items-center text-center">
+      <h2 className="leading-tighter font-gilroy max-w-2xl bg-gradient-to-b from-white/80 via-white to-white/60 bg-clip-text text-5xl font-semibold tracking-tight text-pretty text-transparent lg:leading-[1.1] xl:text-6xl/[4rem] xl:tracking-tighter">
+        Built by the community, for the community
+      </h2>
+      <p className="text-muted-foreground text-base tracking-tight mt-4 max-w-2xl">
+        Join thousands of developers contributing to our open-source ecosystem. Star our repos, contribute code, and connect with fellow developers.
+      </p>
           </div>
           
-          <h2 className="text-4xl font-medium text-gray-900 dark:text-white mb-3">
-            <VerticalCutReveal
-              splitBy="words"
-              staggerDuration={0.15}
-              staggerFrom="first"
-              reverse={true}
-              containerClassName="justify-center"
-              transition={{
-                type: "spring",
-                stiffness: 250,
-                damping: 40,
-                delay: 0,
-              }}
-            >
-              Loved by the Community
-            </VerticalCutReveal>
-          </h2>
+    {/* Contributors Row */}
+    <div className="mt-16 w-full">
+      {/* Contributors Showcase */}
+      <div className="mb-8">
+        <div className="space-y-6">
+          <div className="flex justify-center gap-3">
+            {topContributors.slice(0, 5).map((contributor, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: index * 0.1, duration: 0.3 }}
+                className="relative group"
+              >
+                <img
+                  src={contributor.imageUrl}
+                  alt={contributor.name}
+                  className="w-14 h-14 rounded-full border-2 border-neutral-600 group-hover:border-purple-400 transition-all duration-300 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </motion.div>
+            ))}
+          </div>
+          
+          <div className="flex justify-center gap-3">
+            {topContributors.slice(5, 10).map((contributor, index) => (
+              <motion.div
+                key={index + 5}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: (index + 5) * 0.1, duration: 0.3 }}
+                className="relative group"
+              >
+                <img
+                  src={contributor.imageUrl}
+                  alt={contributor.name}
+                  className="w-14 h-14 rounded-full border-2 border-neutral-600 group-hover:border-purple-400 transition-all duration-300 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
 
-          <TimelineContent
-            as="p"
-            animationNum={0}
-            timelineRef={opensourceRef}
-            customVariants={revealVariants}
-            className="text-gray-600 dark:text-gray-300 mb-8"
-          >
-            Join and be a part of the HXQLabs community!
-          </TimelineContent>
-
-          {/* Community avatars display */}
-          <TimelineContent
-            as="div"
-            animationNum={1}
-            timelineRef={opensourceRef}
-            customVariants={revealVariants}
-            className="flex flex-col items-center space-y-6 mb-12"
-          >
-            {/* First row of avatars */}
-            <div className="flex justify-center">
-              <AvatarCircles
-                numPeople={0}
-                avatarUrls={communityAvatars.slice(0,5)}
-                className="scale-125"
-              />
-            </div>
-            
-            {/* Second row with additional avatars */}
-            <div className="flex justify-center">
-              <AvatarCircles
-                numPeople={50}
-                avatarUrls={communityAvatars.slice(0, 4)}
-                className="scale-110"
-              />
-            </div>
-          </TimelineContent>
-
-          <TimelineContent
-            as="p"
-            animationNum={2}
-            timelineRef={opensourceRef}
-            customVariants={revealVariants}
-            className="text-gray-600 dark:text-gray-300 mb-8"
-          >
-            Become part of the community!
-          </TimelineContent>
-
-          {/* CTA Buttons */}
-          <TimelineContent
-            as="div"
-            animationNum={3}
-            timelineRef={opensourceRef}
-            customVariants={revealVariants}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-          >
-            <ShimmerButton
-              onClick={() => window.open("https://github.com/yourusername/yourrepo", "_blank")}
-              className="inline-flex items-center gap-3 bg-gray-900 dark:bg-white text-white dark:text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-800 dark:hover:bg-gray-100 transition-all duration-200"
-            >
-              <Github className="w-6 h-6" />
-              Star on GitHub
-            </ShimmerButton>
-            
-            <Button
-              variant="outline"
-              size="lg"
-              onClick={() => window.open("https://github.com/yourusername/yourrepo/fork", "_blank")}
-              className="bg-transparent border-gray-300 dark:border-white text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white hover:text-gray-900 dark:hover:text-black transition-all duration-200"
-            >
-              <Heart className="w-5 h-5" />
-              Contribute
-            </Button>
-          </TimelineContent>
-        </article>
-
+      {/* Community Action Buttons */}
+      <div className="flex flex-col sm:flex-row gap-3 justify-center">
+        <button 
+          onClick={() => window.open("https://github.com/hxqlabs/helixque", "_blank")}
+          className="inline-flex items-center justify-center gap-2 font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-primary text-primary-foreground hover:bg-primary/90 py-2 has-[>svg]:px-3 h-8 rounded-lg px-4 text-[13.5px] whitespace-nowrap shadow-[inset_0_1px_0_0_#FFFFFF20]"
+        >
+          <Icons.github className="w-4 h-4" />
+          Star on GitHub
+        </button>
+        
+        <button
+          onClick={() => window.open("https://github.com/hxqlabs/helixque/fork", "_blank")}
+          className="inline-flex items-center justify-center gap-2 font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 py-2 has-[>svg]:px-3 h-8 rounded-lg px-4 text-[13.5px] whitespace-nowrap shadow-[inset_0_1px_0_0_#FFFFFF20]"
+        >
+          <Heart className="w-4 h-4" />
+          Contribute
+        </button>
       </div>
     </div>
+
+  </section>
   );
-}
+
+export default OpensourceSection;
