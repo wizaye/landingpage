@@ -1,26 +1,31 @@
 import Icons from "../global/icons";
-import { PulsatingIndicator } from "@/components/utils/pulsating-indicator";
 import { ArrowUpRight } from "lucide-react";
+import { Pill, PillIndicator } from "../ui/kibo-ui/pill";
+import { Badge } from "../ui/badge";
+
+
 // Inline BadtzLogo from badtz-header
 const BadtzLogo = () => (
   <div className="text-foreground flex items-end gap-2.5 [&_svg]:h-5">
-    <svg 
-      width="20" 
-      height="20" 
-      viewBox="0 0 190 190" 
-      fill="none" 
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path 
-        fillRule="evenodd" 
-        clipRule="evenodd" 
-        d="M102.256 188.162C97.6186 190.613 92.0647 190.613 87.4273 188.162L11.3881 147.988C6.20803 145.251 2.96875 139.885 2.96875 134.04L2.96875 55.9596C2.96875 50.115 6.20804 44.7487 11.3881 42.0119L87.4273 1.83758C92.0647 -0.612537 97.6186 -0.612537 102.256 1.83758L178.295 42.0119C183.475 44.7487 186.715 50.115 186.715 55.9596L186.715 134.04C186.715 139.885 183.475 145.251 178.295 147.988L102.256 188.162ZM17.2566 130.86C17.2566 133.8 18.9004 136.499 21.5152 137.859L86.6791 171.709C89.3137 173.075 92.4666 171.171 92.4666 168.21L92.4666 100.577C92.4666 97.6363 90.8224 94.9374 88.208 93.5771L23.0442 59.727C20.4089 58.3581 17.2566 60.2643 17.2566 63.2268L17.2566 130.86Z" 
-        fill="currentColor"
-      />
-    </svg>
-    <span className="font-heading text-lg leading-none font-semibold">HelixQue</span>
+    <img 
+      src="/logo.svg" 
+      alt="HelixQue Logo" 
+      width={20} 
+      height={20} 
+      className="h-5 w-auto"
+    />
+    <div className="relative">
+      <span className="font-heading text-lg leading-none font-semibold">HelixQue</span>
+      <Badge 
+        variant="secondary" 
+        className="absolute -top-1 -right-1 translate-x-full text-[8px] px-0.5 py-0 h-auto"
+      >
+        Beta
+      </Badge>
+    </div>
   </div>
 );
+
 
 
 const StickyFooter = () => {
@@ -50,7 +55,7 @@ const StickyFooter = () => {
               <ArrowUpRight className="h-4 w-4 opacity-70 group-hover:opacity-100" />
             </a>
             <a href="https://hacktoberfest.com" className="flex items-center gap-2 text-muted-foreground hover:text-[#FF6B35] transition-colors duration-300 group" aria-label="Hacktoberfest" role="listitem" tabIndex={0} target="_blank" rel="noopener noreferrer">
-              <Icons.hacktoberfest className="h-5 w-5"  />
+              <Icons.hacktoberfest className="h-5 w-5" />
               <span className="text-sm font-medium">Hacktoberfest</span>
               <ArrowUpRight className="h-4 w-4 opacity-70 group-hover:opacity-100" />
             </a>
@@ -58,10 +63,15 @@ const StickyFooter = () => {
         </div>
   {/* Footer bottom row: status and copyright in one line on desktop */}
   <div className="mt-8 w-full flex flex-col items-center gap-2 md:flex-row md:justify-between md:items-center md:mt-4">
-          <span className="inline-flex items-center space-x-2 text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 transition-colors duration-200 text-xs font-medium px-3 py-2 border border-green-200 dark:border-green-800 rounded-lg hover:border-green-300 dark:hover:border-green-700">
+          {/* <span className="inline-flex items-center space-x-2 text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 transition-colors duration-200 text-xs font-medium px-3 py-2 border border-green-200 dark:border-green-800 rounded-lg hover:border-green-300 dark:hover:border-green-700">
             <PulsatingIndicator variant="success" size="sm" animate={true} duration={2000} />
             <span>All Systems Operational</span>
-          </span>
+            
+          </span> */}
+          <Pill>
+              <PillIndicator pulse variant="success" />
+              All Systems Operational
+            </Pill>
           <p className="text-muted-foreground text-xs text-center md:text-right">&copy; {new Date().getFullYear()} HXQLabs. All rights reserved.</p>
         </div>
       </div>

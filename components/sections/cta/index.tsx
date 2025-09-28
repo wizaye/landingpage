@@ -1,94 +1,121 @@
 "use client";
 import React from "react";
-import { ChevronRight } from "lucide-react";
-import Link from "next/link";
-import { CloudOrbitDemo } from "@/components/ui/cloud-orbit-demo";
+import {ChevronRight, Users, Activity, Hash, Star } from "lucide-react";
+import { Icons } from '@/components/ui/icons';
+import { BorderBeam } from '@/components/ui/border-beam';
 
 export function CTANew() {
   return (
-    <div className="bg-background theme-container">
-      <section className="bg-background flex h-full w-full items-center justify-center px-6 py-16 md:px-8">
-        <div className="border-border/20 dark:border-white/10 relative mx-auto w-full max-w-6xl overflow-hidden rounded-3xl border shadow-sm dark:shadow-md">
-          {/* Background Pattern Overlay */}
-          <div className="bg-secondary/30 dark:bg-white/5 pointer-events-none absolute inset-0 h-full w-full bg-[radial-gradient(var(--border)_1px,transparent_1px)] dark:bg-[radial-gradient(rgba(255,255,255,0.1)_1px,transparent_1px)] mask-[radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)] bg-[length:24px_24px]"></div>
-          
-          {/* Main Content Container */}
-          <div className="flex flex-col items-stretch justify-center gap-12 md:gap-0 lg:flex-row lg:gap-12">
+    <section className="px-4 py-8 md:py-12">
+      <div className="bg-neutral-100 dark:bg-neutral-900 relative mx-auto max-w-6xl rounded-2xl border border-neutral-200 dark:border-neutral-800 px-4 py-8 md:py-12">
+        {/* Two Column Layout - Equal Heights */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 min-h-[400px]">
             {/* Left Content Section */}
-            <div className="relative z-10 flex h-full w-full flex-col items-center gap-4 p-4 pt-16 pb-0 text-center sm:p-12 md:p-16 lg:w-1/2 lg:items-start lg:pt-20 lg:pr-0 lg:pb-20 lg:pl-14 lg:text-left">
-              {/* Logo/Brand Link */}
-              <Link href="#home" className="flex items-center gap-2">
-                <div className="text-foreground dark:text-white flex gap-2 items-center transition-colors duration-300">
-                  <svg
-                    width="374"
-                    className="w-9 h-10"
-                    height="421"
-                    viewBox="0 0 374 421"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M0.0047092 107.365V28.695C0.0047092 20.8868 3.58018 14.0547 10.7311 8.19858C17.4054 2.73288 25.5098 0 35.0444 0H207.383C218.824 0 228.597 3.31849 236.702 9.95542C244.806 16.5923 248.858 24.4004 248.858 33.3798V62.6604C248.858 70.8589 251.242 78.4719 256.009 85.4992C260.776 92.5265 267.451 97.9922 276.032 101.896C284.136 106.191 293.194 108.533 303.205 108.924H333.239C344.204 108.924 353.739 112.047 361.843 118.293C369.948 124.93 374 132.934 374 142.303V299.501C374 299.846 373.998 300.192 373.995 300.537V391.529C373.995 399.549 370.42 406.565 363.269 412.58C356.595 418.193 348.49 421 338.956 421H166.617C155.176 421 145.403 417.592 137.298 410.776C129.194 403.959 125.142 395.94 125.142 386.718V356.646C125.142 348.226 122.758 340.407 117.991 333.19C113.224 325.973 106.549 320.359 97.9682 316.35C89.8638 311.939 80.8059 309.533 70.7945 309.133H40.7605C29.7957 309.133 20.2611 305.925 12.1566 299.509C4.05221 292.693 0 284.474 0 274.851V108.257C0 107.959 0.00157218 107.662 0.0047092 107.365ZM248.143 304.102V119.465C248.143 116.732 247.19 114.389 245.283 112.437C242.899 110.485 240.039 109.509 236.702 109.509H135.873C132.536 109.509 129.675 110.485 127.292 112.437C126.926 112.737 126.588 113.046 126.278 113.364L125.857 298.307C125.857 301.113 126.81 303.519 128.717 305.524C131.101 307.529 133.961 308.531 137.298 308.531H238.127C241.464 308.531 244.325 307.529 246.708 305.524C247.247 305.07 247.726 304.596 248.143 304.102Z"
-                      fill="url(#paint0_radial_3946_30)"
-                    />
-                    <defs>
-                      <radialGradient
-                        id="paint0_radial_3946_30"
-                        cx="0"
-                        cy="0"
-                        r="1"
-                        gradientUnits="userSpaceOnUse"
-                        gradientTransform="translate(187 210.5) rotate(90) scale(210.5 187)"
-                      >
-                        <stop offset="0.445416" stopColor="#2994FD" />
-                        <stop offset="1" stopColor="#1761FF" />
-                      </radialGradient>
-                    </defs>
-                  </svg>
-                  <span className="bg-blue-100 text-blue-600 dark:bg-blue-50 dark:text-blue-600 -translate-y-2 uppercase inline-block border-2 text-xs border-blue-600 px-1 font-semibold rounded-md transition-colors duration-300">
-                    pro
-                  </span>
-                </div>
-              </Link>
-
-              {/* Main Heading */}
-              <div>
-                <h2 className="text-foreground mt-8 text-4xl text-[clamp(40px,10vw,44px)] leading-[1.2] font-bold tracking-tighter text-balance sm:text-5xl">
-                  Connect the World, Share Without Borders
+          <div className="flex flex-col justify-center items-center lg:items-start text-center lg:text-left px-6 lg:pl-12 lg:pr-8 h-full py-8 lg:py-12">
+            {/* Main Heading - Opensource Style */}
+            <h2 className="leading-tighter font-gilroy max-w-2xl bg-gradient-to-b from-neutral-900/80 via-neutral-900 to-neutral-900/60 dark:from-white/80 dark:via-white dark:to-white/60 bg-clip-text text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-pretty text-transparent lg:leading-[1.1] xl:text-5xl xl:tracking-tighter mb-6 lg:mb-8">
+              Have suggestions or improvements?
                 </h2>
-              </div>
 
-              {/* Description */}
-              <div>
-                <p className="text-muted-foreground leading-7 font-normal text-pretty sm:max-w-[600px] sm:text-lg">
-                  Join thousands of developers who have already discovered the power of our platform.
-                </p>
-              </div>
+            {/* Description - Opensource Style */}
+            <p className="text-muted-foreground text-sm md:text-base tracking-tight max-w-xl lg:max-w-2xl mb-8 lg:mb-12">
+              Join our Discord community to share feedback, request features, and help us make the product better together.
+            </p>
 
-              {/* CTA Button */}
-              <Link 
-                href="#" 
-                className="group/cta-button bg-foreground text-background hover:bg-foreground/90 dark:bg-white dark:text-black dark:hover:bg-gray-200 font-medium mt-8 flex h-10 items-center gap-2 rounded-full px-8 text-sm shadow-md hover:shadow-lg transition-all duration-300"
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+              <a 
+                href="https://discord.gg/your-server" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group/cta-button bg-[#5865f2] text-white hover:bg-[#4752c4] font-medium flex h-10 items-center justify-center gap-2 rounded-full px-6 text-sm shadow-none transition-colors duration-300 w-full sm:w-auto"
               >
-                Get Started
+                <Icons.discord className="w-4 h-4" />
+                Join Discord
                 <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover/cta-button:translate-x-1" />
-              </Link>
+              </a>
+              
+              <a 
+                href="https://github.com/your-repo/issues" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group/cta-button bg-neutral-200 dark:bg-neutral-700 text-neutral-900 dark:text-white hover:bg-neutral-300 dark:hover:bg-neutral-600 font-medium flex h-10 items-center justify-center gap-2 rounded-full px-6 text-sm shadow-none transition-colors duration-300 w-full sm:w-auto"
+              >
+                <Icons.github className="w-4 h-4" />
+                Report Issues
+              </a>
+            </div>
+          </div>
+
+          {/* Right Discord Metrics Section */}
+          <div className="flex items-center justify-center px-6 lg:px-8">
+            {/* Discord Server Info Card */}
+            <div className="relative bg-white dark:bg-neutral-800 rounded-2xl p-4 md:p-6 w-full max-w-sm shadow-lg">
+              <BorderBeam 
+                size={100}
+                duration={12}
+                delay={0}
+                colorFrom="#5865f2"
+                colorTo="#7289da"
+                borderWidth={2}
+              />
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#5865f2] flex items-center justify-center">
+                      <Icons.discord className="w-5 h-5 md:w-6 md:h-6 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-foreground text-sm md:text-base">Community Server</h3>
+                      <p className="text-xs md:text-sm text-muted-foreground">Official Discord</p>
+                    </div>
+                  </div>
+
+                  {/* Server Metrics */}
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Users className="w-3 h-3 md:w-4 md:h-4 text-green-500" />
+                        <span className="text-xs md:text-sm text-muted-foreground">Online Members</span>
+                      </div>
+                      <span className="font-semibold text-foreground text-xs md:text-sm">1,247</span>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Activity className="w-3 h-3 md:w-4 md:h-4 text-blue-500" />
+                        <span className="text-xs md:text-sm text-muted-foreground">Total Members</span>
+                      </div>
+                      <span className="font-semibold text-foreground text-xs md:text-sm">5,892</span>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Hash className="w-3 h-3 md:w-4 md:h-4 text-purple-500" />
+                        <span className="text-xs md:text-sm text-muted-foreground">Channels</span>
+                      </div>
+                      <span className="font-semibold text-foreground text-xs md:text-sm">24</span>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Star className="w-3 h-3 md:w-4 md:h-4 text-yellow-500" />
+                        <span className="text-xs md:text-sm text-muted-foreground">Server Level</span>
+                      </div>
+                      <span className="font-semibold text-foreground text-xs md:text-sm">Level 3</span>
+                    </div>
             </div>
 
-            {/* Right CloudOrbit Section */}
-            <div className="relative flex flex-1 items-center justify-center overflow-hidden px-4 pb-4 lg:min-h-[500px] lg:w-1/2 lg:px-0 lg:pb-0">
-              <div className="flex h-full w-full items-center justify-center lg:absolute lg:-right-5 lg:top-8 lg:w-[130%]">
-                <div className="flex items-center justify-center w-full h-[320px] md:h-[400px] lg:h-[480px] scale-95 md:scale-100 lg:scale-110">
-                  <CloudOrbitDemo />
+              {/* Activity Indicator */}
+              <div className="mt-4 pt-3 border-t border-neutral-200 dark:border-neutral-600">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                  <span className="text-xs text-muted-foreground">Active community discussions</span>
+                </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-    </div>
   );
 }
 

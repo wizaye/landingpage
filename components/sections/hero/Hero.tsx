@@ -1,6 +1,8 @@
 
 import React from "react";
 import { Safari } from "@/components/magicui/safari";
+import { Announcement, AnnouncementTag, AnnouncementTitle } from "@/components/ui/kibo-ui/announcement";
+import { ArrowUpRightIcon } from "lucide-react";
 
 const Hero = () => {
   return (
@@ -10,7 +12,7 @@ const Hero = () => {
     >
       <div className="mx-auto max-w-5xl py-16 sm:py-28">
         <div className="flex justify-center pb-8">
-          <div className="text-muted-foreground bg-secondary/50 hover:bg-secondary/70 shadow-border relative rounded-full border px-3 py-1 text-sm shadow-xs transition-colors duration-300">
+          {/* <div className="text-muted-foreground bg-secondary/50 hover:bg-secondary/70 shadow-border relative rounded-full border px-3 py-1 text-sm shadow-xs transition-colors duration-300">
             Announcing our next.{' '}
             <a
               href="#"
@@ -20,7 +22,15 @@ const Hero = () => {
               <span aria-hidden="true" className="absolute inset-0"></span>
               Read more
             </a>
-          </div>
+          </div> */}
+          <Announcement>
+            <AnnouncementTag>Latest update</AnnouncementTag>
+            <AnnouncementTitle>
+              New feature added
+              <ArrowUpRightIcon className="shrink-0 text-muted-foreground" size={16} />
+            </AnnouncementTitle>
+          </Announcement>
+
         </div>
         <div className="relative z-1 mx-auto max-w-3xl text-center">
           <h1 className="text-foreground mt-6 bg-gradient-to-tr from-neutral-300 to-white bg-clip-text text-[clamp(40px,10vw,44px)] leading-[1.2] font-bold tracking-tighter text-balance sm:text-6xl sm:text-[64px] dark:text-transparent">
@@ -72,7 +82,7 @@ const Hero = () => {
         </div>
         <figure className="relative max-w-6xl mx-auto p-3 sm:p-4 lg:p-6 backdrop-blur-lg dark:bg-white/5 bg-black/5 rounded-lg transition-colors duration-300 before:absolute before:inset-0 before:bg-[linear-gradient(45deg,transparent_25%,rgba(0,0,0,0.03)_25%,rgba(0,0,0,0.03)_50%,transparent_50%,transparent_75%,rgba(0,0,0,0.03)_75%)] dark:before:bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.03)_25%,rgba(255,255,255,0.03)_50%,transparent_50%,transparent_75%,rgba(255,255,255,0.03)_75%)] before:[background-size:8px_8px] before:rounded-lg before:pointer-events-none mt-16 w-full border-border border shadow-xs md:mt-28">
           <div className="relative z-10 rounded-lg overflow-hidden border dark:border-neutral-800 border-neutral-200 shadow-2xl dark:shadow-neutral-900/50 shadow-gray-500/20">
-          {/* Safari mockup with image */}
+            {/* Safari mockup with image */}
             <Safari
               url="helixque.vercel.app"
               imageSrc="https://cdn.badtz-ui.com/images/mail-light.png"

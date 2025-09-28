@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/utils/theme-provider";
+import StickyFooter from "@/components/common/footer";
+import { LayoutWrapper, MainContentWrapper } from "@/components/common/layout-wrapper";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -34,7 +36,15 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <LayoutWrapper />
+
+          {/* Main content with proper spacing */}
+          <MainContentWrapper>
             {children}
+          </MainContentWrapper>
+
+          {/* Footer */}
+          <StickyFooter />
         </ThemeProvider>
       </body>
     </html>

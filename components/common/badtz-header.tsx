@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "motion/react";
 import Link from "next/link";
+import { Badge } from "../ui/badge";
 
 interface BadtzHeaderProps {
   className?: string;
@@ -31,21 +32,22 @@ export default function BadtzHeader({ className }: BadtzHeaderProps) {
 
   const BadtzLogo = () => (
     <div className="text-foreground flex items-end gap-2.5 [&_svg]:h-5">
-      <svg 
-        width="20" 
-        height="20" 
-        viewBox="0 0 190 190" 
-        fill="none" 
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path 
-          fillRule="evenodd" 
-          clipRule="evenodd" 
-          d="M102.256 188.162C97.6186 190.613 92.0647 190.613 87.4273 188.162L11.3881 147.988C6.20803 145.251 2.96875 139.885 2.96875 134.04L2.96875 55.9596C2.96875 50.115 6.20804 44.7487 11.3881 42.0119L87.4273 1.83758C92.0647 -0.612537 97.6186 -0.612537 102.256 1.83758L178.295 42.0119C183.475 44.7487 186.715 50.115 186.715 55.9596L186.715 134.04C186.715 139.885 183.475 145.251 178.295 147.988L102.256 188.162ZM17.2566 130.86C17.2566 133.8 18.9004 136.499 21.5152 137.859L86.6791 171.709C89.3137 173.075 92.4666 171.171 92.4666 168.21L92.4666 100.577C92.4666 97.6363 90.8224 94.9374 88.208 93.5771L23.0442 59.727C20.4089 58.3581 17.2566 60.2643 17.2566 63.2268L17.2566 130.86Z" 
-          fill="currentColor"
-        />
-      </svg>
-      <span className="font-heading text-lg leading-none font-semibold">HelixQue</span>
+      <img 
+        src="/logo.svg" 
+        alt="HelixQue Logo" 
+        width={20} 
+        height={20} 
+        className="h-5 w-auto"
+      />
+      <div className="relative">
+        <span className="font-heading text-lg leading-none font-semibold">HelixQue</span>
+        <Badge
+          variant="secondary" 
+          className="absolute -top-1 -right-1 translate-x-full text-[8px] px-0.5 py-0 h-auto"
+        >
+          Beta
+        </Badge>
+      </div>
     </div>
   );
 
@@ -61,28 +63,20 @@ export default function BadtzHeader({ className }: BadtzHeaderProps) {
       <div className="bg-background/70 sticky top-0 z-40 w-full backdrop-blur-sm">
         <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 backdrop-blur-xs">
           {/* Desktop Logo */}
-          <motion.div 
-            className="hidden md:flex"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-          >
+          <div className="hidden md:flex">
             <Link href="/" className="transition-opacity duration-200 hover:opacity-80">
               <BadtzLogo />
             </Link>
-          </motion.div>
+          </div>
 
           {/* Desktop Navigation */}
-          <motion.nav 
+          <nav 
             className="absolute left-1/2 hidden -translate-x-1/2 transform md:flex" 
             aria-label="Main navigation"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
           >
             <ul className="border-border/70 relative flex w-fit rounded-full border p-1 px-1">
               {navigationItems.map((item, index) => (
-                <motion.li 
+                <li 
                   key={item.href}
                   ref={(el) => {
                     navItemsRef.current[index] = el;
@@ -93,9 +87,6 @@ export default function BadtzHeader({ className }: BadtzHeaderProps) {
                     updatePillPosition(index);
                   }}
                   onMouseLeave={() => setHoveredIndex(null)}
-                  initial={{ opacity: 0, y: -5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 0.2 + index * 0.05 }}
                 >
                   <Link 
                     href={item.href} 
@@ -103,7 +94,7 @@ export default function BadtzHeader({ className }: BadtzHeaderProps) {
                   >
                     {item.label}
                   </Link>
-                </motion.li>
+                </li>
               ))}
               {/* Animated pill background */}
               <motion.li 
@@ -130,44 +121,33 @@ export default function BadtzHeader({ className }: BadtzHeaderProps) {
                 }}
               />
             </ul>
-          </motion.nav>
+          </nav>
 
           {/* Mobile Menu */}
-          <motion.div 
-            className="flex md:hidden"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-          >
+          <div className="flex md:hidden">
             <div className="flex items-center gap-3">
-              <motion.button 
+              <button 
                 className="flex items-center [&_svg]:size-5 transition-opacity duration-200 hover:opacity-70" 
                 aria-label="Open menu" 
                 aria-expanded={isMenuOpen}
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
-                <motion.div
-                  animate={{ rotate: isMenuOpen ? 90 : 0 }}
-                  transition={{ duration: 0.2 }}
-                >
+                <div className="transition-transform duration-200" style={{ transform: isMenuOpen ? 'rotate(90deg)' : 'rotate(0deg)' }}>
                   <Menu size={22} />
-                </motion.div>
+                </div>
                 <span className="sr-only">Toggle Menu</span>
-              </motion.button>
+              </button>
               <Link href="/" className="transition-opacity duration-200 hover:opacity-80">
                 <BadtzLogo />
               </Link>
             </div>
-          </motion.div>
+          </div>
 
           {/* Auth Buttons */}
           
-          <motion.nav 
+          <nav 
             className="flex items-center gap-3 text-sm font-medium" 
             aria-label="Authentication"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
           >
           
             <button 
@@ -181,7 +161,7 @@ export default function BadtzHeader({ className }: BadtzHeaderProps) {
               Sign In
             </button>
             
-          </motion.nav>
+          </nav>
         </div>
       </div>
 
@@ -218,12 +198,7 @@ export default function BadtzHeader({ className }: BadtzHeaderProps) {
               }}
             >
               {/* Header with Close Button */}
-              <motion.div 
-                className="relative flex items-center justify-between p-4 border-b border-border"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1, duration: 0.3 }}
-              >
+              <div className="relative flex items-center justify-between p-4 border-b border-border">
                 <div className="flex items-center">
                   <Link href="/" onClick={() => setIsMenuOpen(false)}>
                     <BadtzLogo />
@@ -231,18 +206,16 @@ export default function BadtzHeader({ className }: BadtzHeaderProps) {
                 </div>
                 
                 {/* Close Button */}
-                <motion.button
+                <button
                   type="button"
-                  className="rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:outline-none disabled:pointer-events-none ring-offset-background"
+                  className="rounded-xs opacity-70 hover:opacity-100 focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:outline-none disabled:pointer-events-none ring-offset-background hover:rotate-90 transition-all duration-200"
                   onClick={() => setIsMenuOpen(false)}
                   aria-label="Close menu"
-                  whileHover={{ rotate: 90 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 20 }}
                 >
                   <X className="size-6" />
                   <span className="sr-only">Close</span>
-                </motion.button>
-              </motion.div>
+                </button>
+              </div>
 
               {/* Navigation Content */}
               <div className="pt-2 pb-4 px-0">

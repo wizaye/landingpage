@@ -3,7 +3,6 @@ import { loader } from "fumadocs-core/source"
 import { createMDXSource } from "fumadocs-mdx"
 import { useMemo } from "react"
 import { formatDate } from "@/lib/utils"
-import BadtzHeader from "@/components/common/badtz-header"
 
 const source = loader({
   baseUrl: "/announcements",
@@ -48,13 +47,8 @@ export default function AnnouncementsPage() {
 
   return (
     <div className="min-h-screen bg-background relative">
-      {/* Header */}
-      <div className="fixed top-0 left-0 right-0 z-40">
-        <BadtzHeader />
-      </div>
-
       {/* Page Title Section */}
-      <div className="pt-20 pb-16">
+      <div className="pt-8 pb-16">
         <div className="max-w-5xl mx-auto px-6 lg:px-10">
           <div className="text-center">
             <h1 className="text-foreground mt-8 text-4xl text-[clamp(40px,10vw,44px)] leading-[1.2] font-bold tracking-tighter text-balance sm:text-5xl">

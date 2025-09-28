@@ -188,7 +188,7 @@ export function CursorCard({
         className="pointer-events-none absolute inset-0 rounded-[inherit]"
         style={{ background: gradientBackground }}
       />
-      <div className="absolute inset-px rounded-[inherit] bg-white dark:bg-black" />
+      <div className="absolute inset-px rounded-[inherit] bg-white dark:bg-neutral-950" />
       <motion.div
         className={cn(
           "pointer-events-none absolute inset-px rounded-[inherit] opacity-0 transition-opacity duration-300",

@@ -8,16 +8,11 @@ import HomeHeader from "@/components/common/header2";
 import NewItemsLoading from "@/components/utils/new-items-loading";
 import TextRotate from "@/components/fancy/text/text-rotate";
 import { Safari } from "@/components/magicui/safari";
-import BadtzHeader from "@/components/common/badtz-header";
-
 const index = () => {
   const words = ["Better", "Perfect", "Modern", "Unique"];
   return (
     <div className="relative">
-      {/* <HomeHeader /> */}
-      
-       <BadtzHeader/>
-      <section className="h-auto min-h-screen overflow-hidden relative pb-20 dark:bg-black bg-white transition-colors duration-300 -mt-20 pt-20">
+      <section className="h-auto min-h-screen overflow-hidden relative pb-20 dark:bg-black bg-white transition-colors duration-300">
         <div className="absolute inset-0 -z-0 h-full w-full dark:bg-[radial-gradient(#1d1d1d_1px,transparent_1px)] bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]"></div>
         <div className="absolute inset-0 top-0 left-0 h-full w-full items-center px-5 py-24 bg-gradient-to-t dark:from-black from-white from-0% to-transparent to-60%"></div>
 
