@@ -51,7 +51,7 @@ export default function HacktoberfestPage() {
           </p>
           
           <a 
-            href="https://github.com" 
+            href="https://github.com/HXQLabs/" 
             target="_blank" 
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors text-lg font-medium underline underline-offset-4"
