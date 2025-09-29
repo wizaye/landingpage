@@ -41,7 +41,7 @@ export function SimpleThemeToggle({ className }: { className?: string }) {
     <motion.button
       onClick={toggleTheme}
       className={cn(
-        "group/theme hover:bg-muted inline-flex h-[30px] w-[30px] items-center justify-center overflow-hidden rounded-md bg-transparent transition-colors duration-200 relative",
+        "group/theme hover:bg-muted inline-flex h-[30px] w-[30px] items-center justify-center overflow-hidden rounded-md bg-transparent transition-colors duration-200 relative cursor-pointer",
         className
       )}
       whileHover={{ scale: 1.05 }}

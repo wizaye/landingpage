@@ -140,23 +140,36 @@ export default function HelixQueHeader({ className }: HelixQueHeaderProps) {
             </Link>
             <div className="flex items-center gap-2">
               <SimpleThemeToggle className="h-[32px] px-2" />
-              <button 
-                className="flex items-center [&_svg]:size-5 transition-all duration-200 hover:opacity-70" 
+              <motion.button 
+                className="flex items-center justify-center w-8 h-8 transition-all duration-200 hover:opacity-70" 
                 aria-label={isMenuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={isMenuOpen}
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <div 
-                  className="transition-all duration-300 ease-in-out" 
-                  style={{ 
-                    transform: isMenuOpen ? 'rotate(90deg)' : 'rotate(0deg)',
-                    transformOrigin: 'center'
-                  }}
-                >
-                  {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
+                <div className="relative w-5 h-5 flex flex-col justify-center items-center">
+                  {/* Top line */}
+                  <motion.span
+                    className="block absolute h-0.5 w-5 bg-current"
+                    animate={{
+                      rotate: isMenuOpen ? 45 : 0,
+                      y: isMenuOpen ? 0 : -4,
+                    }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                  />
+                  {/* Bottom line */}
+                  <motion.span
+                    className="block absolute h-0.5 w-5 bg-current"
+                    animate={{
+                      rotate: isMenuOpen ? -45 : 0,
+                      y: isMenuOpen ? 0 : 4,
+                    }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                  />
                 </div>
                 <span className="sr-only">Toggle Menu</span>
-              </button>
+              </motion.button>
             </div>
           </div>
 

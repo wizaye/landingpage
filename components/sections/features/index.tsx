@@ -182,7 +182,7 @@ export const FeaturesSection = () => {
                     <span className="text-muted-foreground text-[10px] md:text-xs">2:30 PM</span>
                   </div>
                                     <div className="rounded-lg bg-gray-200 dark:bg-neutral-800 w-fit max-w-[85%] border border-gray-300 dark:border-neutral-700 p-2 md:p-2.5 text-[10px] md:text-xs text-gray-900 dark:text-white text-left leading-relaxed">
-                    Hey up for a quick mock interview focusing on React and Node.js?
+                    Hey, are you ready to take interview? 
                   </div>
                 </motion.div>
 
@@ -193,7 +193,7 @@ export const FeaturesSection = () => {
                   className="mb-1 md:mb-2"
                 >
                                     <div className="rounded-lg mb-1 ml-auto w-fit max-w-[85%] bg-blue-600 p-2 md:p-2.5 text-[10px] md:text-xs text-white text-left leading-relaxed">
-                    Sure. Let's start with state management in React and API design on the backend.
+                    Sure. Let's connect now!
                   </div>
                   <div className="flex items-center justify-end gap-1.5 md:gap-2">
                     <span className="text-gray-900 dark:text-white text-[10px] md:text-xs font-medium">You</span>

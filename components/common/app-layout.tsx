@@ -45,7 +45,7 @@ export function AppLayout({ children }: AppLayoutProps) {
       </div>
 
       {/* Fixed Header - positioned below banner */}
-      <div className="fixed top-7 sm:top-9 left-0 right-0 z-50">
+      <div className="fixed top-9 sm:top-11 left-0 right-0 z-50">
         <HelixQueHeader />
       </div>
 
