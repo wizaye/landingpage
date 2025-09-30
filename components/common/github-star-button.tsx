@@ -42,7 +42,7 @@ export function GithubStarButton({ className }: { className?: string }) {
     >
       <Link
         target="_blank"
-        href="https://github.com/HXQLabs/"
+        href="https://github.com/HXQLabs/HelixQue"
         onMouseEnter={() => setIsStarHovered(true)}
         onMouseLeave={() => setIsStarHovered(false)}
         onClick={() => {
@@ -75,7 +75,7 @@ export function GithubStarButton({ className }: { className?: string }) {
               layoutRoot
             />
           )}
-         Star the repositories
+          Star on GitHub
           <motion.svg
             xmlns="http://www.w3.org/2000/svg"
             width="22"

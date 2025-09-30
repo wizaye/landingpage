@@ -43,7 +43,7 @@ export default function HelixQueHeader({ className }: HelixQueHeaderProps) {
     </div>
   );
 
-  const navigationItems = [{ href: "/", label: "Hacktoberfest", isSpecial: true }];
+  // const navigationItems = [{ href: "/", label: "Hacktoberfest", isSpecial: true }];
 
   return (
     <div className={cn("bg-background theme-container", className)}>
@@ -59,8 +59,8 @@ export default function HelixQueHeader({ className }: HelixQueHeaderProps) {
             className="pointer-events-auto absolute left-1/2 -translate-x-1/2 transform"
             aria-label="Main navigation"
           >
-            <ul className="border-border/70 relative flex w-fit rounded-full border p-1">
-              {navigationItems.map((item, index) => (
+            {/* <ul className="border-border/70 relative flex w-fit rounded-full border p-1"> */}
+              {/* {navigationItems.map((item, index) => (
                 <li
                   key={item.href}
                   ref={(el) => { navItemsRef.current[index] = el; }}
@@ -83,7 +83,7 @@ export default function HelixQueHeader({ className }: HelixQueHeaderProps) {
                     {item.isSpecial && " 🔥"}
                   </Link>
                 </li>
-              ))}
+              ))} */}
               {/* Hover pill (desktop nicety; harmless on touch) */}
               <motion.li
                 className="bg-muted/80 absolute inset-0 my-1.5 rounded-full shadow-sm"
@@ -100,7 +100,6 @@ export default function HelixQueHeader({ className }: HelixQueHeaderProps) {
                 }
                 transition={{ type: "spring", stiffness: 400, damping: 30, mass: 0.8 }}
               />
-            </ul>
           </nav>
 
           {/* Right: Actions */}
