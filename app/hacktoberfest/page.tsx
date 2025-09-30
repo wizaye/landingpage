@@ -85,7 +85,7 @@ export default function HacktoberfestPage() {
             Gear up your issues, sharpen those PRs, and let the commits roll in! ⚡️
           </p> */}
         </div>
-          <HacktoberfestCounters />
+          {/* <HacktoberfestCounters /> */}
       </div>
     </div>
   );
