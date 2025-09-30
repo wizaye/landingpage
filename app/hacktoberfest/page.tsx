@@ -54,7 +54,7 @@ export default function HacktoberfestPage() {
 
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
             <a
-              href="https://github.com/HXQLabs/"
+              href="https://github.com/HXQLabs/HelixQue"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm sm:text-[13.5px] hover:bg-muted transition-colors"
@@ -77,7 +77,7 @@ export default function HacktoberfestPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm sm:text-[13.5px] hover:bg-muted transition-colors"
             >
-              Find good first issues
+              Find issues
             </a>
           </div>
 {/* 
