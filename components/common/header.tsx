@@ -32,10 +32,10 @@ export default function HelixQueHeader({ className }: HelixQueHeaderProps) {
     <div className="text-foreground flex items-end gap-2.5">
       <img src="/logo.svg" alt="HelixQue Logo" width={20} height={20} className="h-5 w-auto" />
       <div className="relative">
-        <span className="hidden sm:block font-heading text-lg leading-none font-semibold">HelixQue</span>
+        <span className="block font-heading text-base sm:text-lg leading-none font-semibold">HelixQue</span>
         <Badge
           variant="secondary"
-          className="hidden sm:block absolute -top-1 -right-1 translate-x-full text-[8px] px-0.5 py-0 h-auto"
+          className="block absolute -top-1 -right-1 translate-x-full text-[8px] px-0.5 py-0 h-auto"
         >
           Beta
         </Badge>
