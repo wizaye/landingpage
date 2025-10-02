@@ -2,31 +2,39 @@
 
 "use client";
 import React, { useEffect, useState } from "react";
-import { ChevronRight, Users, Activity, Hash, Star } from "lucide-react";
+import { ChevronRight, Users, Activity, Star } from "lucide-react";
 import { Icons } from '@/components/utils/icons';
 import { BorderBeam } from '@/components/ui/border-beam';
 import Link from "next/link";
 
 export function CTASection() {
   const [serverData, setServerData] = useState<any>(null);
+  const [error, setError] = useState(false);
+  const hasRequiredEnvVars = process.env.NEXT_PUBLIC_DISCORD_INVITE_CODE && process.env.NEXT_PUBLIC_GITHUB_REPO;
 
   useEffect(() => {
-  async function fetchData() {
-    try {
-      const res = await fetch("/api/github/discord");
-
-      if (!res.ok) {
-        throw new Error(`Failed to fetch: ${res.status}`);
-      }
-
-      const data = await res.json();
-      setServerData(data);
-    } catch (err) {
-      console.error("Error fetching Discord data:", err);
+    if (!hasRequiredEnvVars) {
+      setError(true);
+      return;
     }
-  }
-  fetchData();
-}, []);
+    async function fetchData() {
+      try {
+        const res = await fetch("/api/github/discord");
+
+        if (!res.ok) {
+          throw new Error(`Failed to fetch: ${res.status}`);
+        }
+
+        const data = await res.json();
+        setServerData(data);
+        setError(false);
+      } catch (err) {
+        console.error("Error fetching Discord data:", err);
+        setError(true);
+      }
+    }
+    fetchData();
+  }, []);
 
 
   return (
@@ -76,49 +84,45 @@ export function CTASection() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-foreground text-sm md:text-base">
-                    {serverData?.guild.name || "Community Server"}
+                    {error ? "Connection Error" : (serverData?.guild.name || "Loading...")}
                   </h3>
                   <p className="text-xs md:text-sm text-muted-foreground">Official Discord</p>
                 </div>
               </div>
 
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Users className="w-3 h-3 md:w-4 md:h-4 text-green-500" />
-                    <span className="text-xs md:text-sm text-muted-foreground">Online Members</span>
-                  </div>
-                  <span className="font-semibold text-foreground text-xs md:text-sm">{serverData?.approximate_presence_count ?? "118"}</span>
+              {error ? (
+                <div className="py-8 text-center">
+                  <p className="text-sm text-muted-foreground">Failed to fetch server data</p>
                 </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Activity className="w-3 h-3 md:w-4 md:h-4 text-blue-500" />
-                    <span className="text-xs md:text-sm text-muted-foreground">Total Members</span>
+              ) : (
+                <>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Users className="w-3 h-3 md:w-4 md:h-4 text-green-500" />
+                        <span className="text-xs md:text-sm text-muted-foreground">Online Members</span>
+                      </div>
+                      <span className="font-semibold text-foreground text-xs md:text-sm">{serverData?.approximate_presence_count || "-"}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Activity className="w-3 h-3 md:w-4 md:h-4 text-blue-500" />
+                        <span className="text-xs md:text-sm text-muted-foreground">Total Members</span>
+                      </div>
+                      <span className="font-semibold text-foreground text-xs md:text-sm">{serverData?.approximate_member_count || "-"}</span>
+                    </div>
                   </div>
-                  <span className="font-semibold text-foreground text-xs md:text-sm">{serverData?.approximate_member_count ?? "524"}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Hash className="w-3 h-3 md:w-4 md:h-4 text-purple-500" />
-                    <span className="text-xs md:text-sm text-muted-foreground">Channels</span>
-                  </div>
-                  <span className="font-semibold text-foreground text-xs md:text-sm">18</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Star className="w-3 h-3 md:w-4 md:h-4 text-yellow-500" />
-                    <span className="text-xs md:text-sm text-muted-foreground">Server Level</span>
-                  </div>
-                  <span className="font-semibold text-foreground text-xs md:text-sm">—</span>
-                </div>
-              </div>
 
-              <div className="mt-4 pt-3 border-t border-neutral-200 dark:border-neutral-600">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                  <span className="text-xs text-muted-foreground">Active community discussions</span>
-                </div>
-              </div>
+                  {serverData && (
+                    <div className="mt-4 pt-3 border-t border-neutral-200 dark:border-neutral-600">
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                        <span className="text-xs text-muted-foreground">Server is active</span>
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
             </div>
           </div>
         </div>
