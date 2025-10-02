@@ -63,7 +63,7 @@ export default function HelixQueHeader({ className }: HelixQueHeaderProps) {
 
   return (
     <div className={cn(
-      "bg-background/95 backdrop-blur-md theme-container relative z-50 border-b-0",
+      "bg-background theme-container relative z-50 border-b-0",
       className
     )}>
       <div className="w-full">
@@ -152,6 +152,7 @@ export default function HelixQueHeader({ className }: HelixQueHeaderProps) {
                   {/* Top line */}
                   <motion.span
                     className="block absolute h-0.5 w-5 bg-current"
+                    initial={{ rotate: 0, y: -4 }}
                     animate={{
                       rotate: isMenuOpen ? 45 : 0,
                       y: isMenuOpen ? 0 : -4,
@@ -161,6 +162,7 @@ export default function HelixQueHeader({ className }: HelixQueHeaderProps) {
                   {/* Bottom line */}
                   <motion.span
                     className="block absolute h-0.5 w-5 bg-current"
+                    initial={{ rotate: 0, y: 4 }}
                     animate={{
                       rotate: isMenuOpen ? -45 : 0,
                       y: isMenuOpen ? 0 : 4,
