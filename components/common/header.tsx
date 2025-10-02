@@ -194,7 +194,7 @@ export default function HelixQueHeader({ className }: HelixQueHeaderProps) {
           <>
             {/* Overlay */}
             <motion.div 
-              className="fixed inset-0 top-16 z-40 bg-black/20 md:hidden"
+              className="fixed inset-0 top-16 z-40 md:hidden"
               onClick={() => setIsMenuOpen(false)}
               aria-hidden="true"
               initial={{ opacity: 0 }}
