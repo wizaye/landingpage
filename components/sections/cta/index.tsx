@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { ChevronRight, Users, Activity, Star } from "lucide-react";
+import { ChevronRight, Users, Activity} from "lucide-react";
 import { Icons } from '@/components/utils/icons';
 import { BorderBeam } from '@/components/ui/border-beam';
 import Link from "next/link";
@@ -17,7 +17,7 @@ export function CTASection() {
     }
     async function fetchData() {
       try {
-        const res = await fetch("/api/github/discord");
+        const res = await fetch("/api/discord");
 
         if (!res.ok) {
           throw new Error(`Failed to fetch: ${res.status}`);
