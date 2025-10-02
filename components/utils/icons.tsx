@@ -188,4 +188,12 @@ export const Icons = {
             <rect width="2.28956" height="2.28956" transform="matrix(1 0 0 -1 39.1738 9.44629)" fill="currentColor" />
 </svg>
     ),
+    pumpkin: (props: IconProps) => (
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
+          <path d="M9.5 7.5c-1.5-2-3.5-2-5 0-1.5 2-1.5 6 0 8 1.5 2 3.5 2 5 0"/>
+          <path d="M14.5 7.5c1.5-2 3.5-2 5 0 1.5 2 1.5 6 0 8-1.5 2-3.5 2-5 0"/>
+          <path d="M9.5 7.5c-1 4 0 8 2.5 8s3.5-4 2.5-8"/>
+          <path d="M12 3c-.5 1.5-.5 2.5 0 3.5"/>
+        </svg>
+    ),
 };

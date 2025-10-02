@@ -1,10 +1,10 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import NumberFlow from "@number-flow/react"
 
 import { cn } from "@/lib/utils"
 
-const hacktoberfestStartDate = new Date("2025-10-01T00:00:00")
 
 interface TimeLeft {
   days: number
@@ -16,9 +16,12 @@ interface TimeLeft {
 
 interface CleanCountdownProps {
   className?: string
+  endDate: Date | string
+  label?: string
+  expiredMessage?: string
 }
 
-export function CleanCountdown({ className }: CleanCountdownProps) {
+export function CleanCountdown({ className, endDate, label, expiredMessage }: CleanCountdownProps) {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({
     days: 0,
     hours: 0,
@@ -30,7 +33,8 @@ export function CleanCountdown({ className }: CleanCountdownProps) {
   useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date()
-      const difference = hacktoberfestStartDate.getTime() - now.getTime()
+      const targetTime = new Date(endDate).getTime()
+      const difference = targetTime - now.getTime()
 
       if (difference <= 0) {
         setTimeLeft({
@@ -63,68 +67,77 @@ export function CleanCountdown({ className }: CleanCountdownProps) {
     const timer = setInterval(calculateTimeLeft, 1000)
 
     return () => clearInterval(timer)
-  }, [])
+  }, [endDate])
 
-  if (timeLeft.isExpired) return null
+  if (timeLeft.isExpired) {
+    return (
+      <div className={cn("flex justify-center w-full", className)}>
+        <div className="text-center">
+          <p className="text-lg font-semibold text-muted-foreground">
+            {expiredMessage ?? "The event has ended!"}
+          </p>
+        </div>
+      </div>
+    )
+  }
 
   return (
-    <div className={cn("flex justify-center w-full", className)}>
-      <div className="flex items-center gap-2 sm:gap-4 md:gap-6 lg:gap-8 w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl">
-        <div className="flex flex-col items-center flex-1">
-          <div className="relative w-full">
-            <div className="bg-black/5 dark:bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-2 py-2 sm:px-3 sm:py-3 md:px-4 md:py-3 w-full flex items-center justify-center">
-              <div className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-mono font-bold text-foreground tabular-nums tracking-tight text-center">
-                {timeLeft.days.toString().padStart(2, "0")}
-              </div>
-            </div>
-            <div className="text-xs sm:text-sm text-muted-foreground font-medium mt-2 text-center uppercase tracking-wider">
-              Days
-            </div>
-          </div>
-        </div>
-        
-        <div className="text-lg sm:text-2xl md:text-3xl text-muted-foreground/30 font-mono">:</div>
-        
-        <div className="flex flex-col items-center flex-1">
-          <div className="relative w-full">
-            <div className="bg-black/5 dark:bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-2 py-2 sm:px-3 sm:py-3 md:px-4 md:py-3 w-full flex items-center justify-center">
-              <div className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-mono font-bold text-foreground tabular-nums tracking-tight text-center">
-                {timeLeft.hours.toString().padStart(2, "0")}
-              </div>
-            </div>
-            <div className="text-xs sm:text-sm text-muted-foreground font-medium mt-2 text-center uppercase tracking-wider">
-              Hours
+    <div className={cn("flex flex-col items-center gap-8", className)}>
+      <div className="text-center">
+        <p className="text-xl sm:text-2xl font-bold text-foreground mb-1 tracking-wide">
+          {label ?? "Time left"}
+        </p>
+        <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-orange-500/50 to-transparent mx-auto mt-2"></div>
+      </div>
+      
+      <div className="flex items-start justify-center gap-2 sm:gap-4 md:gap-6 lg:gap-8 w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl">
+        <div className="flex flex-col items-center w-12 sm:w-16 md:w-20 lg:w-24">
+          <div className="bg-black/5 dark:bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg w-full aspect-square flex items-center justify-center">
+            <div className="text-sm sm:text-xl md:text-2xl lg:text-3xl font-mono font-bold text-foreground tabular-nums tracking-tight">
+              <NumberFlow value={timeLeft.days} format={{ minimumIntegerDigits: 2 }} />
             </div>
           </div>
-        </div>
-        
-        <div className="text-lg sm:text-2xl md:text-3xl text-muted-foreground/30 font-mono">:</div>
-        
-        <div className="flex flex-col items-center flex-1">
-          <div className="relative w-full">
-            <div className="bg-black/5 dark:bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-2 py-2 sm:px-3 sm:py-3 md:px-4 md:py-3 w-full flex items-center justify-center">
-              <div className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-mono font-bold text-foreground tabular-nums tracking-tight text-center">
-                {timeLeft.minutes.toString().padStart(2, "0")}
-              </div>
-            </div>
-            <div className="text-xs sm:text-sm text-muted-foreground font-medium mt-2 text-center uppercase tracking-wider">
-              Minutes
-            </div>
+          <div className="w-full text-center text-xs sm:text-sm text-muted-foreground font-medium mt-2 uppercase tracking-wider">
+            Days
           </div>
         </div>
-        
-        <div className="text-lg sm:text-2xl md:text-3xl text-muted-foreground/30 font-mono">:</div>
-        
-        <div className="flex flex-col items-center flex-1">
-          <div className="relative w-full">
-            <div className="bg-black/5 dark:bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-2 py-2 sm:px-3 sm:py-3 md:px-4 md:py-3 w-full flex items-center justify-center">
-              <div className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-mono font-bold text-foreground tabular-nums tracking-tight text-center">
-                {timeLeft.seconds.toString().padStart(2, "0")}
-              </div>
+
+        <div className="self-center text-base sm:text-xl md:text-2xl text-muted-foreground/30 font-mono">:</div>
+
+        <div className="flex flex-col items-center w-12 sm:w-16 md:w-20 lg:w-24">
+          <div className="bg-black/5 dark:bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg w-full aspect-square flex items-center justify-center">
+            <div className="text-sm sm:text-xl md:text-2xl lg:text-3xl font-mono font-bold text-foreground tabular-nums tracking-tight">
+              <NumberFlow value={timeLeft.hours} format={{ minimumIntegerDigits: 2 }} />
             </div>
-            <div className="text-xs sm:text-sm text-muted-foreground font-medium mt-2 text-center uppercase tracking-wider">
-              Seconds
+          </div>
+          <div className="w-full text-center text-xs sm:text-sm text-muted-foreground font-medium mt-2 uppercase tracking-wider">
+            Hours
+          </div>
+        </div>
+
+        <div className="self-center text-base sm:text-xl md:text-2xl text-muted-foreground/30 font-mono">:</div>
+
+        <div className="flex flex-col items-center w-12 sm:w-16 md:w-20 lg:w-24">
+          <div className="bg-black/5 dark:bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg w-full aspect-square flex items-center justify-center">
+            <div className="text-sm sm:text-xl md:text-2xl lg:text-3xl font-mono font-bold text-foreground tabular-nums tracking-tight">
+              <NumberFlow value={timeLeft.minutes} format={{ minimumIntegerDigits: 2 }} />
             </div>
+          </div>
+          <div className="w-full text-center text-xs sm:text-sm text-muted-foreground font-medium mt-2 uppercase tracking-wider">
+            Minutes
+          </div>
+        </div>
+
+        <div className="self-center text-base sm:text-xl md:text-2xl text-muted-foreground/30 font-mono">:</div>
+
+        <div className="flex flex-col items-center w-12 sm:w-16 md:w-20 lg:w-24">
+          <div className="bg-black/5 dark:bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg w-full aspect-square flex items-center justify-center">
+            <div className="text-sm sm:text-xl md:text-2xl lg:text-3xl font-mono font-bold text-foreground tabular-nums tracking-tight">
+              <NumberFlow value={timeLeft.seconds} format={{ minimumIntegerDigits: 2 }} />
+            </div>
+          </div>
+          <div className="w-full text-center text-xs sm:text-sm text-muted-foreground font-medium mt-2 uppercase tracking-wider">
+            Seconds
           </div>
         </div>
       </div>
