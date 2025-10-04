@@ -126,9 +126,7 @@ export const OpensourceSection = () => {
         </p>
 
         {/* Repo facts */}
-        {loading ? (
-          <div className="mt-6 text-sm text-muted-foreground">Loading GitHub data…</div>
-        ) : err ? (
+        {err ? (
           <div className="mt-6 text-sm text-red-500">Error: {err}</div>
         ) : (
           <>

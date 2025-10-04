@@ -57,7 +57,6 @@ export default function HelixQueHeader({ className }: HelixQueHeaderProps) {
   const navigationItems = [
     { href: "/changelog", label: "Changelog" },
     { href: "/announcements", label: "Announcements" },
-    { href: "/stats", label: "Statistics" },
     { href: "/hacktoberfest", label: "Hacktoberfest", isSpecial: true }
   ];
 
