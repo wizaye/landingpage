@@ -51,7 +51,7 @@ export const HeroSection = () => {
               </motion.span>
             </LayoutGroup>
           </h1>
-          <p className="text-muted-foreground mx-auto mt-6 leading-7 font-normal text-balance sm:w-[660px] sm:text-[18px] md:mt-8">
+          <p className="text-gray-600 dark:text-muted-foreground mx-auto mt-6 leading-7 font-normal text-balance sm:w-[660px] sm:text-[18px] md:mt-8">
             Match instantly by <strong>skills</strong>, <strong>industry</strong>, and <strong>language</strong>. Learn, mentor, and collaborate through text or video without the awkwardness.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-x-6">
