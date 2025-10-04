@@ -13,24 +13,39 @@ const ANIMATION_DURATION = 900
 
 export function GithubStarButton({ className }: { className?: string }) {
   const [stars, setStars] = useState<number | null>(null)
+  const [displayValue, setDisplayValue] = useState<number | null>(null)
   const [isStarHovered, setIsStarHovered] = useState(false)
   const canAnimate = useCanAnimate()
 
-  // useEffect(() => {
-  //   const fetchStars = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         "https://api.github.com/repos/HXQLabs/helixque"
-  //       )
-  //       const data = await response.json()
-  //       setStars(data.stargazers_count)
-  //     } catch (error) {
-  //       console.error("Error fetching GitHub stars:", error)
-  //     }
-  //   }
+  const generateRandomNumber = (length: number) => {
+    const targetLength = length + 2
+    const min = Math.pow(10, targetLength - 1)
+    const max = Math.pow(10, targetLength) - 1
+    return Math.floor(Math.random() * (max - min + 1)) + min
+  }
 
-  //   fetchStars()
-  // }, [])
+  const animateValue = (value: number) => {
+    const randomValue = generateRandomNumber(value.toString().length)
+    setDisplayValue(randomValue)
+    setTimeout(() => setDisplayValue(value), ANIMATION_DURATION)
+  }
+
+  useEffect(() => {
+    const fetchStars = async () => {
+      try {
+        const response = await fetch(
+          "https://api.github.com/repos/HXQLabs/helixque"
+        )
+        const data = await response.json()
+        setStars(data.stargazers_count)
+        setDisplayValue(data.stargazers_count)
+      } catch (error) {
+        console.error("Error fetching GitHub stars:", error)
+      }
+    }
+
+    fetchStars()
+  }, [])
 
   return (
     <MotionConfig
@@ -42,8 +57,11 @@ export function GithubStarButton({ className }: { className?: string }) {
     >
       <Link
         target="_blank"
-        href="https://github.com/HXQLabs/"
-        onMouseEnter={() => setIsStarHovered(true)}
+        href="https://github.com/HXQLabs/helixque"
+        onMouseEnter={() => {
+          setIsStarHovered(true)
+          if (stars) animateValue(stars)
+        }}
         onMouseLeave={() => setIsStarHovered(false)}
         onClick={() => {
           if (typeof window !== "undefined" && window.datafast) {
@@ -59,9 +77,9 @@ export function GithubStarButton({ className }: { className?: string }) {
           layout
         >
           <Icons.github className="text-muted-foreground shrink-0" />
-          {stars !== null && (
+          {displayValue !== null && (
             <MotionNumberFlow
-              value={stars}
+              value={displayValue}
               className="text-muted-foreground group-hover/contribute:text-foreground pt-[1px] text-right text-[13px]"
               format={{ style: "decimal", useGrouping: true }}
               style={
@@ -75,7 +93,6 @@ export function GithubStarButton({ className }: { className?: string }) {
               layoutRoot
             />
           )}
-         Star on GitHub
           <motion.svg
             xmlns="http://www.w3.org/2000/svg"
             width="22"
