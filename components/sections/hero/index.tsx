@@ -2,10 +2,12 @@
 import React from "react";
 import { Safari } from "@/components/magicui/safari";
 import { Announcement, AnnouncementTag, AnnouncementTitle } from "@/components/ui/kibo-ui/announcement";
+import { BorderBeam } from "@/components/ui/border-beam";
 import { ArrowUpRightIcon } from "lucide-react";
 import { LayoutGroup, motion } from "motion/react";
 import TextRotate from "@/components/fancy/text/text-rotate";
 import Link from "next/link";
+import { Particles } from "@/components/ui/particles";
 
 export const HeroSection = () => {
   const words = ["builders", "learners", "mentors"];
@@ -28,7 +30,7 @@ export const HeroSection = () => {
 
         </div>
         <div className="relative z-1 mx-auto max-w-3xl text-center">
-          <h1 className="text-foreground mt-6 bg-gradient-to-tr from-neutral-300 to-white bg-clip-text text-[clamp(40px,10vw,44px)] leading-[1.2] font-bold tracking-tighter text-balance sm:text-6xl sm:text-[64px] dark:text-transparent">
+          <h1 className="leading-tighter font-gilroy max-w-2xl mx-auto bg-gradient-to-b from-gray-900/90 via-gray-800 to-gray-700/80 dark:from-white/80 dark:via-white dark:to-white/60 bg-clip-text text-4xl sm:text-5xl md:text-5xl font-semibold tracking-tight text-pretty text-transparent lg:leading-[1.1] xl:text-6xl/[4rem] xl:tracking-tighter">
             Professional networking for
             <br/>
           
@@ -42,20 +44,21 @@ export const HeroSection = () => {
                   animate={{ y: 0 }}
                   exit={{ y: "-120%" }}
                   staggerDuration={0.025}
-                  splitLevelClassName="overflow-hidden pb-0.5"
+                  splitLevelClassName="pb-0.5"
                   transition={{ type: "spring", damping: 30, stiffness: 400 }}
                   rotationInterval={3000}
                 />
               </motion.span>
             </LayoutGroup>
           </h1>
-          <p className="text-muted-foreground mx-auto mt-6 leading-7 font-normal text-balance sm:w-[660px] sm:text-[18px] md:mt-8">
+          <p className="text-gray-600 dark:text-muted-foreground mx-auto mt-6 leading-7 font-normal text-balance sm:w-[660px] sm:text-[18px] md:mt-8">
             Match instantly by <strong>skills</strong>, <strong>industry</strong>, and <strong>language</strong>. Learn, mentor, and collaborate through text or video without the awkwardness.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-x-6">
             <div className="flex items-center gap-x-4">
               <Link
-                href="#"
+                href="https://helixque.netlify.app"
+                target="_blank"
                 aria-label="Get started with Helixque"
                 className="from-primary/90 to-primary durration-300 text-primary-foreground flex h-10 items-center rounded-3xl bg-linear-to-t px-6 text-sm font-medium shadow-[inset_0_1px_0_0_#FFFFFF20] transition-colors"
               >
@@ -97,22 +100,26 @@ export const HeroSection = () => {
           className="after:border-primary/20 after:bg-secondary pointer-events-none absolute top-[340px] h-[400px] w-full max-w-5xl overflow-hidden mask-[radial-gradient(50%_50%,white,transparent)] before:absolute before:inset-y-0 before:-right-[200%] before:-left-[200%] before:h-[200%] before:bg-[radial-gradient(circle_at_bottom_center,var(--primary),transparent_90%)] before:opacity-25 after:absolute after:top-1/5 after:-left-1/2 after:aspect-[1/0.7] after:w-[200%] after:rounded-[100%] after:border-t sm:top-[300px] sm:after:top-1/2"
           aria-hidden="true"
         >
-          {/* Decorative background/particles can be added here if needed */}
+          <Particles 
+            variant="default" 
+            interactive={true}
+            style={{
+              color: "rgb(156 163 175)" // gray-400 - visible in both light and dark modes
+            }}
+          />
         </div>
-        <figure className="relative max-w-6xl mx-auto p-3 sm:p-4 lg:p-6 backdrop-blur-lg dark:bg-white/5 bg-black/5 rounded-lg transition-colors duration-300 before:absolute before:inset-0 before:bg-[linear-gradient(45deg,transparent_25%,rgba(0,0,0,0.03)_25%,rgba(0,0,0,0.03)_50%,transparent_50%,transparent_75%,rgba(0,0,0,0.03)_75%)] dark:before:bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.03)_25%,rgba(255,255,255,0.03)_50%,transparent_50%,transparent_75%,rgba(255,255,255,0.03)_75%)] before:[background-size:8px_8px] before:rounded-lg before:pointer-events-none mt-16 w-full border-border border shadow-xs md:mt-28">
-          <div className="relative z-10 rounded-lg overflow-hidden border dark:border-neutral-800 border-neutral-200 shadow-2xl dark:shadow-neutral-900/50 shadow-gray-500/20">
+        <figure className="hidden sm:block relative max-w-6xl mx-auto p-1 sm:p-3 md:p-4 lg:p-6 backdrop-blur-lg dark:bg-white/5 bg-black/5 rounded-lg transition-colors duration-300 before:absolute before:inset-0 before:bg-[linear-gradient(45deg,transparent_25%,rgba(0,0,0,0.03)_25%,rgba(0,0,0,0.03)_50%,transparent_50%,transparent_75%,rgba(0,0,0,0.03)_75%)] dark:before:bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.03)_25%,rgba(255,255,255,0.03)_50%,transparent_50%,transparent_75%,rgba(255,255,255,0.03)_75%)] before:[background-size:8px_8px] before:rounded-lg before:pointer-events-none mt-12 sm:mt-14 md:mt-16 w-full border-0 shadow-xs lg:mt-28">
+          <BorderBeam size={120} duration={15} delay={0} colorFrom="#3b82f6" colorTo="#8b5cf6" borderWidth={1.5} className="sm:block md:[--size:150px] lg:[--size:200px] md:[--border-width:2px]" />
+          <div className="relative z-10 rounded-lg overflow-hidden border dark:border-neutral-800 border-neutral-200">
             {/* Safari mockup with image */}
             <Safari
-              url="helixque.vercel.app"
-              imageSrc="https://cdn.badtz-ui.com/images/mail-light.png"
-              className="w-full h-auto relative rounded-lg"
+              url="helixque.netlify.app"
+              imageSrc="./mockup.png"
+              className="w-full h-auto relative rounded-lg scale-[0.85] sm:scale-95 md:scale-100"
             />
-            {/* Overlay for better integration */}
-            <div className="absolute inset-0 bg-gradient-to-t dark:from-black/20 from-white/20 to-transparent rounded-lg"></div>
           </div>
         </figure>
       </div>
     </section>
   );
 };
-
