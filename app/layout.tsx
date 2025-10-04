@@ -6,6 +6,8 @@ import { ThemeProvider } from "@/components/utils/theme-provider";
 import StickyFooter from "@/components/common/footer";
 import { AppLayout } from "@/components/common/app-layout";
 import ScrollToTopButton from "@/components/common/scrollToTopButton";
+import { Analytics } from "@vercel/analytics/next";
+
 const instrumentSans = Instrument_Sans({ 
   variable: "--font-instrument-sans", 
   subsets: ["latin"],
@@ -107,6 +109,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <StickyFooter />
           <ScrollToTopButton />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );

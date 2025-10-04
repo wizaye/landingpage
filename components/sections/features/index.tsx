@@ -85,7 +85,7 @@ export const FeaturesSection = () => {
   }
 
   return (
-  <section className="container mx-auto flex w-full max-w-5xl flex-col items-center justify-start !px-4 py-16 text-center md:py-32">
+  <section className="container mx-auto flex w-full max-w-5xl flex-col items-center justify-start px-2 sm:px-4 py-16 text-center md:py-32 overflow-hidden">
     <div className="flex flex-col items-center text-center">
             <h2 className="leading-tighter font-gilroy max-w-2xl bg-gradient-to-b from-gray-900/90 via-gray-800 to-gray-700/80 dark:from-white/80 dark:via-white dark:to-white/60 bg-clip-text text-5xl font-semibold tracking-tight text-pretty text-transparent lg:leading-[1.1] xl:text-6xl/[4rem] xl:tracking-tighter">
         Grow Your Career
@@ -97,9 +97,9 @@ export const FeaturesSection = () => {
 
     {/* Feature Cards Row 1 */}
     <div className="mt-10 flex w-full flex-col gap-4 md:mt-14">
-      <CursorCardsContainer className="flex flex-col md:flex-row gap-6 md:h-[380px]">
+      <CursorCardsContainer className="flex flex-col md:flex-row gap-3 sm:gap-6 md:h-[380px]">
         {/* Card 1: Copy. Paste. Ship. */}
-        <CursorCard borderColor={theme === "dark" ? "#262626" : "#e5e5e5"} className="h-full md:w-[45%] w-full rounded-xl p-7 shadow-md bg-white dark:bg-neutral-950 border-gray-200 dark:border-neutral-800 overflow-hidden">
+        <CursorCard borderColor={theme === "dark" ? "#262626" : "#e5e5e5"} className="h-full md:w-[45%] w-full rounded-xl p-4 sm:p-7 shadow-md bg-white dark:bg-neutral-950 border-gray-200 dark:border-neutral-800 overflow-hidden">
         <div className="h-full flex flex-col">
             <div className="mb-4 text-left">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Professional Profile</h3>
@@ -131,7 +131,7 @@ export const FeaturesSection = () => {
         </CursorCard>
 
         {/* Card 2: Map visual with more width */}
-        <CursorCard borderColor={theme === "dark" ? "#262626" : "#e5e5e5"} className="h-full md:w-[55%] w-full rounded-xl p-7 shadow-md bg-white dark:bg-neutral-950 border-gray-200 dark:border-neutral-800 overflow-hidden">
+        <CursorCard borderColor={theme === "dark" ? "#262626" : "#e5e5e5"} className="h-full md:w-[55%] w-full rounded-xl p-4 sm:p-7 shadow-md bg-white dark:bg-neutral-950 border-gray-200 dark:border-neutral-800 overflow-hidden">
           <div className="h-full flex flex-col">
             <div className="mb-4 text-left">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Smart Matching Algorithm</h3>
@@ -147,9 +147,9 @@ export const FeaturesSection = () => {
       </CursorCardsContainer>
 
       {/* Feature Cards Row 2 */}
-      <CursorCardsContainer className="flex flex-col md:flex-row gap-6 md:h-[380px]">
+      <CursorCardsContainer className="flex flex-col md:flex-row gap-3 sm:gap-6 md:h-[380px]">
         {/* Card 3: Helixque Anonymous Connection */}
-        <CursorCard borderColor={theme === "dark" ? "#262626" : "#e5e5e5"} className="h-full md:w-[55%] w-full rounded-xl p-7 shadow-md bg-white dark:bg-neutral-950 border-gray-200 dark:border-neutral-800 overflow-hidden">
+        <CursorCard borderColor={theme === "dark" ? "#262626" : "#e5e5e5"} className="h-full md:w-[55%] w-full rounded-xl p-4 sm:p-7 shadow-md bg-white dark:bg-neutral-950 border-gray-200 dark:border-neutral-800 overflow-hidden">
           <div className="h-full flex flex-col">
             <div className="mb-4 text-left">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Professional Networking Sessions</h3>

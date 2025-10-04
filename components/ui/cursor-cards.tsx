@@ -30,11 +30,15 @@ interface InternalCursorCardProps extends CursorCardProps {
 
 function useMousePosition(proximityRange: number) {
   const wrapperRef = useRef<HTMLDivElement>(null)
+  const proximityRangeRef = useRef(proximityRange)
   const [mouseState, setMouseState] = React.useState({
     mousePositionX: 0,
     mousePositionY: 0,
     isWithinRange: false,
   })
+
+  // Update the ref when proximityRange changes
+  proximityRangeRef.current = proximityRange
 
   const handlePointerMovement = useCallback(
     (event: PointerEvent) => {
@@ -44,10 +48,10 @@ function useMousePosition(proximityRange: number) {
       const { clientX, clientY } = event
 
       const isInProximity =
-        clientX >= bounds.left - proximityRange &&
-        clientX <= bounds.right + proximityRange &&
-        clientY >= bounds.top - proximityRange &&
-        clientY <= bounds.bottom + proximityRange
+        clientX >= bounds.left - proximityRangeRef.current &&
+        clientX <= bounds.right + proximityRangeRef.current &&
+        clientY >= bounds.top - proximityRangeRef.current &&
+        clientY <= bounds.bottom + proximityRangeRef.current
 
       setMouseState({
         mousePositionX: clientX,
@@ -55,7 +59,7 @@ function useMousePosition(proximityRange: number) {
         isWithinRange: isInProximity,
       })
     },
-    [proximityRange]
+    []
   )
 
   useEffect(() => {
