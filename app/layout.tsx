@@ -6,6 +6,8 @@ import { ThemeProvider } from "@/components/utils/theme-provider";
 import StickyFooter from "@/components/common/footer";
 import { AppLayout } from "@/components/common/app-layout";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
 
 const instrumentSans = Instrument_Sans({ 
   variable: "--font-instrument-sans", 
@@ -115,6 +117,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <StickyFooter />
         </ThemeProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
