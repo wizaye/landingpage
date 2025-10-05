@@ -81,7 +81,7 @@ export default function HacktoberfestPage() {
 
         <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
           <a
-            href="https://github.com/HXQLabs/repositories"
+            href="https://github.com/orgs/HXQLabs/repositories"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm sm:text-[13.5px] hover:bg-muted transition-colors bg-gradient-to-b from-background to-muted/30"
