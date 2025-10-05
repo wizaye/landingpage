@@ -1,6 +1,6 @@
 <p align="center">
 <a href="https://github.com/HXQLabs/Helixque">
-  <img src="assets/header.png" alt="Helixque Header" width="100%">
+  <img src="assets/banner.jpg" alt="Helixque Header" width="100%">
 </a>
 </p>
 <p align="center"><b>Professional real-time video chat with preference-based matching</b></p>
