@@ -94,34 +94,37 @@ export default function AnnouncementsPage() {
                       <div className="hidden md:block absolute -translate-x-1/2 size-3 bg-primary rounded-full z-10" />
                     </div>
 
-                    <div className="space-y-6">
-                      <div className="relative z-10 flex flex-col gap-2">
-                        <h2 className="text-2xl font-semibold tracking-tight text-balance">
-                          {announcement.data.title}
-                        </h2>
+                          <div className="space-y-8 md:space-y-10">
 
-                        {/* Tags */}
-                        {announcement.data.tags &&
-                          announcement.data.tags.length > 0 && (
-                            <div className="flex flex-wrap gap-2">
-                              {announcement.data.tags.map((tag: string) => (
-                                <span
-                                  key={tag}
-                                  className="h-6 w-fit px-2 text-xs font-medium bg-muted text-muted-foreground rounded-full border flex items-center justify-center"
-                                >
+                              <div className="relative z-10 flex flex-col gap-2">
+                                  <h2 className="text-2xl font-semibold tracking-tight text-balance">
+                                      {announcement.data.title}
+                                  </h2>
+
+                                  {/* Tags */}
+                                  {announcement.data.tags &&
+                                      announcement.data.tags.length > 0 && (
+                                          <div className="flex flex-wrap gap-2">
+                                              {announcement.data.tags.map((tag: string) => (
+                                                  <span
+                                                      key={tag}
+                                                      className="h-6 w-fit px-2 text-xs font-medium bg-muted text-muted-foreground rounded-full border flex items-center justify-center"
+                                                  >
                                   {tag}
                                 </span>
-                              ))}
-                            </div>
-                          )}
+                                              ))}
+                                          </div>
+                                      )}
+                              </div>
+                              <div className="prose dark:prose-invert mx-auto max-w-3xl px-4 md:px-0
+prose-headings:scroll-mt-8 prose-headings:font-semibold
+prose-a:no-underline prose-headings:tracking-tight prose-p:tracking-tight">
+                                  <MDX/>
+                              </div>
+                          </div>
                       </div>
-                      <div className="prose dark:prose-invert max-w-none prose-headings:scroll-mt-8 prose-headings:font-semibold prose-a:no-underline prose-headings:tracking-tight prose-headings:text-balance prose-p:tracking-tight prose-p:text-balance">
-                        <MDX />
-                      </div>
-                    </div>
                   </div>
                 </div>
-              </div>
             )
           })}
         </div>
