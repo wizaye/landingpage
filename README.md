@@ -1,15 +1,15 @@
 <p align="center">
-<a href="https://github.com/HXQLabs/Helixque">
-  <img src="assets/banner.jpg" alt="Helixque Header" width="100%">
+<a href="https://github.com/HXQLabs/helixque-landing">
+  <img src="assets/banner.jpg" alt="Helixque Landing Page" width="100%">
 </a>
 </p>
-<p align="center"><b>Professional real-time video chat with preference-based matching</b></p>
+<p align="center"><b>Modern, responsive landing page for Helixque</b></p>
 
 <p align="center">
 <a href="https://discord.gg/dQUh6SY9Uk">
 <img alt="Discord" src="https://img.shields.io/badge/Discord-Join-5865F2?logo=discord&logoColor=white&style=for-the-badge" />
 </a>
-<img alt="Commit activity per month" src="https://img.shields.io/github/commit-activity/m/HXQLabs/Helixque?style=for-the-badge" />
+<img alt="Commit activity per month" src="https://img.shields.io/github/commit-activity/m/HXQLabs/helixque-landing?style=for-the-badge" />
 <img alt="License" src="https://img.shields.io/badge/license-Apache%202.0-blue?style=for-the-badge" />
 </p>
 
@@ -20,23 +20,26 @@
     <a href="#deployment"><b>Deployment Guide</b></a>
 </p>
 
-Meet [Helixque](https://github.com/HXQLabs/Helixque), a professional real-time video chat application that pairs people based on their preferences. Built with WebRTC for secure, low-latency peer-to-peer media and Socket.IO for reliable signaling—delivering a modern experience for networking, interviews, and collaboration. 🎥
+Welcome to the **Helixque Landing Page** - a modern, responsive website built with Next.js 15, showcasing the features and benefits of [Helixque](https://github.com/HXQLabs/Helixque), a professional real-time video chat application. This landing page features beautiful animations, interactive components, and a clean design to effectively communicate Helixque's value proposition. 🚀
 
-> Helixque is continuously evolving. Your suggestions, ideas, and reported bugs help us immensely. Do not hesitate to join the conversation on [Discord](https://discord.gg/dQUh6SY9Uk) or raise a GitHub issue. We read everything and respond to most.
+> This landing page is continuously evolving with new features and improvements. Your suggestions, ideas, and reported bugs help us immensely. Do not hesitate to join the conversation on [Discord](https://discord.gg/dQUh6SY9Uk) or raise a GitHub issue. We read everything and respond to most.
 
-# Helixque
+# Helixque Landing Page
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Helixque is a professional networking platform designed for builders, learners, and mentors in the tech community. It enables instant matching based on skills, industry, and language preferences, facilitating meaningful connections for learning, mentoring, and collaboration through text or video without the awkwardness of traditional networking.
+This is the official landing page for **Helixque** - a professional networking platform designed for builders, learners, and mentors in the tech community. The landing page showcases Helixque's features and benefits, including instant matching based on skills, industry, and language preferences, facilitating meaningful connections for learning, mentoring, and collaboration through text or video without the awkwardness of traditional networking.
 
-## ✨ Key Features
+## ✨ Landing Page Features
 
-- **Professional Profile**: Build a credible profile showcasing your skills, languages, experience level, and goals to help others understand your background.
-- **Smart Matching Algorithm**: Advanced filtering by skills, industry, and language with balanced experience levels and randomized pairing to reduce bias.
-- **Professional Networking Sessions**: Engage in mock interviews (behavioral & technical), pair programming, portfolio critiques, startup pitch practice, and more.
-- **Real-Time Chats**: Instant professional connections with seamless messaging and typing indicators.
-- **Open Source Community**: Built by professionals for professionals, with transparent development and community-driven improvements.
+- **Modern Design**: Clean, responsive design built with Next.js 15 and Tailwind CSS v4
+- **Interactive Animations**: Beautiful animations and transitions using Framer Motion
+- **Component Library**: Comprehensive UI components with Radix UI primitives and custom components
+- **Content Management**: MDX-based content system for announcements, changelogs, and documentation
+- **Performance Optimized**: Fast loading with Next.js App Router, static generation, and server-side rendering
+- **Accessibility**: Built with accessibility in mind using Radix UI components
+- **Theme Support**: Dark/light mode toggle with next-themes
+- **Analytics Ready**: Integrated with Vercel Analytics and Speed Insights
 
 ## 🚀 Getting Started
 
@@ -97,12 +100,12 @@ Helixque is a professional networking platform designed for builders, learners, 
 
 ## 📖 Usage
 
-### For Users
+### For Visitors
 
-1. **Create Your Profile**: Sign up and build your professional profile with skills, languages, and career goals.
-2. **Get Matched**: Use the smart matching algorithm to find compatible professionals for networking sessions.
-3. **Connect**: Engage in real-time chats or video calls for mock interviews, mentoring, or collaboration.
-4. **Grow Your Network**: Participate in various professional development activities and build meaningful connections.
+1. **Explore Features**: Browse through the landing page to learn about Helixque's capabilities
+2. **Join Community**: Connect with the Helixque community through Discord
+3. **Stay Updated**: Check announcements and changelogs for the latest updates
+4. **Try Helixque**: Follow links to access the actual Helixque application
 
 ### For Developers
 
@@ -110,6 +113,7 @@ Helixque is a professional networking platform designed for builders, learners, 
 - **Content Management**: Add announcements and changelogs in the `content/` directory using MDX format.
 - **Styling**: Customize UI components in the `components/` directory. The project uses Tailwind CSS for styling.
 - **API Integration**: Extend functionality by adding API routes in `app/api/` or integrating with external services.
+- **Component Development**: Create new UI components in the `components/ui/` directory following the established patterns.
 
 ## 🏗️ Tech Stack & Architecture
 
@@ -133,16 +137,20 @@ Helixque is a professional networking platform designed for builders, learners, 
 
 ### Architecture Overview
 
-- **Pages**: Built with Next.js App Router (`app/` directory)
-- **Components**: Modular UI components in `components/` with sections, UI primitives, and utilities
+- **Pages**: Built with Next.js App Router (`app/` directory) with static and dynamic routes
+- **Components**: Modular UI components in `components/` organized by:
+  - `sections/`: Landing page sections (hero, features, pricing, etc.)
+  - `ui/`: Reusable UI components and primitives
+  - `common/`: Shared components (header, footer, layout)
+  - `fancy/`: Specialized animated components
 - **Content**: MDX-based content system for announcements, changelogs, and documentation
-- **API Routes**: Server-side API endpoints for Discord integration and data fetching
-- **Styling**: Utility-first CSS with Tailwind, custom themes, and responsive design
-- **Deployment**: Optimized for static generation and server-side rendering
+- **API Routes**: Server-side API endpoints for Discord integration and external data fetching
+- **Styling**: Utility-first CSS with Tailwind CSS v4, custom themes, and responsive design
+- **Deployment**: Optimized for static generation and server-side rendering with Vercel
 
 ## 🤝 Contributing
 
-We welcome contributions from the community! Helixque is built by professionals for professionals, and your input helps make it better.
+We welcome contributions from the community! This landing page is built by developers for developers, and your input helps make it better.
 
 ### How to Contribute
 
@@ -164,12 +172,14 @@ We welcome contributions from the community! Helixque is built by professionals 
 
 ### Areas for Contribution
 
-- UI/UX improvements
-- New features for networking sessions
-- Performance optimizations
+- UI/UX improvements and design enhancements
+- New landing page sections and components
+- Performance optimizations and loading improvements
 - Accessibility enhancements
+- Animation and interaction improvements
 - Documentation improvements
 - Bug fixes and issue resolution
+- Content updates and copy improvements
 
 ## 📄 License
 
@@ -179,11 +189,25 @@ This project is licensed under the Apache License 2.0. See the [LICENSE](LICENSE
 
 ### Acknowledgments
 
-Thanks to the open-source projects that made Helixque possible:
+Thanks to the open-source projects that made this landing page possible:
 
-- [WebRTC](https://webrtc.org/) - Real-time communication
-- [Socket.IO](https://socket.io/) - Real-time bidirectional communication
-- [Next.js](https://nextjs.org/) - React framework
+- [Next.js](https://nextjs.org/) - React framework for production
 - [React](https://react.dev/) - UI library
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [Framer Motion](https://www.framer.com/motion/) - Animation library
+- [Radix UI](https://www.radix-ui.com/) - Accessible UI primitives
 - [TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript
+- [MDX](https://mdxjs.com/) - Markdown with JSX support
+- [Three.js](https://threejs.org/) - 3D graphics library
+
+## Repository Activity
+
+<img src="https://repobeats.axiom.co/api/embed/131bf3b02c064ea224b96e617a9d480d9c18837e.svg" alt="Repository Activity" />
+
+## Contributors
+
+Thank you to all the amazing contributors who have helped make this landing page better!
+
+<a href="https://github.com/HXQLabs/helixque-landing/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=HXQLabs/helixque-landing" />
+</a>
