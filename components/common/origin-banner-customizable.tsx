@@ -25,7 +25,7 @@ export default function OriginBannerCustomizable({
       >
         <XIcon
           size={16}
-          className="opacity-60 transition-opacity group-hover:opacity-100"
+          className="opacity-60 translate-x-[1.25rem] transition-opacity group-hover:opacity-100"
           aria-hidden="true"
         />
       </button>
