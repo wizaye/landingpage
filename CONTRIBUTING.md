@@ -5,7 +5,7 @@ Thank you for your interest in contributing to Helixque! This document provides 
 
 ## ⭐ Before You Start
 
-1. **Starring the repository is mandatory** before contributing.  
+1. **Starring our both repository is mandatory** before contributing.  
    This helps the project grow and shows your support.  
 
 2. **Join our Discord server** for discussions, questions, and faster PR approvals:  
