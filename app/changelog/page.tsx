@@ -49,7 +49,7 @@ export default function ChangelogPage() {
       </div>
 
       {/* Timeline */}
-      <div className="max-w-5xl mx-auto px-6 lg:px-10 pt-16">
+      <div className="max-w-5xl mx-auto px-6 lg:px-10 pt-16 pb-16">
         <div className="relative">
           {sortedChangelogs.map((changelog) => {
             const MDX = changelog.data.body

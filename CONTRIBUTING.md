@@ -5,7 +5,7 @@ Thank you for your interest in contributing to Helixque! This document provides 
 
 ## ⭐ Before You Start
 
-1. **Starring the repository is mandatory** before contributing.  
+1. **Starring our both repository is mandatory** before contributing.  
    This helps the project grow and shows your support.  
 
 2. **Join our Discord server** for discussions, questions, and faster PR approvals:  
@@ -17,7 +17,6 @@ Thank you for your interest in contributing to Helixque! This document provides 
    - Before raising a PR, **check the `#pull-request` channel** to ensure there isn’t already an open PR for the same issue.  
    - If no one is working on it, go ahead and raise your PR and mention it in the channel.
   
-4. **sign up in helixque https://helixque.netlify.app/**
 
 ---
 
