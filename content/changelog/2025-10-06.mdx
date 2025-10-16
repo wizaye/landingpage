@@ -1,0 +1,36 @@
+---
+title: "Release v1.0"
+description: "Improved UI and Screen Sharing component"
+date: "2025-10-06"
+tags: ["UI Enhancements", "Feature Additions"]
+version: "1.0"
+---
+
+- Introduced Waiting Room Timeout Alert to notify users when sessions expire.
+- Added Report Button (Client-Side) allowing users to flag inappropriate behavior.
+- Implemented Custom Tooltip UI for better interaction and clarity.
+- Introduced Improved User Presence System to handle real-time join and leave events accurately.
+- Improved overall responsiveness and UI performance for a smoother user experience.
+
+<Accordion type="multiple" collapsible="true" className="w-full not-prose">
+  <AccordionItem value="item-1">
+    <AccordionTrigger>Features</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <ul className="list-disc space-y-2 pl-4">
+        <li>Added real-time notifications for incoming chat messages using Sonner toasts.</li>
+        <li>Enhanced UX consistency by updating icons and refining UI components.</li>
+      </ul>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-2">
+    <AccordionTrigger>Bug Fixes</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <ul className="list-disc space-y-2 pl-4">
+        <li>Fixed Leave Button redirect issue causing failed navigation. </li>
+        <li>Resolved generic username issue showing “Peer” instead of actual names.</li>
+        <li>Eliminated duplicate “User Joined” messages during multiple joins.</li>
+        <li>Fixed UI glitches and improved socket stability for smoother chat experience.</li>
+      </ul>
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
