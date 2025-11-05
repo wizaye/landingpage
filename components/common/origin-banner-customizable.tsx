@@ -19,13 +19,13 @@ export default function OriginBannerCustomizable({
     <div className={cn("relative dark text-foreground px-4 py-2 sm:py-3", className)}>
       <button
         type="button"
-        className="group absolute right-2 top-1/2 -translate-y-1/2 size-8 p-0 hover:bg-transparent cursor-pointer"
+        className="group absolute right-0 top-1/2 -translate-y-1/2 size-8 p-0 hover:bg-transparent cursor-pointer"
         aria-label="Close banner"
         onClick={() => setIsVisible(false)}
       >
         <XIcon
           size={16}
-          className="opacity-60 transition-opacity group-hover:opacity-100"
+          className="opacity-60 translate-x-3 transition-opacity group-hover:opacity-100"
           aria-hidden="true"
         />
       </button>

@@ -1,0 +1,36 @@
+---
+title: "Release v1.1"
+description: "Improved UI and Screen Sharing component"
+date: "2025-10-13"
+tags: ["Performance", "System Improvements", "Reliability Updates"]
+version: "1.1"
+---
+
+- Redesigned Meeting Join Page with improved alignment and layout for a cleaner interface.
+- Introduced Global Error Handling for enhanced server stability and smoother error recovery.
+- Added Device Permission Handling to better manage camera and microphone access.
+- Strengthened security measures to protect user data and improve overall application safety.
+- Improved overall interface consistency by resolving duplicate component issues.
+
+<Accordion type="multiple" collapsible="true" className="w-full not-prose">
+  <AccordionItem value="item-1">
+    <AccordionTrigger>Features</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <ul className="list-disc space-y-2 pl-4">
+        <li>Enhanced error detection and handling across both client and server.</li>
+        <li>Optimized toast notification system to prevent duplicate and redundant messages.</li>
+      </ul>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="item-2">
+    <AccordionTrigger>Bug Fixes</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4 text-balance">
+      <ul className="list-disc space-y-2 pl-4">
+        <li>Fixed “Permission Denied” toast message appearing twice. </li>
+        <li>Resolved duplicate toast notifications during connect or disconnect events.</li>
+        <li>Fixed interface duplication and visual inconsistencies.</li>
+        <li>Improved server reliability and connection stability under high load.</li>
+      </ul>
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
