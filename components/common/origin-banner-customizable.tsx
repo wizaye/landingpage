@@ -50,15 +50,20 @@ export default function OriginBannerCustomizable({
             </p>
           */}
 
-          <p className="inline-flex items-center gap-1 truncate whitespace-nowrap text-xs sm:text-sm leading-tight">
+          <p className="inline-flex items-center gap-1 text-xs sm:text-sm leading-tight">
             <picture className="max-md:mt-0.5 flex-shrink-0">
               <source srcSet="https://fonts.gstatic.com/s/e/notoemoji/latest/1f6a8/512.webp" type="image/webp" />
               <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f6a8/512.gif" className="w-6 h-6" alt="🚨" width="32" height="32" />
             </picture>
+            {/* Mobile concise message */}
+            <span className="font-semibold md:hidden">Helixque</span>
+            <span className="md:hidden"> is backed by </span>
+            <span className="font-semibold md:hidden">Vercel OSS</span>
 
-            <span className="font-semibold">Helixque</span>
-            <span> is part of the </span>
-            <span className="font-semibold">Vercel OSS Program under Fall Cohort ’25 - </span>
+            {/* Desktop full message */}
+            <span className="font-semibold hidden md:inline">Helixque</span>
+            <span className="hidden md:inline"> is proudly backed by </span>
+            <span className="font-semibold hidden md:inline">Vercel OSS Program under Fall Cohort ’25 - </span>
             {/* Future announcement link — uncomment after official confirmation */}
             <Link
               href="/announcements"
