@@ -116,7 +116,7 @@ export const HeroSection = () => {
           <div className="relative z-10 rounded-lg overflow-hidden border dark:border-neutral-800 border-neutral-200">
             {/* Safari mockup with image */}
             <Safari
-              url="helixque.netlify.app"
+              url="app.helixque.com"
               imageSrc="./mockup.png"
               className="w-full h-auto relative rounded-lg scale-[0.85] sm:scale-95 md:scale-100"
             />
