@@ -37,7 +37,7 @@ export function AppLayout({ children }: AppLayoutProps) {
         </p>
       </StickyBanner> */}
       {/* <OriginBanner /> */}
-      {/* <OriginBannerCustomizable className="bg-gradient-to-b from-blue-500 to-blue-600 text-foreground" /> */}
+      <OriginBannerCustomizable className="bg-gradient-to-b from-blue-500 to-blue-600 text-foreground" />
       {/* Fixed Header positioned below the sticky banner */}
       <div className="sticky top-0 z-50">
         <HelixQueHeader />
