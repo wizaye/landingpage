@@ -1,6 +1,7 @@
+// import { Header } from '../header';
 import HelixQueHeader from './header';
 import OriginBannerCustomizable from './origin-banner-customizable';
-
+import NavBar from '../header';
 interface AppLayoutProps {
   children: React.ReactNode;
 }
@@ -21,6 +22,7 @@ export function AppLayout({ children }: AppLayoutProps) {
               alt="🎃"
               className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 flex-shrink-0"
               width="32"
+
               height="32"
             />
           </picture>
@@ -37,11 +39,13 @@ export function AppLayout({ children }: AppLayoutProps) {
         </p>
       </StickyBanner> */}
       {/* <OriginBanner /> */}
-      <OriginBannerCustomizable className="bg-gradient-to-b from-blue-500 to-blue-600 text-foreground" />
+      {/* <OriginBannerCustomizable className="bg-gradient-to-b from-blue-500 to-blue-600 text-foreground" /> */}
       {/* Fixed Header positioned below the sticky banner */}
       <div className="sticky top-0 z-50">
-        <HelixQueHeader />
+        {/* <HelixQueHeader /> */}
+        <NavBar />
       </div>
+      
 
       {/* Main content - no top padding needed as content flows naturally */}
       <main className="relative z-10 flex-1">

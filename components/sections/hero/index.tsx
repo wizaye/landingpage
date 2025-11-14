@@ -1,128 +1,163 @@
 "use client";
-import React from "react";
-import { Safari } from "@/components/magicui/safari";
-import { Announcement, AnnouncementTag, AnnouncementTitle } from "@/components/ui/kibo-ui/announcement";
-import { BorderBeam } from "@/components/ui/border-beam";
-import { ArrowUpRightIcon } from "lucide-react";
-import { LayoutGroup, motion } from "motion/react";
-import TextRotate from "@/components/fancy/text/text-rotate";
+/*
+  Previous Hero implementation commented out per request.
+  (See original exports and layout preserved here for reference.)
+  Original code replaced by new Hero layout below.
+*/
+
 import Link from "next/link";
-import { Particles } from "@/components/ui/particles";
+import { Button } from "@/components/ui/button";
+import VercelOSS from "@/components/common/open-source/vercel-oss";
+// Local placeholder components for Vercel logo and Plus icon (original external packages not found)
+const Vercel = () => (
+  <svg
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    aria-label="Vercel logo"
+    className="mr-2"
+  >
+    <path d="M12 2l11 20H1L12 2z" />
+  </svg>
+);
+const Plus = ({ size = 30, strokeWidth = 1, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+    aria-label="Plus icon"
+  >
+    <line x1="12" y1="5" x2="12" y2="19" />
+    <line x1="5" y1="12" x2="19" y2="12" />
+  </svg>
+);
 
-export const HeroSection = () => {
-  const words = ["builders", "learners", "mentors"];
+// New Hero layout
+export function HeroSection() {
   return (
-    <section
-      aria-label="Hero banner"
-      className="bg-background relative z-1 container mx-auto w-full overflow-hidden px-6 lg:px-8"
-    >
-      <div className="mx-auto max-w-5xl py-16 sm:py-28">
-        <div className="flex justify-center pb-8">
-          <Announcement>
-            <AnnouncementTag>Now Live</AnnouncementTag>
-            <Link href="/changelog" passHref>
-              <AnnouncementTitle className="flex items-center gap-1 cursor-pointer hover:text-primary transition-colors">
-                <p className="group-hover:underline underline-offset-4 flex flex-wrap gap-1 items-center">Check out our latest updates</p>
-                <ArrowUpRightIcon className="shrink-0 text-muted-foreground" size={16} />
-              </AnnouncementTitle>
-            </Link>
-          </Announcement>
-
+    <div className="pt-10 px-4 lg:px-0 flex mx-auto max-w-6xl flex-col items-center justify-center text-center">
+      <div className="grid w-full border-0 border-b md:border relative grid-cols-10">
+        <div
+          className="absolute inset-0 -z-20"
+          style={{
+            background: "none",
+            WebkitMaskImage:
+              "linear-gradient(to top, black 0%, transparent 60%)",
+            maskImage:
+              "linear-gradient(to top, black 0%, transparent 60%)",
+            WebkitMaskRepeat: "no-repeat",
+            maskRepeat: "no-repeat",
+          }}
+        />
+        <Plus size={30} strokeWidth={0.8} className="absolute -top-4 -left-4" />
+        <Plus
+          size={30}
+          strokeWidth={0.8}
+          className="absolute -bottom-4 -right-4"
+        />
+        <div className="md:grid hidden w-full col-span-1">
+          {Array.from({ length: 8 }).map((_, idx) => (
+            <div
+              key={idx}
+              className="border-b last:border-0 flex-1 aspect-square"
+            />
+          ))}
         </div>
-        <div className="relative z-1 mx-auto max-w-3xl text-center">
-          <h1 className="leading-tighter font-gilroy max-w-2xl mx-auto bg-gradient-to-b from-gray-900/90 via-gray-800 to-gray-700/80 dark:from-white/80 dark:via-white dark:to-white/60 bg-clip-text text-4xl sm:text-5xl md:text-5xl font-semibold tracking-tight text-pretty text-transparent lg:leading-[1.1] xl:text-6xl/[4rem] xl:tracking-tighter flex flex-col items-center space-y-2">
-            <span>Professional networking for</span>
-            
-            <LayoutGroup>
-              <motion.span
-                className="relative translate-x-0 flex gap-2 justify-center flex-wrap items-center"
-                layout
-              >
-                <TextRotate
-                  texts={words}
-                  mainClassName="text-white dark:text-black px-3 bg-black dark:bg-white overflow-hidden py-1.5 justify-center rounded-lg"
-                  staggerFrom={"last"}
-                  initial={{ y: "100%" }}
-                  animate={{ y: 0 }}
-                  exit={{ y: "-120%" }}
-                  staggerDuration={0.025}
-                  splitLevelClassName="pb-0.5"
-                  transition={{ type: "spring", damping: 30, stiffness: 400 }}
-                  rotationInterval={3000}
-                />
-              </motion.span>
-            </LayoutGroup>
-          </h1>
-
-          <p className="text-gray-600 dark:text-muted-foreground mx-auto mt-6 leading-7 font-normal text-balance sm:w-[660px] sm:text-[18px] md:mt-8">
-            Match instantly by <strong>skills</strong>, <strong>industry</strong>, and <strong>language</strong>. Learn, mentor, and collaborate through text or video without the awkwardness.
-          </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-x-6">
-            <div className="flex items-center gap-x-4">
-              <Link
-                href="https://helixque.netlify.app"
-                target="_blank"
-                aria-label="Get started with Helixque"
-                className="from-primary/90 to-primary durration-300 text-primary-foreground flex h-10 items-center rounded-3xl bg-linear-to-t px-6 text-sm font-medium shadow-[inset_0_1px_0_0_#FFFFFF20] transition-colors"
-              >
-                Get Started for Free
+        <div className="md:col-span-8 col-span-10">
+          <div className="md:flex hidden">
+            {Array.from({ length: 8 }).map((_, idx) => (
+              <div
+                key={idx}
+                className="border-l last:border-r flex-1 aspect-square"
+              />
+            ))}
+          </div>
+          <div className="relative w-full border -mt-0.5 flex items-center flex-col justify-center  md:h-89 lg:h-116 p-6 md:p-20">
+            <h1 className="flex flex-col text-center text-3xl leading-none font-semibold tracking-tight lg:text-5xl">
+              Build and deploy on the AI Cloud.
+            </h1>
+            <p className="md:text-md text-muted-foreground py-6 lg:text-lg">
+              Vercel provides the developer tools and cloud infrastructure <br />
+              to build, scale, and secure a faster, more personalized web.
+            </p>
+            <div className="flex flex-wrap justify-center gap-2">
+              <Link href={'/'}>
+                <Button
+                  className="cursor-pointer rounded-full w-46 h-12"
+                  variant="default"
+                >
+                  <Vercel />
+                  Start Deploying
+                </Button>
               </Link>
-              <Link
-                href="https://github.com/orgs/HXQLabs/repositories"
-                className="text-foreground group/hero flex items-center gap-1 text-sm leading-none font-medium"
-                aria-label="Learn more about professional networking"
-              >
-                Star on GitHub{' '}
-                <span aria-hidden="true">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="mt-0.5 transition-transform duration-300 group-hover/hero:translate-x-1.5"
-                    role="img"
-                    aria-label="Arrow pointing right"
-                  >
-                    <path d="m9 18 6-6-6-6"></path>
-                  </svg>
-                </span>
+              <Link href={'https://cal.com/aliimam/30min'} target="_blank">
+                <Button
+                  className="cursor-pointer rounded-full w-46 h-12"
+                  variant="outline"
+                >
+                  Get a Demo
+                </Button>
               </Link>
             </div>
-           
           </div>
-          <p className="text-muted-foreground text-xs mt-4">
-            Free to start • No credit card required
-          </p>
+          <div className="relative w-full h-full">
+            <div className="absolute z-10 top-15 md:top-22 lg:top-29 left-1/2 -translate-x-1/2 -translate-y-1/2">
+              {/* <img
+                className="size-34 md:size-50 lg:size-66 dark:hidden"
+                alt={`Ali's avatar`}
+                src={'/vercel-logo-white.svg'}
+                fetchPriority="high"
+              />
+              <img
+                className="size-34 md:size-50 lg:size-66 hidden dark:block"
+                alt={`Ali's avatar`}
+                src={'/vercel-logo-black.svg'}
+                fetchPriority="high"
+              /> */}
+              <VercelOSS/>
+            </div>
+            <div className="flex">
+              {Array.from({ length: 8 }).map((_, idx) => (
+                <div
+                  key={idx}
+                  className="border-l last:border-r border-b flex-1 aspect-square"
+                />
+              ))}
+            </div>
+            <div className="flex">
+              {Array.from({ length: 8 }).map((_, idx) => (
+                <div
+                  key={idx}
+                  className="border-l border-b last:border-r flex-1 aspect-square"
+                />
+              ))}
+            </div>
+            <div className="flex">
+              {Array.from({ length: 8 }).map((_, idx) => (
+                <div
+                  key={idx}
+                  className="border-l last:border-r flex-1 aspect-square"
+                />
+              ))}
+            </div>
+          </div>
         </div>
-        <div
-          className="after:border-primary/20 after:bg-secondary pointer-events-none absolute top-[340px] h-[400px] w-full max-w-5xl overflow-hidden mask-[radial-gradient(50%_50%,white,transparent)] before:absolute before:inset-y-0 before:-right-[200%] before:-left-[200%] before:h-[200%] before:bg-[radial-gradient(circle_at_bottom_center,var(--primary),transparent_90%)] before:opacity-25 after:absolute after:top-1/5 after:-left-1/2 after:aspect-[1/0.7] after:w-[200%] after:rounded-[100%] after:border-t sm:top-[300px] sm:after:top-1/2"
-          aria-hidden="true"
-        >
-          <Particles 
-            variant="default" 
-            interactive={true}
-            style={{
-              color: "rgb(156 163 175)" // gray-400 - visible in both light and dark modes
-            }}
-          />
-        </div>
-        <figure className="hidden sm:block relative max-w-6xl mx-auto p-1 sm:p-3 md:p-4 lg:p-6 backdrop-blur-lg dark:bg-white/5 bg-black/5 rounded-lg transition-colors duration-300 before:absolute before:inset-0 before:bg-[linear-gradient(45deg,transparent_25%,rgba(0,0,0,0.03)_25%,rgba(0,0,0,0.03)_50%,transparent_50%,transparent_75%,rgba(0,0,0,0.03)_75%)] dark:before:bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.03)_25%,rgba(255,255,255,0.03)_50%,transparent_50%,transparent_75%,rgba(255,255,255,0.03)_75%)] before:[background-size:8px_8px] before:rounded-lg before:pointer-events-none mt-12 sm:mt-14 md:mt-16 w-full border-0 shadow-xs lg:mt-28">
-          <BorderBeam size={120} duration={15} delay={0} colorFrom="#3b82f6" colorTo="#8b5cf6" borderWidth={1.5} className="sm:block md:[--size:150px] lg:[--size:200px] md:[--border-width:2px]" />
-          <div className="relative z-10 rounded-lg overflow-hidden border dark:border-neutral-800 border-neutral-200">
-            {/* Safari mockup with image */}
-            <Safari
-              url="app.helixque.com"
-              imageSrc="./mockup.png"
-              className="w-full h-auto relative rounded-lg scale-[0.85] sm:scale-95 md:scale-100"
+        <div className="md:grid hidden col-span-1">
+          {Array.from({ length: 8 }).map((_, idx) => (
+            <div
+              key={idx}
+              className="border-b last:border-b-0 flex-1 aspect-square"
             />
-          </div>
-        </figure>
+          ))}
+        </div>
       </div>
-    </section>
+    </div>
   );
-};
+}
