@@ -8,6 +8,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import VercelOSS from "@/components/common/open-source/vercel-oss";
+import { DrawLineText } from "@/components/gsap/draw-line-text";
 // Local placeholder components for Vercel logo and Plus icon (original external packages not found)
 const Vercel = () => (
   <svg

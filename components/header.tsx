@@ -1,4 +1,5 @@
 "use client";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import Link from "next/link";
@@ -9,27 +10,142 @@ import { useState } from "react";
 // import GitHubStarBadge from "./GitHubStarBadge";
 // import { Badge } from "../ui/badge";
 import { Badge } from "./ui/badge";
-import { CornerDownLeft } from "lucide-react";
+import {
+  CircleCheckIcon,
+  CircleHelpIcon,
+  CircleIcon,
+  CornerDownLeft,
+} from "lucide-react";
 import { Icons } from "./utils/icons";
 import GitHubStarBadge from "./githubstar-badge";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+
+const componentShowcase = [
+  {
+    title: "Alert Dialog",
+    href: "/docs/primitives/alert-dialog",
+    description:
+      "Interrupt the flow with critical information and capture a response.",
+  },
+  {
+    title: "Hover Card",
+    href: "/docs/primitives/hover-card",
+    description: "Let users peek at additional content before committing.",
+  },
+  {
+    title: "Progress",
+    href: "/docs/primitives/progress",
+    description:
+      "Communicate task completion status with determinate indicators.",
+  },
+  {
+    title: "Scroll-area",
+    href: "/docs/primitives/scroll-area",
+    description: "Keep dense lists scrollable without losing context.",
+  },
+  {
+    title: "Tabs",
+    href: "/docs/primitives/tabs",
+    description: "Layer content views and keep navigation effortless.",
+  },
+  {
+    title: "Tooltip",
+    href: "/docs/primitives/tooltip",
+    description: "Offer concise hints on hover or focus interactions.",
+  },
+];
+
+const docsHighlights = [
+  {
+    title: "Introduction",
+    href: "/docs",
+    description:
+      "Re-usable HelixQue primitives powered by Radix UI and Tailwind CSS.",
+  },
+  {
+    title: "Installation",
+    href: "/docs/installation",
+    description: "Wire up the SDK, configure auth, and scaffold your project.",
+  },
+  {
+    title: "Typography",
+    href: "/docs/primitives/typography",
+    description: "Consistent scales for headings, paragraphs, and lists.",
+  },
+];
+
+const resourceLinks = [
+  {
+    heading: "Components",
+    description: "Browse every HelixQue building block in one place.",
+    href: "/components",
+  },
+  {
+    heading: "Documentation",
+    description: "Learn how to compose flows and ship integrations faster.",
+    href: "/docs",
+  },
+  {
+    heading: "Blog",
+    description: "Product updates, release notes, and contributor stories.",
+    href: "/blog",
+  },
+];
+
+const quickLinks = [
+  { label: "Components", href: "/components" },
+  { label: "Documentation", href: "/docs" },
+  { label: "Blocks", href: "/blocks" },
+];
+
+const boardStatuses = [
+  { label: "Backlog", href: "/roadmap", icon: CircleHelpIcon },
+  { label: "To Do", href: "/roadmap#todo", icon: CircleIcon },
+  { label: "Done", href: "/roadmap#done", icon: CircleCheckIcon },
+];
+
+const navTriggerClasses =
+  "bg-transparent text-muted-foreground hover:bg-muted/60 hover:text-foreground data-[state=open]:bg-muted/70 data-[state=open]:text-foreground";
+
+type ListItemProps = ComponentPropsWithoutRef<"li"> & {
+  title: string;
+  href: string;
+  children: ReactNode;
+};
+
+function ListItem({ title, children, href, ...props }: ListItemProps) {
+  return (
+    <li {...props}>
+      <NavigationMenuLink asChild>
+        <Link href={href} className="rounded-md p-3 no-underline">
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="text-muted-foreground line-clamp-2 text-sm leading-snug">
+            {children}
+          </p>
+        </Link>
+      </NavigationMenuLink>
+    </li>
+  );
+}
 
 export const Logo = () => {
   return (
     <div className="flex items-center justify-center gap-2">
-      <Image
+        <Image
         src="/logo.svg"
         alt="Billing SDK"
         width={28}
         height={28}
       />
-      <h1>HelixQue</h1>
-      {/* <span className="text-3xl font-display">/</span>
-      <Image
-        src="/logo/Logo.svg"
-        alt="Billing SDK"
-        width={120}
-        height={120}
-      /> */}
+       <span className="text-2xl font-display">HelixQue</span>
     </div>
   );
 };
@@ -53,7 +169,7 @@ const NavBar = () => {
       <div className=" w-full">
         <div
           className={cn(
-            `flex items-center w-full justify-between px-2 md:px-4 py-3 transition-all duration-300 ${
+            `relative flex items-center w-full justify-between px-2 md:px-4 py-3 transition-all duration-300 ${
               isScrolled &&
               "bg-accent/30 backdrop-blur-lg inset-shadow-sm inset-shadow-white/20 rounded-2xl px-4"
             }`
@@ -62,6 +178,149 @@ const NavBar = () => {
           <Link href="/" className="cursor-pointer">
             <Logo />
           </Link>
+          <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
+            <NavigationMenu viewport={false}>
+              <NavigationMenuList className="flex-nowrap gap-1">
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className={navTriggerClasses}>
+                    Overview
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid gap-2 md:w-[420px] lg:w-[520px] lg:grid-cols-[.75fr_1fr]">
+                      <li className="row-span-3">
+                        <NavigationMenuLink asChild>
+                          <Link
+                            className="from-muted/50 to-muted flex h-full w-full flex-col justify-end rounded-md bg-linear-to-b p-4 no-underline outline-hidden transition-all duration-200 select-none focus:shadow-md md:p-6"
+                            href="/"
+                          >
+                            <div className="mb-2 text-lg font-medium sm:mt-4">
+                              HelixQue
+                            </div>
+                            <p className="text-muted-foreground text-sm leading-tight">
+                              Build workflows, launch experiments, and ship
+                              polished experiences with our open platform.
+                            </p>
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                      {docsHighlights.map((item) => (
+                        <ListItem
+                          key={item.title}
+                          href={item.href}
+                          title={item.title}
+                        >
+                          {item.description}
+                        </ListItem>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className={navTriggerClasses}>
+                    Components
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid gap-2 sm:w-[420px] md:w-[520px] md:grid-cols-2 lg:w-[620px]">
+                      {componentShowcase.map((component) => (
+                        <ListItem
+                          key={component.title}
+                          title={component.title}
+                          href={component.href}
+                        >
+                          {component.description}
+                        </ListItem>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                {/* <NavigationMenuItem>
+                  <NavigationMenuLink
+                    asChild
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      navTriggerClasses
+                    )}
+                  >
+                    <Link href="/docs">Docs</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem> */}
+
+                <NavigationMenuItem className="hidden lg:block">
+                  <NavigationMenuTrigger className={navTriggerClasses}>
+                    Resources
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[320px] gap-4">
+                      <li className="space-y-3">
+                        {resourceLinks.map((resource) => (
+                          <NavigationMenuLink key={resource.heading} asChild>
+                            <Link
+                              href={resource.href}
+                              className="block rounded-md px-3 py-2 transition-colors hover:bg-muted"
+                            >
+                              <div className="font-medium">
+                                {resource.heading}
+                              </div>
+                              <div className="text-muted-foreground text-sm">
+                                {resource.description}
+                              </div>
+                            </Link>
+                          </NavigationMenuLink>
+                        ))}
+                      </li>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem className="hidden xl:block">
+                  <NavigationMenuTrigger className={navTriggerClasses}>
+                    Quick Links
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[220px] gap-3">
+                      <li className="space-y-2">
+                        {quickLinks.map((item) => (
+                          <NavigationMenuLink key={item.href} asChild>
+                            <Link
+                              href={item.href}
+                              className="block rounded-md px-3 py-2 text-sm transition-colors hover:bg-muted"
+                            >
+                              {item.label}
+                            </Link>
+                          </NavigationMenuLink>
+                        ))}
+                      </li>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem className="hidden xl:block">
+                  <NavigationMenuTrigger className={navTriggerClasses}>
+                    Status
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[260px] gap-3">
+                      <li className="space-y-2">
+                        {boardStatuses.map(({ label, href, icon: Icon }) => (
+                          <NavigationMenuLink asChild key={label}>
+                            <Link
+                              href={href}
+                              className="flex flex-row items-center gap-2 rounded-md px-3 py-2 text-sm transition-colors hover:bg-muted"
+                            >
+                              <Icon className="size-4" />
+                              <span>{label}</span>
+                            </Link>
+                          </NavigationMenuLink>
+                        ))}
+                      </li>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+          </div>
 
           {/* Right side actions */}
           <div className="flex items-center gap-2">
@@ -84,11 +343,11 @@ const NavBar = () => {
             </div>
             <Button
               size="sm"
-              className="bg-primary text-primary-foreground ring-primary before:from-primary-foreground/20 after:from-primary-foreground/10 relative isolate inline-flex items-center justify-center overflow-hidden rounded-md px-2 text-left text-xs font-medium ring-1 before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-md before:bg-gradient-to-b before:opacity-80 before:transition-opacity before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)] after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-md after:bg-gradient-to-b after:to-transparent after:mix-blend-overlay hover:cursor-pointer h-7 sm:h-8 sm:px-3 sm:text-sm"
+              className="bg-primary text-primary-foreground ring-primary before:from-primary-foreground/20 after:from-primary-foreground/10 relative isolate inline-flex items-center justify-center overflow-hidden rounded-md px-2 text-left text-xs font-medium ring-1 before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-md before:bg-linear-to-b before:opacity-80 before:transition-opacity before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)] after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-md after:bg-linear-to-b after:to-transparent after:mix-blend-overlay hover:cursor-pointer h-7 sm:h-8 sm:px-3 sm:text-sm"
               asChild
             >
               <Link className="flex group items-center gap-2" href="/docs">
-                <span>Get Started</span>
+                <span>Login</span>
                 <Badge className="bg-accent p-1 text-foreground transition-all duration-200 ease-in-out group-hover:shadow-xl shadow-background/70">
                   <CornerDownLeft className="size-4" />
                 </Badge>

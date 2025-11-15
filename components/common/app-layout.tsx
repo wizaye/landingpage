@@ -46,7 +46,7 @@ export function AppLayout({ children }: AppLayoutProps) {
         <NavBar />
       </div>
       
-
+     
       {/* Main content - no top padding needed as content flows naturally */}
       <main className="relative z-10 flex-1">
         {children}
