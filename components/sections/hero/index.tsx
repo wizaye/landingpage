@@ -75,7 +75,7 @@ export function HeroSection() {
           {Array.from({ length: 10 }).map((_, idx) => (
             <div
               key={`row1-${idx}`}
-              className={`border-b ${idx === 0 ? 'border-r' : idx === 9 ? 'border-l' : 'border-x'} border-border/50 h-12 md:h-24 w-full ${idx === 0 || idx === 9 ? 'hidden md:block' : ''}`}
+              className="h-12 md:h-24 w-full"
             />
           ))}
         </div>
@@ -83,10 +83,10 @@ export function HeroSection() {
         {/* Row 2: Main Hero Content */}
         <div className="grid grid-cols-10 w-full">
           {/* Left Spacer */}
-          <div className="hidden md:block col-span-1 border-r border-b border-border/50" />
+          <div className="hidden md:block col-span-1" />
 
           {/* Main Content */}
-          <div className="col-span-10 md:col-span-8 border-b border-border/50 p-6 md:p-20 flex flex-col items-center justify-center min-h-[300px] md:min-h-[400px]">
+          <div className="col-span-10 md:col-span-8 p-6 md:p-20 flex flex-col items-center justify-center min-h-[300px] md:min-h-[400px]">
             <h1 className="flex flex-col text-center text-3xl leading-none font-semibold tracking-tight lg:text-5xl">
               Build and deploy on the AI Cloud.
             </h1>
@@ -116,7 +116,7 @@ export function HeroSection() {
           </div>
 
           {/* Right Spacer */}
-          <div className="hidden md:block col-span-1 border-l border-b border-border/50" />
+          <div className="hidden md:block col-span-1" />
         </div>
 
         {/* Row 3: Spacer Grid Lines */}
@@ -124,7 +124,7 @@ export function HeroSection() {
           {Array.from({ length: 10 }).map((_, idx) => (
             <div
               key={`row3-${idx}`}
-              className={`border-b ${idx === 0 ? 'border-r' : idx === 9 ? 'border-l' : 'border-x'} border-border/50 h-12 md:h-24 w-full ${idx === 0 || idx === 9 ? 'hidden md:block' : ''}`}
+              className="h-12 md:h-24 w-full"
             />
           ))}
         </div>
@@ -132,15 +132,15 @@ export function HeroSection() {
         {/* Row 4: Backed by Vercel Section */}
         <div className="grid grid-cols-10 w-full">
           {/* Left Spacer */}
-          <div className="hidden md:block col-span-1 border-r border-b border-border/50" />
+          <div className="hidden md:block col-span-1" />
 
           {/* Vercel OSS Content */}
-          <div className="col-span-10 md:col-span-8 border-b border-border/50 p-10 flex flex-col items-center justify-center">
+          <div className="col-span-10 md:col-span-8 p-10 flex flex-col items-center justify-center">
             <VercelOSS />
           </div>
 
           {/* Right Spacer */}
-          <div className="hidden md:block col-span-1 border-l border-b border-border/50" />
+          <div className="hidden md:block col-span-1" />
         </div>
 
         {/* Row 5: Bottom Grid Lines */}
@@ -148,7 +148,7 @@ export function HeroSection() {
           {Array.from({ length: 10 }).map((_, idx) => (
             <div
               key={`row5-${idx}`}
-              className={`${idx === 0 ? 'border-r' : idx === 9 ? 'border-l' : 'border-x'} border-border/50 h-12 md:h-24 w-full ${idx === 0 || idx === 9 ? 'hidden md:block' : ''}`}
+              className="h-12 md:h-24 w-full"
             />
           ))}
         </div>

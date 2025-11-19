@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Badge } from "./ui/badge";
 import { motion } from "framer-motion";
 import {
+  ArrowUpRight,
   CornerDownLeft,
   Github,
   Linkedin,
@@ -15,16 +16,6 @@ import {
 import { Icons } from "./utils/icons";
 import Image from "next/image";
 import { ThemeSwitcher } from "@/components/theme";
-import {
-  TreeProvider,
-  TreeView,
-  TreeNode,
-  TreeNodeTrigger,
-  TreeNodeContent,
-  TreeExpander,
-  TreeIcon,
-  TreeLabel,
-} from "@/components/kibo-ui/tree";
 
 type SocialLink = { label: string; href: string; icon: LucideIcon };
 
@@ -33,6 +24,80 @@ const socialLinks: SocialLink[] = [
   { label: "LinkedIn", href: "https://www.linkedin.com/company/hxqlabs", icon: Linkedin },
   { label: "Twitter", href: "https://twitter.com/hxqlabs", icon: Twitter },
   { label: "YouTube", href: "https://www.youtube.com/@hxqlabs", icon: Youtube },
+];
+
+type FooterColumnLink = {
+  label: string;
+  href: string;
+  external?: boolean;
+  badge?: string;
+  badgeVariant?: "default" | "secondary" | "outline" | "destructive";
+};
+
+type FooterColumn = {
+  title: string;
+  links: FooterColumnLink[];
+};
+
+const buildFooterColumns = (discordUrl: string, hasDiscordInvite: boolean): FooterColumn[] => [
+  {
+    title: "Platform",
+    links: [
+      { label: "Overview", href: "/" },
+      { label: "Pricing", href: "/#pricing" },
+      { label: "Announcements", href: "/announcements" },
+      { label: "Changelog", href: "/changelog" },
+      { label: "Status", href: "/status" },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      { label: "Blog", href: "/blog" },
+      {
+        label: "Hacktoberfest",
+        href: "/hacktoberfest",
+        badge: "Seasonal",
+        badgeVariant: "secondary",
+      },
+      {
+        label: "Feature Requests",
+        href: "https://magicui.featurebase.app",
+        external: true,
+        badge: "Voting",
+        badgeVariant: "outline",
+      },
+      {
+        label: "Support",
+        href: "mailto:hello@helixque.com",
+        external: true,
+      },
+    ],
+  },
+  {
+    title: "Community",
+    links: [
+      {
+        label: "Discord",
+        href: discordUrl,
+        external: true,
+        badge: hasDiscordInvite ? "Live" : undefined,
+        badgeVariant: "secondary",
+      },
+      { label: "GitHub", href: "https://github.com/HXQLabs", external: true },
+      { label: "Twitter", href: "https://twitter.com/hxqlabs", external: true },
+      { label: "LinkedIn", href: "https://www.linkedin.com/company/hxqlabs", external: true },
+      { label: "YouTube", href: "https://www.youtube.com/@hxqlabs", external: true },
+    ],
+  },
+  {
+    title: "Legal",
+    links: [
+      { label: "Privacy Policy", href: "/legal/privacy-policy" },
+      { label: "Terms & Conditions", href: "/legal/terms-condition" },
+      { label: "License", href: "/legal/license" },
+    ],
+  },
 ];
 
 function Metric({ label, value }: { label: string; value: any }) {
@@ -163,65 +228,32 @@ export function CTANEW() {
   );
 }
 
-type FooterNode = {
-  id: string;
-  label: string;
-  href?: string;
-  children?: FooterNode[];
-};
-
-const footerLinks: FooterNode[] = [
-  {
-    id: "company",
-    label: "Company",
-    children: [
-      { id: "about", label: "About", href: "#" },
-      { id: "blog", label: "Blog", href: "#" },
-      { id: "careers", label: "Careers", href: "#" },
-      { id: "contact", label: "Contact Us", href: "#" },
-    ],
-  },
-  {
-    id: "resources",
-    label: "Resources",
-    children: [
-      { id: "docs", label: "Documentation", href: "#" },
-      { id: "guides", label: "Guides", href: "#" },
-      { id: "help", label: "Help Center", href: "#" },
-    ],
-  },
-  {
-    id: "legal",
-    label: "Legal",
-    children: [
-      { id: "privacy", label: "Privacy Policy", href: "/legal/privacy-policy" },
-      { id: "terms", label: "Terms & Conditions", href: "/legal/terms-condition" },
-      { id: "cookie", label: "Cookie Policy", href: "/legal/cookie-policy" },
-    ],
-  },
-  {
-    id: "social",
-    label: "Social",
-    children: [
-      { id: "twitter", label: "Twitter", href: "https://twitter.com/hxqlabs" },
-      { id: "github", label: "GitHub", href: "https://github.com/HXQLabs" },
-      { id: "discord", label: "Discord", href: "https://discord.gg/hxqlabs" },
-    ],
-  },
-];
-
 export function Footer2() {
+  const discordInvite = process.env.NEXT_PUBLIC_DISCORD_INVITE_CODE;
+  const discordUrl = `https://discord.gg/${discordInvite || "hxqlabs"}`;
+  const footerColumns = buildFooterColumns(discordUrl, Boolean(discordInvite));
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="bg-background border-t border-border/40 py-16">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row lg:justify-between gap-12">
-          {/* Branding Section */}
-          <div className="space-y-8 max-w-sm">
+    <footer className="relative overflow-hidden border-t border-border/40 bg-background/95">
+      <div
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(120%_120%_at_50%_-20%,rgba(99,102,241,0.12),transparent)]"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent"
+        aria-hidden
+      />
+
+      <div className="relative mx-auto max-w-7xl px-6 py-16 lg:px-8">
+        <div className="grid gap-12 xl:grid-cols-[minmax(0,1.2fr)_minmax(0,2fr)]">
+          <div className="space-y-8">
             <div className="space-y-4">
               <Link
                 href="/"
                 className="flex items-center gap-3"
                 aria-label="Navigate to homepage"
+                prefetch={false}
               >
                 <Image
                   src="/logo.svg"
@@ -233,56 +265,88 @@ export function Footer2() {
                 <span className="text-2xl font-semibold tracking-tight">Helixque</span>
               </Link>
               <p className="text-base leading-relaxed text-muted-foreground">
-                Helixque helps teams build, deploy, and scale AI-first experiences with speed,
-                reliability, and a delightful developer workflow.
+                Build, iterate, and launch AI-first experiences without friction. Helixque combines
+                polished UI kits, production-grade templates, and thoughtful tooling so your team can
+                ship faster.
               </p>
             </div>
+
             <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-1 text-xs font-semibold uppercase tracking-wider text-emerald-300">
               <span className="size-2 animate-pulse rounded-full bg-emerald-300" />
               All systems normal
             </div>
+
+            <div className="flex flex-wrap items-center gap-3">
+              {socialLinks.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group flex size-10 items-center justify-center rounded-full border border-border/60 bg-background/60 text-muted-foreground transition-colors hover:border-primary/40 hover:bg-primary/10 hover:text-primary"
+                  prefetch={false}
+                >
+                  <span className="sr-only">{item.label}</span>
+                  <item.icon className="size-4" />
+                </Link>
+              ))}
+            </div>
           </div>
 
-          {/* Tree Navigation Section */}
-          <div className="flex-1 lg:max-w-2xl w-full">
-            <TreeProvider className="w-full" defaultExpandedIds={["company", "resources", "legal", "social"]}>
-              <TreeView className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 p-0">
-                {footerLinks.map((section) => (
-                  <div key={section.id} className="flex flex-col gap-2">
-                    <TreeNode nodeId={section.id}>
-                      <TreeNodeTrigger className="px-0 hover:bg-transparent cursor-default">
-                        <TreeLabel className="font-semibold text-foreground text-base">
-                          {section.label}
-                        </TreeLabel>
-                      </TreeNodeTrigger>
-                      <TreeNodeContent className="pl-0">
-                        <div className="flex flex-col gap-2 mt-2">
-                          {section.children?.map((item) => (
-                            <TreeNode key={item.id} nodeId={item.id}>
-                              <Link href={item.href || "#"} className="block">
-                                <TreeNodeTrigger className="px-0 py-1 hover:bg-transparent text-muted-foreground hover:text-foreground transition-colors">
-                                  <TreeLabel className="text-sm cursor-pointer">
-                                    {item.label}
-                                  </TreeLabel>
-                                </TreeNodeTrigger>
-                              </Link>
-                            </TreeNode>
-                          ))}
-                        </div>
-                      </TreeNodeContent>
-                    </TreeNode>
-                  </div>
-                ))}
-              </TreeView>
-            </TreeProvider>
-          </div>
+          <nav className="grid gap-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+            {footerColumns.map((column) => (
+              <div key={column.title} className="space-y-4">
+                <p className="text-sm font-semibold uppercase tracking-wide text-foreground/80">
+                  {column.title}
+                </p>
+                <ul className="space-y-3">
+                  {column.links.map((link) => {
+                    const content = (
+                      <>
+                        <span>{link.label}</span>
+                        {link.badge ? (
+                          <Badge variant={link.badgeVariant ?? "default"}>{link.badge}</Badge>
+                        ) : null}
+                        <ArrowUpRight className="size-4 translate-y-[1px] opacity-0 transition-all duration-200 group-hover:translate-x-1 group-hover:opacity-100" />
+                      </>
+                    );
+
+                    return (
+                      <li key={`${column.title}-${link.label}`} className="">
+                        {link.external ? (
+                          <a
+                            href={link.href}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="group inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                          >
+                            {content}
+                          </a>
+                        ) : (
+                          <Link
+                            href={link.href}
+                            className="group inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                            prefetch={false}
+                          >
+                            {content}
+                          </Link>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ))}
+          </nav>
         </div>
 
-        <div className="mt-16 flex flex-col items-start gap-4 border-t border-border/60 pt-8 md:flex-row md:items-center md:justify-between">
+        <div className="mt-16 flex flex-col gap-4 border-t border-border/60 pt-8 md:flex-row md:items-center md:justify-between">
           <p className="text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} HXQLabs. All rights reserved.
+            &copy; {currentYear} HXQLabs. All rights reserved.
           </p>
-          <ThemeSwitcher />
+          <div className="flex items-center">
+            <ThemeSwitcher />
+          </div>
         </div>
       </div>
     </footer>
