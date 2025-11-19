@@ -116,9 +116,9 @@ export const OpensourceSection = () => {
     .slice(0, 20);
 
   return (
-    <section className="container mx-auto flex w-full max-w-5xl flex-col items-center justify-start !px-4 py-16 text-center md:py-32 bg-white dark:bg-neutral-950">
+    <section className="container mx-auto flex w-full max-w-5xl flex-col items-center justify-start px-4! py-16 text-center md:py-32 bg-white dark:bg-neutral-950">
       <div className="flex flex-col items-center text-center">
-        <h2 className="leading-tighter font-gilroy max-w-2xl bg-gradient-to-b from-neutral-900/80 via-neutral-900 to-neutral-900/60 dark:from-white/80 dark:via-white dark:to-white/60 bg-clip-text text-5xl font-semibold tracking-tight text-pretty text-transparent lg:leading-[1.1] xl:text-6xl/[4rem] xl:tracking-tighter">
+        <h2 className="leading-tighter font-gilroy max-w-2xl bg-linear-to-b from-neutral-900/80 via-neutral-900 to-neutral-900/60 dark:from-white/80 dark:via-white dark:to-white/60 bg-clip-text text-5xl font-semibold tracking-tight text-pretty text-transparent lg:leading-[1.1] xl:text-6xl/[4rem] xl:tracking-tighter">
           Built by professionals, for professionals
         </h2>
         <p className="text-muted-foreground text-base tracking-tight mt-4 max-w-2xl">
@@ -166,7 +166,7 @@ export const OpensourceSection = () => {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: index * 0.05, duration: 0.3 }}
-                    className="relative group flex-shrink-0"
+                    className="relative group shrink-0"
                   >
                     <img
                       src={(c as GhContributor).avatar_url}
