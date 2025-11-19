@@ -12,69 +12,21 @@ import {
   Youtube,
   type LucideIcon,
 } from "lucide-react";
-// import { LogoMark } from "./svgs/logo-mark";
 import { Icons } from "./utils/icons";
 import Image from "next/image";
 import { ThemeSwitcher } from "@/components/theme";
+import {
+  TreeProvider,
+  TreeView,
+  TreeNode,
+  TreeNodeTrigger,
+  TreeNodeContent,
+  TreeExpander,
+  TreeIcon,
+  TreeLabel,
+} from "@/components/kibo-ui/tree";
 
-type FooterLinkGroup = { group: string; items: { title: string; href: string }[] };
 type SocialLink = { label: string; href: string; icon: LucideIcon };
-
-// const linksPro: FooterLinkGroup = {
-//   group: "Product",
-//   items: [
-//     { title: "AI", href: "#" },
-//     { title: "Enterprise", href: "#" },
-//     { title: "Fluid Compute", href: "#" },
-//     { title: "Next.js", href: "#" },
-//     { title: "Observability", href: "#" },
-//     { title: "Previews", href: "#" },
-//     { title: "Rendering", href: "#" },
-//     { title: "Security", href: "#" },
-//     { title: "Turbo", href: "#" },
-//     { title: "Domains", href: "#" },
-//   ],
-// };
-
-// const linksRes: FooterLinkGroup = {
-//   group: "Resources",
-//   items: [
-//     { title: "Docs", href: "#" },
-//     { title: "Guides", href: "#" },
-//     { title: "Academy", href: "#" },
-//     { title: "Help", href: "#" },
-//     { title: "Integrations", href: "#" },
-//     { title: "Pricing", href: "#" },
-//     { title: "Solution Partners", href: "#" },
-//     { title: "Startups", href: "#" },
-//     { title: "Templates", href: "#" },
-//   ],
-// };
-
-const linksCom: FooterLinkGroup = {
-  group: "Company",
-  items: [
-    { title: "About", href: "#" },
-    { title: "Blog", href: "#" },
-    { title: "Careers", href: "#" },
-    { title: "Changelog", href: "#" },
-    { title: "Contact Us", href: "#" },
-    { title: "Customers", href: "#" },
-    { title: "Events", href: "#" },
-    { title: "Partners", href: "#" },
-    { title: "Shipped", href: "#" },
-  ],
-};
-
-const legalLinks: FooterLinkGroup = {
-  group: "Legal",
-  items: [
-    { title: "Privacy Policy", href: "/legal/privacy-policy" },
-    { title: "Terms & Conditions", href: "/legal/terms-condition" },
-    { title: "Cookie Policy", href: "/legal/cookie-policy" },
-    { title: "Security", href: "/legal/security" },
-  ],
-};
 
 const socialLinks: SocialLink[] = [
   { label: "GitHub", href: "https://github.com/HXQLabs", icon: Github },
@@ -82,8 +34,6 @@ const socialLinks: SocialLink[] = [
   { label: "Twitter", href: "https://twitter.com/hxqlabs", icon: Twitter },
   { label: "YouTube", href: "https://www.youtube.com/@hxqlabs", icon: Youtube },
 ];
-
-const navigationGroups: FooterLinkGroup[] = [linksCom, legalLinks];
 
 function Metric({ label, value }: { label: string; value: any }) {
   return (
@@ -213,12 +163,60 @@ export function CTANEW() {
   );
 }
 
+type FooterNode = {
+  id: string;
+  label: string;
+  href?: string;
+  children?: FooterNode[];
+};
+
+const footerLinks: FooterNode[] = [
+  {
+    id: "company",
+    label: "Company",
+    children: [
+      { id: "about", label: "About", href: "#" },
+      { id: "blog", label: "Blog", href: "#" },
+      { id: "careers", label: "Careers", href: "#" },
+      { id: "contact", label: "Contact Us", href: "#" },
+    ],
+  },
+  {
+    id: "resources",
+    label: "Resources",
+    children: [
+      { id: "docs", label: "Documentation", href: "#" },
+      { id: "guides", label: "Guides", href: "#" },
+      { id: "help", label: "Help Center", href: "#" },
+    ],
+  },
+  {
+    id: "legal",
+    label: "Legal",
+    children: [
+      { id: "privacy", label: "Privacy Policy", href: "/legal/privacy-policy" },
+      { id: "terms", label: "Terms & Conditions", href: "/legal/terms-condition" },
+      { id: "cookie", label: "Cookie Policy", href: "/legal/cookie-policy" },
+    ],
+  },
+  {
+    id: "social",
+    label: "Social",
+    children: [
+      { id: "twitter", label: "Twitter", href: "https://twitter.com/hxqlabs" },
+      { id: "github", label: "GitHub", href: "https://github.com/HXQLabs" },
+      { id: "discord", label: "Discord", href: "https://discord.gg/hxqlabs" },
+    ],
+  },
+];
+
 export function Footer2() {
   return (
     <footer className="bg-background border-t border-border/40 py-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="flex flex-col gap-12 lg:flex-row lg:gap-20">
-          <div className="space-y-8 lg:max-w-sm">
+        <div className="flex flex-col lg:flex-row lg:justify-between gap-12">
+          {/* Branding Section */}
+          <div className="space-y-8 max-w-sm">
             <div className="space-y-4">
               <Link
                 href="/"
@@ -243,58 +241,44 @@ export function Footer2() {
               <span className="size-2 animate-pulse rounded-full bg-emerald-300" />
               All systems normal
             </div>
-            <div className="space-y-3">
-              <p className="text-xs font-semibold uppercase tracking-[0.35em] text-muted-foreground">
-                Connect
-              </p>
-              <div className="flex flex-wrap gap-3">
-                {socialLinks.map(({ label, href, icon: Icon }) => (
-                  <Link
-                    key={label}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Visit our ${label}`}
-                    className="flex h-11 w-11 items-center justify-center rounded-full border border-border/60 text-muted-foreground transition duration-200 hover:-translate-y-0.5 hover:border-foreground/60 hover:text-foreground"
-                  >
-                    <Icon className="size-4" />
-                  </Link>
-                ))}
-              </div>
-            </div>
-            <div className="rounded-2xl border border-dashed border-border/60 p-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.35em] text-muted-foreground">
-                Certifications
-              </p>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Reserved space for SOC 2, HIPAA, ISO 27001, and future compliance badges.
-              </p>
-            </div>
           </div>
-          <nav
-            className="flex-1 grid gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-            aria-label="Footer navigation"
-          >
-            {navigationGroups.map((section) => (
-              <div key={section.group} className="space-y-3 text-sm">
-                <p className="font-semibold text-foreground">{section.group}</p>
-                <ul className="space-y-2 text-muted-foreground">
-                  {section.items.map((item) => (
-                    <li key={item.title}>
-                      <Link
-                        href={item.href}
-                        className="transition-colors duration-200 hover:text-foreground"
-                      >
-                        {item.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </nav>
+
+          {/* Tree Navigation Section */}
+          <div className="flex-1 lg:max-w-2xl w-full">
+            <TreeProvider className="w-full" defaultExpandedIds={["company", "resources", "legal", "social"]}>
+              <TreeView className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 p-0">
+                {footerLinks.map((section) => (
+                  <div key={section.id} className="flex flex-col gap-2">
+                    <TreeNode nodeId={section.id}>
+                      <TreeNodeTrigger className="px-0 hover:bg-transparent cursor-default">
+                        <TreeLabel className="font-semibold text-foreground text-base">
+                          {section.label}
+                        </TreeLabel>
+                      </TreeNodeTrigger>
+                      <TreeNodeContent className="pl-0">
+                        <div className="flex flex-col gap-2 mt-2">
+                          {section.children?.map((item) => (
+                            <TreeNode key={item.id} nodeId={item.id}>
+                              <Link href={item.href || "#"} className="block">
+                                <TreeNodeTrigger className="px-0 py-1 hover:bg-transparent text-muted-foreground hover:text-foreground transition-colors">
+                                  <TreeLabel className="text-sm cursor-pointer">
+                                    {item.label}
+                                  </TreeLabel>
+                                </TreeNodeTrigger>
+                              </Link>
+                            </TreeNode>
+                          ))}
+                        </div>
+                      </TreeNodeContent>
+                    </TreeNode>
+                  </div>
+                ))}
+              </TreeView>
+            </TreeProvider>
+          </div>
         </div>
-        <div className="mt-12 flex flex-col items-start gap-4 border-t border-border/60 pt-6 md:flex-row md:items-center md:justify-between">
+
+        <div className="mt-16 flex flex-col items-start gap-4 border-t border-border/60 pt-8 md:flex-row md:items-center md:justify-between">
           <p className="text-sm text-muted-foreground">
             &copy; {new Date().getFullYear()} HXQLabs. All rights reserved.
           </p>
@@ -304,4 +288,3 @@ export function Footer2() {
     </footer>
   );
 }
-

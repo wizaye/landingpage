@@ -9,6 +9,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import VercelOSS from "@/components/common/open-source/vercel-oss";
 import { DrawLineText } from "@/components/gsap/draw-line-text";
+
 // Local placeholder components for Vercel logo and Plus icon (original external packages not found)
 const Vercel = () => (
   <svg
@@ -22,6 +23,7 @@ const Vercel = () => (
     <path d="M12 2l11 20H1L12 2z" />
   </svg>
 );
+
 const Plus = ({ size = 30, strokeWidth = 1, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
   <svg
     width={size}
@@ -44,7 +46,9 @@ const Plus = ({ size = 30, strokeWidth = 1, className = "" }: { size?: number; s
 export function HeroSection() {
   return (
     <div className="pt-10 px-4 lg:px-0 flex mx-auto max-w-6xl flex-col items-center justify-center text-center">
-      <div className="grid w-full border-0 border-b md:border relative grid-cols-10">
+      {/* Main Container for the Grid System */}
+      <div className="w-full relative flex flex-col">
+        {/* Background Gradient Mask */}
         <div
           className="absolute inset-0 -z-20"
           style={{
@@ -57,30 +61,32 @@ export function HeroSection() {
             maskRepeat: "no-repeat",
           }}
         />
-        <Plus size={30} strokeWidth={0.8} className="absolute -top-4 -left-4" />
+
+        {/* Plus Icons */}
+        <Plus size={30} strokeWidth={0.8} className="absolute -top-4 -left-4 z-10" />
         <Plus
           size={30}
           strokeWidth={0.8}
-          className="absolute -bottom-4 -right-4"
+          className="absolute -bottom-4 -right-4 z-10"
         />
-        <div className="md:grid hidden w-full col-span-1">
-          {Array.from({ length: 8 }).map((_, idx) => (
+
+        {/* Row 1: Top Grid Lines */}
+        <div className="grid grid-cols-10 w-full">
+          {Array.from({ length: 10 }).map((_, idx) => (
             <div
-              key={idx}
-              className="border-b last:border-0 flex-1 aspect-square"
+              key={`row1-${idx}`}
+              className={`border-b ${idx === 0 ? 'border-r' : idx === 9 ? 'border-l' : 'border-x'} border-border/50 h-12 md:h-24 w-full ${idx === 0 || idx === 9 ? 'hidden md:block' : ''}`}
             />
           ))}
         </div>
-        <div className="md:col-span-8 col-span-10">
-          <div className="md:flex hidden">
-            {Array.from({ length: 8 }).map((_, idx) => (
-              <div
-                key={idx}
-                className="border-l last:border-r flex-1 aspect-square"
-              />
-            ))}
-          </div>
-          <div className="relative w-full border -mt-0.5 flex items-center flex-col justify-center  md:h-89 lg:h-116 p-6 md:p-20">
+
+        {/* Row 2: Main Hero Content */}
+        <div className="grid grid-cols-10 w-full">
+          {/* Left Spacer */}
+          <div className="hidden md:block col-span-1 border-r border-b border-border/50" />
+
+          {/* Main Content */}
+          <div className="col-span-10 md:col-span-8 border-b border-border/50 p-6 md:p-20 flex flex-col items-center justify-center min-h-[300px] md:min-h-[400px]">
             <h1 className="flex flex-col text-center text-3xl leading-none font-semibold tracking-tight lg:text-5xl">
               Build and deploy on the AI Cloud.
             </h1>
@@ -108,53 +114,41 @@ export function HeroSection() {
               </Link>
             </div>
           </div>
-          <div className="relative w-full h-full">
-            <div className="absolute z-10 top-15 md:top-22 lg:top-29 left-1/2 -translate-x-1/2 -translate-y-1/2">
-              {/* <img
-                className="size-34 md:size-50 lg:size-66 dark:hidden"
-                alt={`Ali's avatar`}
-                src={'/vercel-logo-white.svg'}
-                fetchPriority="high"
-              />
-              <img
-                className="size-34 md:size-50 lg:size-66 hidden dark:block"
-                alt={`Ali's avatar`}
-                src={'/vercel-logo-black.svg'}
-                fetchPriority="high"
-              /> */}
-              <VercelOSS/>
-            </div>
-            <div className="flex">
-              {Array.from({ length: 8 }).map((_, idx) => (
-                <div
-                  key={idx}
-                  className="border-l last:border-r border-b flex-1 aspect-square"
-                />
-              ))}
-            </div>
-            <div className="flex">
-              {Array.from({ length: 8 }).map((_, idx) => (
-                <div
-                  key={idx}
-                  className="border-l border-b last:border-r flex-1 aspect-square"
-                />
-              ))}
-            </div>
-            <div className="flex">
-              {Array.from({ length: 8 }).map((_, idx) => (
-                <div
-                  key={idx}
-                  className="border-l last:border-r flex-1 aspect-square"
-                />
-              ))}
-            </div>
-          </div>
+
+          {/* Right Spacer */}
+          <div className="hidden md:block col-span-1 border-l border-b border-border/50" />
         </div>
-        <div className="md:grid hidden col-span-1">
-          {Array.from({ length: 8 }).map((_, idx) => (
+
+        {/* Row 3: Spacer Grid Lines */}
+        <div className="grid grid-cols-10 w-full">
+          {Array.from({ length: 10 }).map((_, idx) => (
             <div
-              key={idx}
-              className="border-b last:border-b-0 flex-1 aspect-square"
+              key={`row3-${idx}`}
+              className={`border-b ${idx === 0 ? 'border-r' : idx === 9 ? 'border-l' : 'border-x'} border-border/50 h-12 md:h-24 w-full ${idx === 0 || idx === 9 ? 'hidden md:block' : ''}`}
+            />
+          ))}
+        </div>
+
+        {/* Row 4: Backed by Vercel Section */}
+        <div className="grid grid-cols-10 w-full">
+          {/* Left Spacer */}
+          <div className="hidden md:block col-span-1 border-r border-b border-border/50" />
+
+          {/* Vercel OSS Content */}
+          <div className="col-span-10 md:col-span-8 border-b border-border/50 p-10 flex flex-col items-center justify-center">
+            <VercelOSS />
+          </div>
+
+          {/* Right Spacer */}
+          <div className="hidden md:block col-span-1 border-l border-b border-border/50" />
+        </div>
+
+        {/* Row 5: Bottom Grid Lines */}
+        <div className="grid grid-cols-10 w-full">
+          {Array.from({ length: 10 }).map((_, idx) => (
+            <div
+              key={`row5-${idx}`}
+              className={`${idx === 0 ? 'border-r' : idx === 9 ? 'border-l' : 'border-x'} border-border/50 h-12 md:h-24 w-full ${idx === 0 || idx === 9 ? 'hidden md:block' : ''}`}
             />
           ))}
         </div>
