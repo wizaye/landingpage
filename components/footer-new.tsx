@@ -103,10 +103,10 @@ const buildFooterColumns = (discordUrl: string, hasDiscordInvite: boolean): Foot
 function Metric({ label, value }: { label: string; value: any }) {
   return (
     <div className="flex flex-col">
-      <span className="text-[11px] font-medium tracking-wide text-white/50">
+      <span className="text-[11px] font-medium tracking-wide text-muted-foreground">
         {label}
       </span>
-      <span className="text-sm font-semibold text-white">
+      <span className="text-sm font-semibold text-foreground">
         {value === null || value === undefined ? "-" : value}
       </span>
     </div>
@@ -140,26 +140,19 @@ export function CTANEW() {
   }, []);
 
   return (
-    <footer className="w-full h-80 border rounded-2xl overflow-hidden relative">
-      {/* Subtle dark grey gradient background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-linear-to-br from-neutral-950 via-neutral-900 to-neutral-800" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(255,255,255,0.06),transparent_60%)]" />
-        <div className="absolute inset-0 backdrop-blur-[2px]" />
-        <div className="absolute inset-0 pointer-events-none opacity-15 mix-blend-overlay bg-[linear-gradient(140deg,transparent,rgba(255,255,255,0.05),transparent)]" />
-      </div>
+    <footer className="w-full h-80 overflow-hidden relative bg-background">
 
       {/* Right side: repositioned Discord panel (old layout style) */}
       <div className="absolute right-6 xl:right-12 top-6 xl:top-8 hidden md:block">
-        <div className="w-[260px] xl:w-[280px] rounded-xl border border-white/15 bg-white/5 backdrop-blur-sm p-4 shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_4px_24px_-4px_rgba(0,0,0,0.4)]">
+        <div className="w-[260px] xl:w-[280px] rounded-lg border border-border bg-card p-4">
           <div>
-            <p className="text-[11px] uppercase tracking-wider text-white/60 mb-1">Official Discord</p>
-            <p className="text-sm font-semibold truncate text-white">
+            <p className="text-[11px] uppercase tracking-wider text-muted-foreground mb-1">Official Discord</p>
+            <p className="text-sm font-semibold truncate text-foreground">
               {error ? "Connection Error" : serverData?.guild?.name || "Loading..."}
             </p>
           </div>
           {error ? (
-            <p className="text-xs text-white/60 mt-2">Failed to fetch server data</p>
+            <p className="text-xs text-muted-foreground mt-2">Failed to fetch server data</p>
           ) : (
             <div className="grid grid-cols-2 gap-3 mt-3">
               <Metric label="Online" value={serverData?.counts?.approximate_presence_count} />
@@ -172,7 +165,7 @@ export function CTANEW() {
             href={`https://discord.gg/${process.env.NEXT_PUBLIC_DISCORD_INVITE_CODE}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-4 inline-flex items-center gap-2 text-xs font-medium text-indigo-200 hover:text-white transition-colors"
+            className="mt-4 inline-flex items-center gap-2 text-xs font-medium text-primary hover:text-primary/80 transition-colors"
           >
             <Icons.discord className="size-3.5" />
             Join Discord
@@ -182,10 +175,10 @@ export function CTANEW() {
 
       <div className="relative z-10 flex flex-col items-start px-4 md:px-8 pt-2 pb-4 justify-between sm:justify-center h-full">
         <div className="relative flex flex-col items-start justify-start">
-          <p className="text-white max-w-lg mt-3 tracking-tight font-semibold text-xl md:text-3xl text-left">
+          <p className="text-foreground max-w-lg mt-3 tracking-tight font-semibold text-xl md:text-3xl text-left">
             Join the Community
           </p>
-          <p className="text-sm pt-3 text-neutral-200 max-w-xl text-left">
+          <p className="text-sm pt-3 text-muted-foreground max-w-xl text-left">
             Have suggestions or improvements? Share feedback, request features, and help us shape the roadmap.
           </p>
         </div>
@@ -198,7 +191,7 @@ export function CTANEW() {
           transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
         >
           <Button
-            className="w-full md:w-52 h-12 text-primary-foreground before:from-primary-foreground/20 after:from-primary-foreground/10 relative isolate inline-flex items-center justify-center overflow-hidden rounded-md px-3 text-left text-sm font-medium  before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-md before:bg-linear-to-b before:opacity-80 before:transition-opacity before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)] after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-md after:bg-linear-to-b after:to-transparent after:mix-blend-overlay hover:cursor-pointer"
+            className="w-full md:w-52 h-12"
             asChild
           >
             <Link className="flex group items-center gap-2" href="/docs">
@@ -210,7 +203,7 @@ export function CTANEW() {
           </Button>
           <Button
             variant="secondary"
-            className="bg-secondary w-full md:w-52 h-12 text-secondary-foreground ring-accent hover:ring-2  relative isolate inline-flex items-center justify-center overflow-hidden rounded-md px-3 text-left text-sm font-medium ring-1 before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-md before:bg-linear-to-b before:opacity-80 before:transition-opacity before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)] after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-md after:bg-linear-to-b after:to-transparent after:mix-blend-overlay hover:cursor-pointer"
+            className="w-full md:w-52 h-12"
           >
             <Link
               className="flex group items-center gap-2"
@@ -235,15 +228,7 @@ export function Footer2() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative overflow-hidden border-t border-border/40 bg-background/95">
-      <div
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(120%_120%_at_50%_-20%,rgba(99,102,241,0.12),transparent)]"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent"
-        aria-hidden
-      />
+    <footer className="relative overflow-hidden border-t bg-background">
 
       <div className="relative mx-auto max-w-7xl px-6 py-16 lg:px-8">
         <div className="grid gap-12 xl:grid-cols-[minmax(0,1.2fr)_minmax(0,2fr)]">
@@ -271,10 +256,13 @@ export function Footer2() {
               </p>
             </div>
 
-            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-1 text-xs font-semibold uppercase tracking-wider text-emerald-300">
-              <span className="size-2 animate-pulse rounded-full bg-emerald-300" />
-              All systems normal
-            </div>
+            <Button
+              className="text-blue-500 cursor-pointer hover:text-blue-500"
+              variant={"ghost"}
+            >
+              <span className="block size-3 rounded-full border border-background bg-blue-500" />
+              All systems normal.
+            </Button>
 
             <div className="flex flex-wrap items-center gap-3">
               {socialLinks.map((item) => (
@@ -283,7 +271,7 @@ export function Footer2() {
                   href={item.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="group flex size-10 items-center justify-center rounded-full border border-border/60 bg-background/60 text-muted-foreground transition-colors hover:border-primary/40 hover:bg-primary/10 hover:text-primary"
+                  className="text-muted-foreground hover:text-primary transition-colors duration-150"
                   prefetch={false}
                 >
                   <span className="sr-only">{item.label}</span>
@@ -295,20 +283,14 @@ export function Footer2() {
 
           <nav className="grid gap-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
             {footerColumns.map((column) => (
-              <div key={column.title} className="space-y-4">
-                <p className="text-sm font-semibold uppercase tracking-wide text-foreground/80">
+              <div key={column.title} className="space-y-3">
+                <span className="block font-medium text-sm">
                   {column.title}
-                </p>
+                </span>
                 <ul className="space-y-3">
                   {column.links.map((link) => {
                     const content = (
-                      <>
-                        <span>{link.label}</span>
-                        {link.badge ? (
-                          <Badge variant={link.badgeVariant ?? "default"}>{link.badge}</Badge>
-                        ) : null}
-                        <ArrowUpRight className="size-4 translate-y-[1px] opacity-0 transition-all duration-200 group-hover:translate-x-1 group-hover:opacity-100" />
-                      </>
+                      <span>{link.label}</span>
                     );
 
                     return (
@@ -318,14 +300,14 @@ export function Footer2() {
                             href={link.href}
                             target="_blank"
                             rel="noreferrer"
-                            className="group inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                            className="text-muted-foreground hover:text-primary block duration-150 text-sm"
                           >
                             {content}
                           </a>
                         ) : (
                           <Link
                             href={link.href}
-                            className="group inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                            className="text-muted-foreground hover:text-primary block duration-150 text-sm"
                             prefetch={false}
                           >
                             {content}
@@ -340,13 +322,11 @@ export function Footer2() {
           </nav>
         </div>
 
-        <div className="mt-16 flex flex-col gap-4 border-t border-border/60 pt-8 md:flex-row md:items-center md:justify-between">
+        <div className="mt-10 flex flex-wrap items-end justify-between gap-6 py-6">
           <p className="text-sm text-muted-foreground">
             &copy; {currentYear} HXQLabs. All rights reserved.
           </p>
-          <div className="flex items-center">
-            <ThemeSwitcher />
-          </div>
+          <ThemeSwitcher />
         </div>
       </div>
     </footer>
