@@ -246,11 +246,37 @@ export function CTANEW() {
   );
 }
 
-const RecursiveTreeNode = ({ node }: { node: FooterNode }) => {
+const RecursiveTreeNode = ({
+  node,
+  level = 1,
+  isLast = false,
+  parentPath = [],
+}: {
+  node: FooterNode;
+  level?: number;
+  isLast?: boolean;
+  parentPath?: boolean[];
+}) => {
   const hasChildren = node.children && node.children.length > 0;
 
+  // Calculate the path for the current node to pass to its children
+  const currentPath = level === 0 ? [] : [...parentPath];
+  if (level > 0 && parentPath.length < level - 1) {
+    while (currentPath.length < level - 1) {
+      currentPath.push(false);
+    }
+  }
+  if (level > 0) {
+    currentPath[level - 1] = isLast;
+  }
+
   return (
-    <TreeNode nodeId={node.id}>
+    <TreeNode
+      nodeId={node.id}
+      level={level}
+      isLast={isLast}
+      parentPath={parentPath}
+    >
       <TreeNodeTrigger
         className="px-0 py-1 hover:bg-transparent data-[state=selected]:bg-transparent w-full flex items-center gap-1"
       >
@@ -272,8 +298,14 @@ const RecursiveTreeNode = ({ node }: { node: FooterNode }) => {
       </TreeNodeTrigger>
       {hasChildren && (
         <TreeNodeContent hasChildren={true}>
-          {node.children!.map((child) => (
-            <RecursiveTreeNode key={child.id} node={child} />
+          {node.children!.map((child, index) => (
+            <RecursiveTreeNode
+              key={child.id}
+              node={child}
+              level={level + 1}
+              isLast={index === node.children!.length - 1}
+              parentPath={currentPath}
+            />
           ))}
         </TreeNodeContent>
       )}
@@ -344,27 +376,25 @@ export function Footer2() {
           <nav className="grid gap-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
             {footerColumns.map((column) => (
               <div key={column.title} className="space-y-3">
+                <span className="block font-medium text-sm">
+                  {column.title}
+                </span>
                 <TreeProvider
                   className="w-full"
-                  showLines={true}
+                  showLines={false}
                   showIcons={false}
                   indent={16}
-                  defaultExpandedIds={[column.title]}
                 >
                   <TreeView>
-                    <TreeNode nodeId={column.title}>
-                      <TreeNodeTrigger className="px-0 py-1 hover:bg-transparent data-[state=selected]:bg-transparent w-full flex items-center gap-1">
-                        <TreeExpander hasChildren={true} />
-                        <span className="block font-medium text-sm">
-                          {column.title}
-                        </span>
-                      </TreeNodeTrigger>
-                      <TreeNodeContent hasChildren={true}>
-                        {column.nodes.map((node) => (
-                          <RecursiveTreeNode key={node.id} node={node} />
-                        ))}
-                      </TreeNodeContent>
-                    </TreeNode>
+                    {column.nodes.map((node, index) => (
+                      <RecursiveTreeNode
+                        key={node.id}
+                        node={node}
+                        level={0}
+                        isLast={index === column.nodes.length - 1}
+                        parentPath={[]}
+                      />
+                    ))}
                   </TreeView>
                 </TreeProvider>
               </div>
