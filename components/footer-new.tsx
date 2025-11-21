@@ -17,6 +17,17 @@ import { Icons } from "./utils/icons";
 import Image from "next/image";
 import { ThemeSwitcher } from "@/components/theme";
 
+import {
+  TreeProvider,
+  TreeView,
+  TreeNode,
+  TreeNodeTrigger,
+  TreeNodeContent,
+  TreeLabel,
+  TreeExpander,
+  TreeIcon,
+} from "@/components/kibo-ui/tree";
+
 type SocialLink = { label: string; href: string; icon: LucideIcon };
 
 const socialLinks: SocialLink[] = [
@@ -26,41 +37,53 @@ const socialLinks: SocialLink[] = [
   { label: "YouTube", href: "https://www.youtube.com/@hxqlabs", icon: Youtube },
 ];
 
-type FooterColumnLink = {
+type FooterNode = {
+  id: string;
   label: string;
-  href: string;
+  href?: string;
   external?: boolean;
   badge?: string;
   badgeVariant?: "default" | "secondary" | "outline" | "destructive";
+  children?: FooterNode[];
 };
 
 type FooterColumn = {
   title: string;
-  links: FooterColumnLink[];
+  nodes: FooterNode[];
 };
 
 const buildFooterColumns = (discordUrl: string, hasDiscordInvite: boolean): FooterColumn[] => [
   {
     title: "Platform",
-    links: [
-      { label: "Overview", href: "/" },
-      { label: "Pricing", href: "/#pricing" },
-      { label: "Announcements", href: "/announcements" },
-      { label: "Changelog", href: "/changelog" },
-      { label: "Status", href: "/status" },
+    nodes: [
+      {
+        id: "overview",
+        label: "Overview",
+        href: "/",
+        children: [
+          { id: "features", label: "Features", href: "/#features" },
+          { id: "integrations", label: "Integrations", href: "/integrations" },
+        ],
+      },
+      { id: "pricing", label: "Pricing", href: "#pricing" },
+      { id: "announcements", label: "Announcements", href: "/announcements" },
+      { id: "changelog", label: "Changelog", href: "/changelog" },
+      { id: "status", label: "Status", href: "/status" },
     ],
   },
   {
     title: "Resources",
-    links: [
-      { label: "Blog", href: "/blog" },
+    nodes: [
+      { id: "blog", label: "Blog", href: "/blog" },
       {
+        id: "hacktoberfest",
         label: "Hacktoberfest",
         href: "/hacktoberfest",
         badge: "Seasonal",
         badgeVariant: "secondary",
       },
       {
+        id: "feature-requests",
         label: "Feature Requests",
         href: "https://magicui.featurebase.app",
         external: true,
@@ -68,6 +91,7 @@ const buildFooterColumns = (discordUrl: string, hasDiscordInvite: boolean): Foot
         badgeVariant: "outline",
       },
       {
+        id: "support",
         label: "Support",
         href: "mailto:hello@helixque.com",
         external: true,
@@ -76,26 +100,27 @@ const buildFooterColumns = (discordUrl: string, hasDiscordInvite: boolean): Foot
   },
   {
     title: "Community",
-    links: [
+    nodes: [
       {
+        id: "discord",
         label: "Discord",
         href: discordUrl,
         external: true,
         badge: hasDiscordInvite ? "Live" : undefined,
         badgeVariant: "secondary",
       },
-      { label: "GitHub", href: "https://github.com/HXQLabs", external: true },
-      { label: "Twitter", href: "https://twitter.com/hxqlabs", external: true },
-      { label: "LinkedIn", href: "https://www.linkedin.com/company/hxqlabs", external: true },
-      { label: "YouTube", href: "https://www.youtube.com/@hxqlabs", external: true },
+      { id: "github", label: "GitHub", href: "https://github.com/HXQLabs", external: true },
+      { id: "twitter", label: "Twitter", href: "https://twitter.com/hxqlabs", external: true },
+      { id: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/company/hxqlabs", external: true },
+      { id: "youtube", label: "YouTube", href: "https://www.youtube.com/@hxqlabs", external: true },
     ],
   },
   {
     title: "Legal",
-    links: [
-      { label: "Privacy Policy", href: "/legal/privacy-policy" },
-      { label: "Terms & Conditions", href: "/legal/terms-condition" },
-      { label: "License", href: "/legal/license" },
+    nodes: [
+      { id: "privacy", label: "Privacy Policy", href: "/legal/privacy-policy" },
+      { id: "terms", label: "Terms & Conditions", href: "/legal/terms-condition" },
+      { id: "license", label: "License", href: "/legal/license" },
     ],
   },
 ];
@@ -221,9 +246,76 @@ export function CTANEW() {
   );
 }
 
+const RecursiveTreeNode = ({
+  node,
+  level = 1,
+  isLast = false,
+  parentPath = [],
+}: {
+  node: FooterNode;
+  level?: number;
+  isLast?: boolean;
+  parentPath?: boolean[];
+}) => {
+  const hasChildren = node.children && node.children.length > 0;
+
+  // Calculate the path for the current node to pass to its children
+  const currentPath = level === 0 ? [] : [...parentPath];
+  if (level > 0 && parentPath.length < level - 1) {
+    while (currentPath.length < level - 1) {
+      currentPath.push(false);
+    }
+  }
+  if (level > 0) {
+    currentPath[level - 1] = isLast;
+  }
+
+  return (
+    <TreeNode
+      nodeId={node.id}
+      level={level}
+      isLast={isLast}
+      parentPath={parentPath}
+    >
+      <TreeNodeTrigger
+        className="px-0 py-1 hover:bg-transparent data-[state=selected]:bg-transparent w-full flex items-center gap-1"
+      >
+        <TreeExpander hasChildren={hasChildren} />
+        {hasChildren ? (
+          <span className="text-muted-foreground hover:text-primary text-sm font-medium truncate">
+            {node.label}
+          </span>
+        ) : (
+          <Link
+            href={node.href || "#"}
+            target={node.external ? "_blank" : undefined}
+            rel={node.external ? "noreferrer" : undefined}
+            className="text-muted-foreground hover:text-primary text-sm block w-full truncate"
+          >
+            <TreeLabel className="text-muted-foreground hover:text-primary">{node.label}</TreeLabel>
+          </Link>
+        )}
+      </TreeNodeTrigger>
+      {hasChildren && (
+        <TreeNodeContent hasChildren={true}>
+          {node.children!.map((child, index) => (
+            <RecursiveTreeNode
+              key={child.id}
+              node={child}
+              level={level + 1}
+              isLast={index === node.children!.length - 1}
+              parentPath={currentPath}
+            />
+          ))}
+        </TreeNodeContent>
+      )}
+    </TreeNode>
+  );
+};
+
 export function Footer2() {
   const discordInvite = process.env.NEXT_PUBLIC_DISCORD_INVITE_CODE;
-  const discordUrl = `https://discord.gg/${discordInvite || "hxqlabs"}`;
+  const discordUrl = `https://discord.gg/${discordInvite || "dQUh6SY9Uk"}`;
   const footerColumns = buildFooterColumns(discordUrl, Boolean(discordInvite));
   const currentYear = new Date().getFullYear();
 
@@ -287,36 +379,24 @@ export function Footer2() {
                 <span className="block font-medium text-sm">
                   {column.title}
                 </span>
-                <ul className="space-y-3">
-                  {column.links.map((link) => {
-                    const content = (
-                      <span>{link.label}</span>
-                    );
-
-                    return (
-                      <li key={`${column.title}-${link.label}`} className="">
-                        {link.external ? (
-                          <a
-                            href={link.href}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="text-muted-foreground hover:text-primary block duration-150 text-sm"
-                          >
-                            {content}
-                          </a>
-                        ) : (
-                          <Link
-                            href={link.href}
-                            className="text-muted-foreground hover:text-primary block duration-150 text-sm"
-                            prefetch={false}
-                          >
-                            {content}
-                          </Link>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
+                <TreeProvider
+                  className="w-full"
+                  showLines={false}
+                  showIcons={false}
+                  indent={16}
+                >
+                  <TreeView>
+                    {column.nodes.map((node, index) => (
+                      <RecursiveTreeNode
+                        key={node.id}
+                        node={node}
+                        level={0}
+                        isLast={index === column.nodes.length - 1}
+                        parentPath={[]}
+                      />
+                    ))}
+                  </TreeView>
+                </TreeProvider>
               </div>
             ))}
           </nav>

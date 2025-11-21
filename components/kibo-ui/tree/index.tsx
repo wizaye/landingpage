@@ -246,7 +246,7 @@ export const TreeNodeTrigger = ({
         handleSelection(nodeId, e.ctrlKey || e.metaKey);
         onClick?.(e);
       }}
-      style={{ paddingLeft: level * (indent ?? 0) + 8 }}
+      style={{ paddingLeft: level * (indent ?? 0) }}
       whileTap={{ scale: 0.98, transition: { duration: 0.1 } }}
       {...props}
     >
@@ -278,7 +278,7 @@ export const TreeLines = () => {
             className="absolute top-0 bottom-0 border-border/40 border-l"
             key={index.toString()}
             style={{
-              left: index * (indent ?? 0) + 12,
+              left: index * (indent ?? 0) + 4,
               display: shouldHideLine ? "none" : "block",
             }}
           />
@@ -289,7 +289,7 @@ export const TreeLines = () => {
       <div
         className="absolute top-1/2 border-border/40 border-t"
         style={{
-          left: (level - 1) * (indent ?? 0) + 12,
+          left: (level - 1) * (indent ?? 0) + 4,
           width: (indent ?? 0) - 4,
           transform: "translateY(-1px)",
         }}
@@ -300,7 +300,7 @@ export const TreeLines = () => {
         <div
           className="absolute top-0 border-border/40 border-l"
           style={{
-            left: (level - 1) * (indent ?? 0) + 12,
+            left: (level - 1) * (indent ?? 0) + 4,
             height: "50%",
           }}
         />
