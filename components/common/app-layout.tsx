@@ -2,6 +2,7 @@
 import HelixQueHeader from './header';
 import OriginBannerCustomizable from './origin-banner-customizable';
 import NavBar from '../header';
+import { Header } from '../header-vercel';
 interface AppLayoutProps {
   children: React.ReactNode;
 }
@@ -43,7 +44,7 @@ export function AppLayout({ children }: AppLayoutProps) {
       {/* Fixed Header positioned below the sticky banner */}
       <div className="sticky top-0 z-50">
         {/* <HelixQueHeader /> */}
-        <NavBar />
+        <Header />
       </div>
       
      

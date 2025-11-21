@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import VercelOSS from "@/components/common/open-source/vercel-oss";
 import { DrawLineText } from "@/components/gsap/draw-line-text";
 
-// Local placeholder components for Vercel logo and Plus icon (original external packages not found)
+// Local placeholder component for Vercel logo (original external package not found)
 const Vercel = () => (
   <svg
     width="18"
@@ -24,30 +24,21 @@ const Vercel = () => (
   </svg>
 );
 
-const Plus = ({ size = 30, strokeWidth = 1, className = "" }: { size?: number; strokeWidth?: number; className?: string }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={strokeWidth}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-    aria-label="Plus icon"
-  >
-    <line x1="12" y1="5" x2="12" y2="19" />
-    <line x1="5" y1="12" x2="19" y2="12" />
-  </svg>
-);
-
 // New Hero layout
 export function HeroSection() {
   return (
-    <div className="pt-10 px-4 lg:px-0 flex mx-auto max-w-6xl flex-col items-center justify-center text-center">
-      {/* Main Container for the Grid System */}
-      <div className="w-full relative flex flex-col">
+    <div 
+      className="w-full relative"
+      style={{
+        backgroundImage: "url('/globe.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      <div className="pt-10 px-4 lg:px-0 flex mx-auto max-w-6xl flex-col items-center justify-center text-center">
+        {/* Main Container for the Grid System */}
+        <div className="w-full relative flex flex-col">
         {/* Background Gradient Mask */}
         <div
           className="absolute inset-0 -z-20"
@@ -60,14 +51,6 @@ export function HeroSection() {
             WebkitMaskRepeat: "no-repeat",
             maskRepeat: "no-repeat",
           }}
-        />
-
-        {/* Plus Icons */}
-        <Plus size={30} strokeWidth={0.8} className="absolute -top-4 -left-4 z-10" />
-        <Plus
-          size={30}
-          strokeWidth={0.8}
-          className="absolute -bottom-4 -right-4 z-10"
         />
 
         {/* Row 1: Top Grid Lines */}
@@ -151,6 +134,7 @@ export function HeroSection() {
               className="h-12 md:h-24 w-full"
             />
           ))}
+        </div>
         </div>
       </div>
     </div>

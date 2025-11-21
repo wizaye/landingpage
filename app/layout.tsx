@@ -8,7 +8,6 @@ import { AppLayout } from "@/components/common/app-layout";
 import ScrollToTopButton from "@/components/common/scrollToTopButton";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Footer2 } from "@/components/footer-new";
 
 
 const instrumentSans = Instrument_Sans({ 
@@ -109,8 +108,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <AppLayout>{children}</AppLayout>
-          {/* <StickyFooter /> */}
-          <Footer2/>
+          <StickyFooter />
           <ScrollToTopButton />
         </ThemeProvider>
         <Analytics />

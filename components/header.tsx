@@ -1,11 +1,16 @@
 "use client";
-import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import type {
+  ComponentPropsWithoutRef,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+} from "react";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { useMotionValueEvent, useScroll } from "motion/react";
-import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useState } from "react";
 // import { FaGithub } from "react-icons/fa";
 // import GitHubStarBadge from "./GitHubStarBadge";
 // import { Badge } from "../ui/badge";
@@ -29,6 +34,12 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "./ui/accordion";
 
 const componentShowcase = [
   {
@@ -108,6 +119,24 @@ const quickLinks = [
   { label: "Blocks", href: "/blocks" },
 ];
 
+const mobileNavLinks = [
+  {
+    label: "Overview",
+    href: "/",
+    description: "What HelixQue is building and why teams switch.",
+  },
+  {
+    label: "Components",
+    href: "/components",
+    description: "Ready-made building blocks for product surfaces.",
+  },
+  {
+    label: "Documentation",
+    href: "/docs",
+    description: "Implementation guides, SDK references, and tutorials.",
+  },
+];
+
 const boardStatuses = [
   { label: "Backlog", href: "/roadmap", icon: CircleHelpIcon },
   { label: "To Do", href: "/roadmap#todo", icon: CircleIcon },
@@ -153,16 +182,66 @@ export const Logo = () => {
   );
 };
 
+const BuildWithHelixQueCard = ({
+  onLinkClick,
+}: {
+  onLinkClick?: () => void;
+}) => {
+  return (
+    <div className="rounded-2xl border border-border/70 bg-linear-to-br from-primary/10 via-background to-background p-5 shadow-inner">
+      <div className="space-y-1.5">
+        <p className="text-sm font-semibold text-foreground">Build with HelixQue</p>
+        <p className="text-xs text-muted-foreground">
+          Sign in to sync your workspace and star us to follow releases.
+        </p>
+      </div>
+      <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+        <Button className="w-full" asChild>
+          <Link href="/docs" onClick={onLinkClick}>
+            Login
+          </Link>
+        </Button>
+        <Button variant="outline" className="w-full" asChild>
+          <Link
+            href="https://github.com/HXQLabs/Helixque"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={onLinkClick}
+          >
+            <Icons.github className="mr-2 size-4" />
+            Star on GitHub
+          </Link>
+        </Button>
+      </div>
+    </div>
+  );
+};
+
 const MobileHeader = ({
   isOpen,
   setIsOpen,
 }: {
   isOpen: boolean;
-  setIsOpen: (v: boolean) => void;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.setProperty("overflow", "hidden");
+    } else {
+      document.body.style.removeProperty("overflow");
+    }
+
+    return () => {
+      document.body.style.removeProperty("overflow");
+    };
+  }, [isOpen]);
+
+  const toggleMenu = () => setIsOpen((prev) => !prev);
+  const closeMenu = () => setIsOpen(false);
+
   return (
-    <header className="bg-background border-border border-b py-2 md:hidden sticky top-0 z-50">
-      <div className="mx-auto w-full px-4">
+    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/95 py-2 backdrop-blur-md md:hidden">
+      <div className="relative mx-auto w-full px-4">
         <div className="flex w-full items-center justify-between">
           <Link href="/">
             <Logo />
@@ -171,10 +250,15 @@ const MobileHeader = ({
             <div className="relative">
               <button
                 aria-expanded={isOpen}
-                aria-label={isOpen ? "Close menu" : "Open menu"}
-                onClick={() => setIsOpen(!isOpen)}
-                className="font-medium rounded-md transition-colors whitespace-nowrap focus:outline-none cursor-pointer focus:ring-none disabled:bg-muted disabled:text-muted-foreground text-center text-muted-foreground hover:text-foreground bg-muted px-4 py-2 text-sm"
+                onClick={toggleMenu}
+                className={cn(
+                  "relative inline-flex items-center justify-center rounded-xl border border-border/70 bg-muted px-4 py-2 text-sm font-medium text-muted-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                  isOpen ? "bg-foreground text-background" : "hover:text-foreground"
+                )}
               >
+                <span className="sr-only">
+                  {isOpen ? "Close menu" : "Open menu"}
+                </span>
                 <div className="relative size-6">
                   <Menu
                     className={cn(
@@ -193,33 +277,167 @@ const MobileHeader = ({
             </div>
           </div>
         </div>
-        {/* Mobile Menu Content */}
-        {isOpen && (
-           <div className="absolute left-0 right-0 top-full bg-background border-b border-border p-4 shadow-lg animate-in slide-in-from-top-5">
-            <ul className="flex flex-col gap-4">
-              <li>
-                <Link href="/" className="text-lg font-medium" onClick={() => setIsOpen(false)}>
-                  Overview
-                </Link>
-              </li>
-              <li>
-                <Link href="/components" className="text-lg font-medium" onClick={() => setIsOpen(false)}>
-                  Components
-                </Link>
-              </li>
-              <li>
-                <Link href="/docs" className="text-lg font-medium" onClick={() => setIsOpen(false)}>
-                  Documentation
-                </Link>
-              </li>
-               <li className="pt-2">
-                 <Button className="w-full" asChild>
-                    <Link href="/docs">Login</Link>
-                 </Button>
-               </li>
-            </ul>
-          </div>
-        )}
+        <AnimatePresence>
+          {isOpen && (
+            <>
+              <motion.div
+                key="mobile-nav-overlay"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.85 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="fixed inset-0 z-40 bg-background/80 backdrop-blur-[2px] md:hidden"
+                onClick={closeMenu}
+              />
+
+              <motion.div
+                key="mobile-nav-panel"
+                initial={{ opacity: 0, y: -12, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.98 }}
+                transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute left-0 right-0 top-full z-50 pt-3"
+              >
+                <div className="rounded-[28px] border border-border/70 bg-background/95 p-5 shadow-2xl ring-1 ring-border/40 backdrop-blur-xl">
+                  <div className="space-y-5">
+                    <div className="flex items-end justify-between gap-3">
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-[0.35em] text-muted-foreground/80">
+                          Browse
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          Navigate HelixQue surfaces
+                        </p>
+                      </div>
+                      <Badge className="rounded-full bg-primary/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-widest text-primary shadow-sm">
+                        Live
+                      </Badge>
+                    </div>
+
+                    <Accordion
+                      type="single"
+                      collapsible
+                      defaultValue="primary"
+                      className="space-y-3"
+                    >
+                      <AccordionItem
+                        value="primary"
+                        className="overflow-hidden rounded-2xl border border-border/60 bg-muted/30 shadow-sm backdrop-blur"
+                      >
+                        <AccordionTrigger className="px-4 py-3 text-base font-semibold text-foreground">
+                          <div className="flex flex-col text-left leading-tight">
+                            <span>Product</span>
+                            <span className="text-xs font-normal uppercase tracking-[0.25em] text-muted-foreground">
+                              Overview · Components · Docs
+                            </span>
+                          </div>
+                        </AccordionTrigger>
+                        <AccordionContent className="px-2 pb-4">
+                          <ul className="flex flex-col gap-2">
+                            {mobileNavLinks.map((link) => (
+                              <li key={link.label}>
+                                <Link
+                                  href={link.href}
+                                  className="group flex items-center justify-between rounded-2xl border border-transparent bg-background/80 px-4 py-3 transition-all hover:-translate-y-px hover:border-border hover:bg-background"
+                                  onClick={closeMenu}
+                                >
+                                  <div>
+                                    <div className="text-sm font-semibold text-foreground">
+                                      {link.label}
+                                    </div>
+                                    <p className="text-xs text-muted-foreground">
+                                      {link.description}
+                                    </p>
+                                  </div>
+                                  <CornerDownLeft className="size-4 text-muted-foreground transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:text-foreground" />
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </AccordionContent>
+                      </AccordionItem>
+
+                      <AccordionItem
+                        value="resources"
+                        className="overflow-hidden rounded-2xl border border-border/60 bg-muted/30 shadow-sm backdrop-blur"
+                      >
+                        <AccordionTrigger className="px-4 py-3 text-base font-semibold text-foreground">
+                          <div className="flex flex-col text-left leading-tight">
+                            <span>Resources</span>
+                            <span className="text-xs font-normal uppercase tracking-[0.25em] text-muted-foreground">
+                              Docs · Blog · Library
+                            </span>
+                          </div>
+                        </AccordionTrigger>
+                        <AccordionContent className="px-2 pb-4">
+                          <ul className="flex flex-col gap-2">
+                            {resourceLinks.map((resource) => (
+                              <li key={resource.heading}>
+                                <Link
+                                  href={resource.href}
+                                  className="group block rounded-2xl border border-transparent bg-background/80 px-4 py-3 transition-all hover:-translate-y-px hover:border-border hover:bg-background"
+                                  onClick={closeMenu}
+                                >
+                                  <div className="text-sm font-semibold text-foreground">
+                                    {resource.heading}
+                                  </div>
+                                  <p className="text-xs text-muted-foreground">
+                                    {resource.description}
+                                  </p>
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </AccordionContent>
+                      </AccordionItem>
+
+                      <AccordionItem
+                        value="status"
+                        className="overflow-hidden rounded-2xl border border-border/60 bg-muted/30 shadow-sm backdrop-blur"
+                      >
+                        <AccordionTrigger className="px-4 py-3 text-base font-semibold text-foreground">
+                          <div className="flex flex-col text-left leading-tight">
+                            <span>Roadmap</span>
+                            <span className="text-xs font-normal uppercase tracking-[0.25em] text-muted-foreground">
+                              Track updates & checklists
+                            </span>
+                          </div>
+                        </AccordionTrigger>
+                        <AccordionContent className="px-2 pb-4">
+                          <ul className="flex flex-col gap-2">
+                            {boardStatuses.map(({ label, href, icon: Icon }) => (
+                              <li key={label}>
+                                <Link
+                                  href={href}
+                                  className="group flex items-center gap-3 rounded-2xl border border-transparent bg-background/80 px-4 py-3 transition-all hover:-translate-y-px hover:border-border hover:bg-background"
+                                  onClick={closeMenu}
+                                >
+                                  <div className="flex size-9 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                                    <Icon className="size-4" />
+                                  </div>
+                                  <div className="flex flex-col">
+                                    <span className="text-sm font-semibold text-foreground">
+                                      {label}
+                                    </span>
+                                    <span className="text-xs text-muted-foreground">
+                                      View board column
+                                    </span>
+                                  </div>
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
+
+                    <BuildWithHelixQueCard onLinkClick={closeMenu} />
+                  </div>
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
       </div>
     </header>
   );
@@ -231,15 +449,11 @@ const NavBar = () => {
   return (
     <>
       <MobileHeader isOpen={mobileOpen} setIsOpen={setMobileOpen} />
-      <nav
-        className={cn(
-          "fixed left-0 right-0 max-w-7xl mx-auto z-55 hidden md:flex justify-center px-2 md:px-6 top-4 transition-all duration-300"
-        )}
-      >
-        <div className=" w-full">
+      <nav className="fixed inset-x-0 top-4 z-55 hidden justify-center px-4 md:flex lg:px-10">
+        <div className="w-full max-w-6xl">
           <div
             className={cn(
-              "relative flex items-center w-full justify-between px-4 py-3 transition-all duration-300 bg-accent/30 backdrop-blur-lg inset-shadow-sm inset-shadow-white/20 rounded-2xl"
+              "relative flex w-full items-center justify-between gap-4 rounded-2xl border border-border/60 bg-background/90 px-5 py-3.5 shadow-[0_18px_45px_rgba(15,15,15,0.12)] backdrop-blur-xl lg:gap-6 lg:px-6 lg:py-4"
             )}
           >
             <div className="flex-1 flex justify-start">
@@ -249,7 +463,7 @@ const NavBar = () => {
             </div>
             <div className="hidden md:flex justify-center">
               <NavigationMenu viewport={false}>
-                <NavigationMenuList className="flex-nowrap gap-1">
+                <NavigationMenuList className="flex-nowrap gap-2">
                   <NavigationMenuItem>
                     <NavigationMenuTrigger className={navTriggerClasses}>
                       Overview

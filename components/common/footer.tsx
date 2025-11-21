@@ -1,140 +1,295 @@
-import { Icons } from "../utils/icons";
-import { ArrowUpRight } from "lucide-react";
-import { Pill, PillIndicator } from "../ui/kibo-ui/pill";
-import { Badge } from "../ui/badge";
+"use client";
+
 import Link from "next/link";
-import BuyMeCoffee from "../utils/buy-me-coffee-btn";
+import { Icons } from "../utils/icons";
+import { Badge } from "../ui/badge";
+import { ThemeSwitcher } from "../theme";
+import { Pill, PillIndicator } from "../ui/kibo-ui/pill";
 
+// ===== INTERFACES =====
+interface SocialLink {
+  href: string;
+  icon: keyof typeof Icons;
+  ariaLabel: string;
+  hoverColor?: string;
+}
 
-// Inline BadtzLogo from badtz-header
-const BadtzLogo = () => (
-  <div className="text-foreground flex items-end gap-2.5 [&_svg]:h-5">
+interface FooterLink {
+  label: string;
+  href: string;
+  external?: boolean;
+}
+
+interface FooterSection {
+  title: string;
+  ariaLabel: string;
+  links: FooterLink[];
+}
+
+interface BrandInfo {
+  name: string;
+  logo: string;
+  description: string;
+  homepageUrl: string;
+  badge?: string;
+}
+
+interface FooterData {
+  brand: BrandInfo;
+  socialLinks: SocialLink[];
+  statusMessage: string;
+  sections: FooterSection[];
+  copyright: {
+    companyName: string;
+    rightsText: string;
+  };
+  schema: {
+    organizationName: string;
+    organizationLogo: string;
+    organizationUrl: string;
+  };
+}
+
+// ===== STATIC DATA =====
+const footerData: FooterData = {
+  brand: {
+    name: "HelixQue",
+    logo: "/logo.svg",
+    description: "Match instantly by skills, industry, and language. Learn, mentor, and collaborate through text or video on our professional networking platform.",
+    homepageUrl: "/",
+    badge: "Beta",
+  },
+  socialLinks: [
+    {
+      href: "https://github.com/HXQLabs",
+      icon: "github",
+      ariaLabel: "Visit our GitHub profile",
+      hoverColor: "hover:text-foreground",
+    },
+    {
+      href: "https://discord.com/invite/XC4YsUBg2",
+      icon: "discord",
+      ariaLabel: "Join our Discord",
+      hoverColor: "hover:text-[#5865F2]",
+    },
+    {
+      href: "https://hacktoberfest.com",
+      icon: "hacktoberfest",
+      ariaLabel: "Hacktoberfest",
+      hoverColor: "hover:text-[#5A5AB5]",
+    },
+  ],
+  statusMessage: "All Systems Operational",
+  sections: [
+    {
+      title: "Social",
+      ariaLabel: "Social Links",
+      links: [
+        {
+          label: "GitHub",
+          href: "https://github.com/HXQLabs",
+          external: true,
+        },
+        {
+          label: "Discord",
+          href: "https://discord.com/invite/XC4YsUBg2",
+          external: true,
+        },
+        {
+          label: "Hacktoberfest",
+          href: "https://hacktoberfest.com",
+          external: true,
+        },
+      ],
+    },
+    {
+      title: "Resources",
+      ariaLabel: "Resources",
+      links: [
+        {
+          label: "Home",
+          href: "#hero",
+        },
+        {
+          label: "Features",
+          href: "#features",
+        },
+        {
+          label: "About",
+          href: "#about",
+        },
+      ],
+    },
+    {
+      title: "Legal",
+      ariaLabel: "Legal Links",
+      links: [
+        {
+          label: "Privacy Policy",
+          href: "/legal/privacy-policy",
+        },
+        {
+          label: "Terms & Conditions",
+          href: "/legal/terms-condition",
+        },
+      ],
+    },
+    // {
+    //   title: "Support",
+    //   ariaLabel: "Support",
+    //   links: [
+    //     {
+    //       label: "Buy Me a Coffee",
+    //       href: "https://buymeacoffee.com",
+    //       external: true,
+    //     },
+    //   ],
+    // },
+  ],
+  copyright: {
+    companyName: "HelixQue",
+    rightsText: "All rights reserved.",
+  },
+  schema: {
+    organizationName: "HelixQue",
+    organizationLogo: "/logo.svg",
+    organizationUrl: "https://helixque.com",
+  },
+};
+
+// ===== COMPONENTS =====
+// Brand logo block
+const HelixQueLogo = ({ brand }: { brand: BrandInfo }) => (
+  <div className="flex items-center gap-2">
     <img 
-      src="/logo.svg" 
-      alt="HelixQue Logo" 
-      width={20} 
-      height={20} 
-      className="h-5 w-auto"
+      src={brand.logo} 
+      width={22} 
+      height={22} 
+      className="h-6 w-auto" 
+      alt={`${brand.name} Logo`} 
     />
-    <div className="relative">
-      <span className="font-heading text-lg leading-none font-semibold">HelixQue</span>
-      <Badge 
-        variant="secondary" 
-        className="absolute -top-1 -right-1 translate-x-full text-[8px] px-0.5 py-0 h-auto"
-      >
-        Beta
+    <span className="font-heading text-2xl ">{brand.name}</span>
+    {brand.badge && (
+      <Badge variant="secondary" className="text-[8px] px-1 py-0">
+        {brand.badge}
       </Badge>
-    </div>
+    )}
   </div>
 );
 
-
-
 const StickyFooter = () => {
+  const { brand, socialLinks, statusMessage, sections, copyright, schema } = footerData;
+
   return (
-    <footer className="bg-background border-t border-border/40" aria-label="Site footer">
-      <div className="mx-auto max-w-7xl px-6 pt-12 pb-12 lg:px-8">
+    <footer
+      className="w-full border-t"
+      aria-label="Footer"
+      itemScope
+      itemType="https://schema.org/WPFooter"
+    >
+      <div
+        className="mx-auto max-w-7xl px-6 pt-12 pb-12 lg:px-8"
+        itemScope
+        itemType="https://schema.org/Organization"
+        itemID="#organization"
+      >
+        <meta itemProp="name" content={schema.organizationName} />
+        <meta itemProp="logo" content={schema.organizationLogo} />
+        <link itemProp="url" href={schema.organizationUrl} />
+
+        {/* ===== TOP SECTION ===== */}
         <div className="flex flex-col items-start justify-between gap-12 md:flex-row md:gap-20">
-          {/* Brand Section */}
-          <div className="flex w-full flex-col items-start space-y-6 md:max-w-80">
-            <Link href="#hero" className="flex items-center gap-2" aria-label="Navigate to homepage">
-              <BadtzLogo />
+
+          {/* LEFT COLUMN — Logo + Description + Social + Status */}
+          <div className="flex flex-col space-y-4 md:max-w-xs">
+
+            {/* Logo */}
+            <Link href={brand.homepageUrl} className="flex items-center gap-2" aria-label="Homepage">
+              <HelixQueLogo brand={brand} />
             </Link>
-            
-            <div className="space-y-4">
-              <p className="text-muted-foreground text-sm leading-relaxed max-w-sm">
-                Match instantly by skills, industry, and language. Learn, mentor, and collaborate through text or video on our professional networking platform.
-              </p>
-              
-              {/* Status Indicator */}
-              <Pill>
-                <PillIndicator pulse variant="success" />
-                All Systems Operational
-              </Pill>
-            </div>
+
+            {/* Description */}
+            <p className="text-muted-foreground md:text-sm" itemProp="description">
+              {brand.description}
+            </p>
+
+            {/* Social Icons Row */}
+            {/* <div className="flex items-center gap-4 pt-2">
+              {socialLinks.map((social) => {
+                const IconComponent = Icons[social.icon];
+                return (
+                  <Link
+                    key={social.href}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`text-muted-foreground transition-colors ${social.hoverColor || "hover:text-foreground"}`}
+                    aria-label={social.ariaLabel}
+                  >
+                    <IconComponent className="h-5 w-5" />
+                  </Link>
+                );
+              })}
+            </div> */}
+
+            {/* Status Pill */}
+            <Pill>
+              <PillIndicator pulse variant="success" />
+              {statusMessage}
+            </Pill>
           </div>
 
-          {/* Navigation Sections */}
-          <div className="grid w-full grid-cols-1 gap-8 md:w-auto lg:grid-cols-2">
-            {/* Useful Links */}
-            <nav aria-label="Useful Links">
-              <div className="flex flex-col md:text-sm">
-                <div>
-                  <h3 className="text-foreground mb-6 font-medium">Useful Links</h3>
+          {/* ===== RIGHT COLUMN — Grid Navigation ===== */}
+          <div className="grid w-full grid-cols-2 gap-8 md:w-auto md:gap-12 lg:grid-cols-3 lg:gap-10">
+            {sections.map((section) => (
+              <nav 
+                key={section.title}
+                aria-label={section.ariaLabel} 
+                itemScope 
+                itemType="https://schema.org/SiteNavigationElement"
+              >
+                <div className="flex flex-col md:text-sm">
+                  <h3 className="text-foreground mb-4 font-semibold text-sm" itemProp="name">
+                    {section.title}
+                  </h3>
+                  <ul className="space-y-3 lg:space-y-4 text-[13.5px] text-muted-foreground">
+                    {section.links.map((link) => (
+                      <li key={link.href}>
+                        <Link
+                          href={link.href}
+                          className="hover:text-foreground transition-colors"
+                          {...(link.external
+                            ? { target: "_blank", rel: "noopener noreferrer" }
+                            : {})}
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <ul className="text-muted-foreground space-y-3">
-                  <li>
-                    <Link 
-                      href="https://github.com/HXQLabs/" 
-                      className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-200 group" 
-                      aria-label="Visit our GitHub profile" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                    >
-                      <Icons.github className="h-4 w-4" />
-                      <span className="text-sm font-medium">GitHub</span>
-                      <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-                    </Link>
-                  </li>
-                  <li>
-                    <Link 
-                      href="https://discord.com/invite/XC4YsUBg2" 
-                      className="flex items-center gap-2 text-muted-foreground hover:text-[#5865F2] transition-colors duration-200 group" 
-                      aria-label="Join our Discord" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                    >
-                      <Icons.discord className="h-4 w-4" />
-                      <span className="text-sm font-medium">Discord</span>
-                      <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-                    </Link>
-                  </li>
-                  <li>
-                    <Link 
-                      href="https://hacktoberfest.com" 
-                      className="flex items-center gap-2 text-muted-foreground hover:text-[#5A5AB5] transition-colors duration-200 group" 
-                      aria-label="Hacktoberfest" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                    >
-                      <Icons.hacktoberfest className="h-4 w-4" />
-                      <span className="text-sm font-medium">Hacktoberfest</span>
-                      <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </nav>
-
-            {/* Support */}
-            <nav aria-label="Support">
-              <div className="flex flex-col md:text-sm">
-                <div>
-                  <h3 className="text-foreground mb-6 font-medium">Support</h3>
-                </div>
-                <div className="space-y-3">
-                  <BuyMeCoffee />
-                </div>
-              </div>
-            </nav>
+              </nav>
+            ))}
           </div>
         </div>
-        
-        {/* Copyright and Legal Links */}
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-10">
-          <p className="text-muted-foreground text-xs">
-            &copy; {new Date().getFullYear()} HXQLabs. All rights reserved.
+
+        {/* ===== BOTTOM COPYRIGHT & THEME TOGGLE ===== */}
+        <div className="mt-10 flex flex-col items-center justify-between gap-4 sm:flex-row sm:items-center">
+          <p
+            className="text-xs text-muted-foreground"
+            itemScope
+            itemType="https://schema.org/CreativeWork"
+          >
+            <meta itemProp="copyrightYear" content={new Date().getFullYear().toString()} />
+            <span itemProp="copyrightHolder">
+              © {new Date().getFullYear()} {copyright.companyName}.
+            </span>{" "}
+            {copyright.rightsText}
           </p>
-          <div className="flex items-center gap-6 text-xs text-muted-foreground">
-            <Link href="/legal/privacy-policy" className="hover:text-foreground transition-colors duration-200">
-              Privacy Policy
-            </Link>
-            <Link href="/legal/terms-condition" className="hover:text-foreground transition-colors duration-200">
-              Terms &amp; Conditions
-            </Link>
-            {/* <Link href="/legal/license" className="hover:text-foreground transition-colors duration-200">
-              License
-            </Link> */}
+
+          {/* Theme Switcher */}
+          <div>
+            <ThemeSwitcher />
           </div>
         </div>
       </div>
@@ -143,4 +298,3 @@ const StickyFooter = () => {
 };
 
 export default StickyFooter;
-
