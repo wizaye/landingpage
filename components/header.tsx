@@ -530,7 +530,7 @@ const NavBar = () => {
                     </NavigationMenuLink>
                   </NavigationMenuItem> */}
 
-                  <NavigationMenuItem className="hidden lg:block">
+                  <NavigationMenuItem className="hidden md:block">
                     <NavigationMenuTrigger className={navTriggerClasses}>
                       Resources
                     </NavigationMenuTrigger>

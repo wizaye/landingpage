@@ -75,10 +75,10 @@ export function PricingSection() {
   ];
 
   return (
-    <section className="mx-auto grid w-full max-w-4xl gap-4 p-6 md:grid-cols-3">
+    <section className="mx-auto grid w-full max-w-4xl gap-4 p-6 lg:grid-cols-3">
       {plans.map((plan, index) => (
         <PricingCard.Card
-          className={cn("w-full max-w-full", index === 1 && "md:scale-105")}
+          className={cn("w-full max-w-full", index === 1 && "lg:scale-105")}
           key={plan.name}
         >
           <PricingCard.Header>

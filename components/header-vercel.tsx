@@ -360,14 +360,14 @@ export function Header() {
         <div className="flex h-14 justify-center items-center">
           <HelixQueLogo />
           {/* Desktop Navigation */}
-          <NavigationMenu className="ml-8 hidden md:flex" viewport={true}>
+          <NavigationMenu className="ml-8 hidden lg:flex" viewport={true}>
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuTrigger>
                   Products
                 </NavigationMenuTrigger>
                 <NavigationMenuContent className="bg-background">
-                  <ul className="grid w-[400px] pt-2 grid-cols-3 md:w-[800px]">
+                  <ul className="grid w-[400px] pt-2 grid-cols-3 md:w-[600px] lg:w-[800px]">
                     <div>
                       <span className="p-4 text-muted-foreground">
                         AI Cloud
@@ -426,7 +426,7 @@ export function Header() {
                   Resources
                 </NavigationMenuTrigger>
                 <NavigationMenuContent className="bg-background">
-                  <ul className="grid w-[400px] pt-2 grid-cols-3 md:w-[800px]">
+                  <ul className="grid w-[400px] pt-2 grid-cols-3 md:w-[600px] lg:w-[800px]">
                     <div>
                       <span className="p-4 text-muted-foreground">Company</span>
                       {company.map((component) => (
@@ -481,7 +481,7 @@ export function Header() {
                   Solutions
                 </NavigationMenuTrigger>
                 <NavigationMenuContent className="bg-background">
-                  <ul className="grid w-[400px] pt-2 grid-cols-2 md:w-[550px]">
+                  <ul className="grid w-[400px] pt-2 grid-cols-2 md:w-[500px] lg:w-[550px]">
                     <div>
                       <span className="p-4 text-muted-foreground">
                         Use Cases
@@ -550,7 +550,7 @@ export function Header() {
           </NavigationMenu>
         </div>
         {/* Desktop Buttons */}
-        <div className="hidden md:flex gap-2">
+        <div className="hidden lg:flex gap-2">
           <Button variant={"outline"} size={"sm"}>
             Contact
           </Button>
@@ -560,7 +560,7 @@ export function Header() {
         </div>
         {/* Mobile Menu Toggle Button */}
         <motion.button
-          className="md:hidden p-1.5 rounded-md hover:bg-accent transition-colors"
+          className="lg:hidden p-1.5 rounded-md hover:bg-accent transition-colors"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle menu"
           aria-expanded={mobileMenuOpen}
@@ -597,7 +597,7 @@ export function Header() {
           <>
             {/* Overlay */}
             <motion.div
-              className="fixed inset-0 top-16 z-40 md:hidden"
+              className="fixed inset-0 top-16 z-40 lg:hidden"
               onClick={() => setMobileMenuOpen(false)}
               aria-hidden="true"
               initial={{ opacity: 0 }}
@@ -609,7 +609,7 @@ export function Header() {
               role="dialog"
               aria-modal="true"
               aria-label="Mobile menu"
-              className="md:hidden absolute top-16 left-0 right-0 z-[60] bg-background border-b max-h-[calc(100vh-4rem)] overflow-y-auto"
+              className="lg:hidden absolute top-16 left-0 right-0 z-[60] bg-background border-b max-h-[calc(100vh-4rem)] overflow-y-auto"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
